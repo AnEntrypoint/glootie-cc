@@ -3,7 +3,7 @@
   "mcpServers": {
     "glootie": {
       "command": "npx",
-      "args": ["-y", "mcp-glootie@Latest"]
+      "args": ["-y", "mcp-glootie@latest"]
     },
     "playwright": {
       "command": "npx", 
