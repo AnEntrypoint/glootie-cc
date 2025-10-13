@@ -1,0 +1,27 @@
+{
+  "name": "anentrypoint-plugins",
+  "owner": {
+    "name": "AnEntrypoint"
+  },
+  "description": "Advanced Claude Code plugins by AnEntrypoint with WFGY integration and MCP tools",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Advanced Claude Code plugins featuring WFGY integration, automated workflows, and comprehensive MCP tool support for enhanced development productivity"
+  },
+  "plugins": [
+    {
+      "name": "glootie-cc",
+      "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
+      "version": "2.0.1",
+      "package": "glootie-cc",
+      "author": {
+        "name": "AnEntrypoint"
+      },
+      "homepage": "https://github.com/AnEntrypoint/glootie-cc",
+      "repository": "https://github.com/AnEntrypoint/glootie-cc",
+      "keywords": ["claude-code", "claude-plugin", "wfgy", "mcp", "automation", "glootie"],
+      "license": "MIT",
+      "source": "./claude-plugin.json"
+    }
+  ]
+}
