@@ -1,0 +1,8 @@
+{
+  "enabledMcpjsonServers": [
+    "glootie",
+    "playwright",
+    "vexify"
+  ],
+  "enableAllProjectMcpServers": true
+}

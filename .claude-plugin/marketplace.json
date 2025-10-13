@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "glootie-cc",
-      "source": "./"
+      "source": "./plugin.json"
     }
   ]
 }
