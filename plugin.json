@@ -23,11 +23,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy@latest hook"
-          },
-          {
-            "type": "command",
-            "command": "npx -y mcp-thorns@latest"
+            "command": "${CLAUDE_PLUGIN_ROOT}/start.sh"
           }
         ]
       }
@@ -38,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy@latest hook"
+            "command": "${CLAUDE_PLUGIN_ROOT}/stop.sh"
           }
         ]
       }
