@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy hook && cat CLAUDE.md && npx -y mcp-thorns@latest && cat ./context/work-guidelines.md"
+            "command": "npx -y wfgy hook && cat CLAUDE.md && npx -y mcp-thorns@latest && cat ${CLAUDE_PLUGIN_ROOT}/context/work-guidelines.md"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy@latest hook && cat ./context/cleanup-guidelines.md"
+            "command": "npx -y wfgy@latest hook && cat ${CLAUDE_PLUGIN_ROOT}/context/cleanup-guidelines.md"
           }
         ]
       }
