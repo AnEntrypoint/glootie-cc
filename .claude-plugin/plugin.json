@@ -1,8 +1,7 @@
 {
   "permissions": {
     "allow": ["Read", "Write", "Edit", "Bash", "Task", "WebFetch", "Glob", "Grep", "TodoWrite", "mcp__glootie__execute", "mcp__glootie__ast_tool", "mcp__glootie__caveat", "mcp__playwright__browser_navigate", "mcp__playwright__browser_click", "mcp__playwright__browser_type", "mcp__playwright__browser_snapshot", "mcp__playwright__browser_close", "mcp__vexify__search_code"]
-  },
-  "mcpServers": "../.mcp.json",
+  }
   "alwaysThinkingEnabled": false,
   "settings": {
     "autoSave": true,
@@ -16,6 +15,5 @@
     "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
     "author": "AnEntrypoint",
     "homepage": "https://github.com/AnEntrypoint/glootie-cc"
-  }, 
-  "hooks": "../hooks/hooks.json"
+  }
 }
