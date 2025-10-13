@@ -6,7 +6,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy hook; cat CLAUDE.md; npx -y mcp-thorns@latest"
+            "command": "npx -y wfgy hook"
+          },
+          {
+            "type": "command",
+            "command": "cat CLAUDE.md"
+          },
+          {
+            "type": "command",
+            "command": "npx -y mcp-thorns@latest"
           }
         ]
       }
