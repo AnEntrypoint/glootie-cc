@@ -10,10 +10,6 @@
           },
           {
             "type": "command",
-            "command": "cat CLAUDE.md"
-          },
-          {
-            "type": "command",
             "command": "npx -y mcp-thorns@latest"
           }
         ]
