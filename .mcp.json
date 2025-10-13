@@ -11,7 +11,7 @@
     },
     "vexify": {
       "command": "npx",
-      "args": ["-y", "vexify@latest"]
+      "args": ["-y", "vexify@latest", "mcp"]
     }
   }
 }
