@@ -23,7 +23,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy hook"
+            "command": "npx -y wfgy@latest hook"
           },
           {
             "type": "command",
@@ -39,17 +39,6 @@
           {
             "type": "command",
             "command": "npx -y wfgy@latest hook"
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "npx -y mcp-thorns@latest"
           }
         ]
       }
