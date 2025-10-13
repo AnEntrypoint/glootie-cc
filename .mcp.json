@@ -1,0 +1,14 @@
+{
+  "glootie": {
+    "command": "npx",
+    "args": ["@glootie/mcp-server"]
+  },
+  "playwright": {
+    "command": "npx", 
+    "args": ["@mcp/playwright"]
+  },
+  "vexify": {
+    "command": "npx",
+    "args": ["@vexify/mcp-server"]
+  }
+}
