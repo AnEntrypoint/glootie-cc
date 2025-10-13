@@ -1,14 +1,17 @@
 {
-  "glootie": {
-    "command": "npx",
-    "args": ["-y", "mcp-glootie@Latest"]
-  },
-  "playwright": {
-    "command": "npx", 
-    "args": ["-y", "@playwright/mcp@latest"]
-  },
-  "vexify": {
-    "command": "npx",
-    "args": ["-y", "vexify@latest"]
+  "$schema": "https://schemas.modelcontextprotocol.io/0.1.0/mcp.json",
+  "mcpServers": {
+    "glootie": {
+      "command": "npx",
+      "args": ["-y", "mcp-glootie@Latest"]
+    },
+    "playwright": {
+      "command": "npx", 
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "vexify": {
+      "command": "npx",
+      "args": ["-y", "vexify@latest"]
+    }
   }
 }
