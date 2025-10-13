@@ -17,5 +17,91 @@
     "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
     "author": "AnEntrypoint",
     "homepage": "https://github.com/AnEntrypoint/glootie-cc"
+  }, 
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y wfgy hook && cat CLAUDE.md && npx -y mcp-thorns@latest && cat ${CLAUDE_PLUGIN_ROOT}/context/work-guidelines.md"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y wfgy@latest hook && cat ${CLAUDE_PLUGIN_ROOT}/context/cleanup-guidelines.md"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y mcp-thorns@latest"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": ["Write", "Edit"],
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"🔧 Preparing to modify codebase...\""
+          }
+        ]
+      },
+      {
+        "matcher": ["Bash"],
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"💻 Executing shell command...\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": ["Write", "Edit"],
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"✅ Code modification complete\""
+          }
+        ]
+      },
+      {
+        "matcher": ["Bash"],
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"✅ Shell command executed\""
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"👋 Session ended - WFGY context saved\""
+          }
+        ]
+      }
+    ]
   }
 }
