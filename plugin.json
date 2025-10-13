@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy hook && cat CLAUDE.md && npx -y mcp-thorns@latest && cat ${CLAUDE_PLUGIN_ROOT}/context/work-guidelines.md"
+            "command": "npx -y wfgy hook; cat CLAUDE.md; npx -y mcp-thorns@latest; echo \"Do not create files that arent a part of the permanent structure of the codebase unless asked for\nNever add any mocks or simulations anywehere\nOnly write primary implementations and never make fallbacks of any kind\nAlways first check that we're not re implementing an existing part before making new parts.\n\nalso memorize everything you learn to make it work to CLAUDE.md, we want to memorize how things work (NO CHANGELOGS JUST TECH INFO) not whats been done (IN THE PROJECT CODEBASE) continuously (its not a log or a work history its for all the technical caveats and notes, always clean it up while editing it, remove any changelogs from it, it must be as concise as possible without losing any meaning, zero additinal tokens) otherwise if the information applies to all projects edit ~/.claude/CLAUDE.md so you dont make mistakes in the future, update it and remove things that no longer apply\n# VERY IMPORTANT YOU MUST **ALWAYS DO THIS USING MCP** **(NO EXCEPTIONS)**:\n - If there's client side code create global to access client side parts in real time for debugging\n - Analyze and handle all issues before implementing in code, be as methodical and deal with all corner cases first, find ground truth by executing code to make sure you mesure-twice-cut-once\n - Use the mop-and-bucket approach to check the rest of the codebase and make sure we dont make duplicate implementations, conslidate all duplicates, keep the codebase simple, well frameworked, convention-over-configuration, configuration-over-code at all times\n - Make all outstanding codebase changes immediately, dont stop when there's work left to do\n - Before making changes to client side code, do code executions in playwright mcp to find out if the changes will work\n - Test and change as many tmes as needed to finish all the work requested, never under any circumstances finish or summarize when there's work left to do. Check what mcp tools are available and use whats useful\n\nBe forward thinking about architetural sanity, if something should be done, to improve the architecture, generalize or DRY the code, do it immediately before continuing. Our code style must be at all times concise, DRY, generalized and forward thinking structurally\n\nIf a file is more than 200 lines split it immediately before continuing\nWhen troubleshooting any issue look back a few versions in the git history to see if its a regression, use the history to guide to back to a working version if possible, otherwise choose a solution.\n\nAlways use a persistent background shell to do your tests\n\nWhen using playwright, always close everything before you start your test, this will sort out the cache\nuse vexify glootie, and playwright as much as possible when available test server side ideas in glootie execute and client side ideas in playwright code execution before changing code, use them to debug in real time by executing, use vexify for code lookups when you dont know the exact syntax or for searching for multiple things that are similar\""
           }
         ]
       }
@@ -36,7 +36,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y wfgy@latest hook && cat ${CLAUDE_PLUGIN_ROOT}/context/cleanup-guidelines.md"
+            "command": "npx -y wfgy@latest hook; echo \"Assign wfgy mutables to any issues that remain, to troubleshoot and fix them then scan the codebase to see if there are any other areas that should also be updated because of these changes, then use WFGY to determine if theres architectural changes that must now happen, and finally if the project is deployable, deploy it, if its an npm project, publish it, and merge and sync the github intelligently, then clean up any files we've left behind in the codebase, that arent part of the programs permant structure, and use WFGY the selection of code if theres any complexity in the github merge to ensure we intelligently merge additions and removals whenever they represent an intentional advancement in the codebase.\n\nMandatory: there must only be one comment in every file, at the top of the file, with a super compact description of the technical caveats, intended exports and imports, relationship to the rest of the program struction and internal function of it, we must ALWAYS update the spec of each file we edited, if we see a code file with no spec at the top, it must immediately be added, we must immedately remove any comments we find that's not that comment whenever they're found, no exceptions. Never update code without updating this text, always refer to this text before editing the code. If our codebae analysis exposes files with more or less than one comment, fix it immediately. Use MCP playwright never use regular playwright.\""
           }
         ]
       }
@@ -48,57 +48,6 @@
           {
             "type": "command",
             "command": "npx -y mcp-thorns@latest"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": ["Write", "Edit"],
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo \"🔧 Preparing to modify codebase...\""
-          }
-        ]
-      },
-      {
-        "matcher": ["Bash"],
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo \"💻 Executing shell command...\""
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": ["Write", "Edit"],
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo \"✅ Code modification complete\""
-          }
-        ]
-      },
-      {
-        "matcher": ["Bash"],
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo \"✅ Shell command executed\""
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo \"👋 Session ended - WFGY context saved\""
           }
         ]
       }
