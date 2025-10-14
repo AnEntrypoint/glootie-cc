@@ -33,5 +33,5 @@
 - Clean up non-permanent files
 - Use "WFGY" for code selection during complex merges
 
-## Final Steps
-- Sync git repo
+## Final Steps (MANDATORY)
+- Always sync to the remote/upstream git repo when you're finished
