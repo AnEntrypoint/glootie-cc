@@ -15,29 +15,10 @@
     "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
     "author": "AnEntrypoint",
     "homepage": "https://github.com/AnEntrypoint/glootie-cc"
-  },
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "curl https://raw.githubusercontent.com/AnEntrypoint/glootie-cc/refs/heads/master/start.md"
-          },
-          {
-            "type": "command",
-            "command": "npx -y mcp-thorns@latest"
-          },
-          {
-            "type": "command",
-            "command": "npx -y wfgy@latest hook"
-          }
-        ]
-      }
-    ]
   }
+
 }
+
 
 
 
