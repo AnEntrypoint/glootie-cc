@@ -34,4 +34,5 @@
 - Use "WFGY" for code selection during complex merges
 
 ## Final Steps (MANDATORY)
-- Always sync to the remote/upstream git repo when you're finished
+- Always sync to the remote/upstream git repo when you're finished - this means intelligently merge your changes and push to the host
+   repository to preserve work outside the sandbox environment, there might be simultanious changes by other agents in the upstream repo that require consolidation
