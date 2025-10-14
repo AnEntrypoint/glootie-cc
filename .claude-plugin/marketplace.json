@@ -1,5 +1,5 @@
 {
-  "name": "anentrypoint-plugins",
+  "name": "anentrypoint-glootie-cc",
   "owner": {
     "name": "AnEntrypoint"
   },
@@ -15,3 +15,4 @@
     }
   ]
 }
+
