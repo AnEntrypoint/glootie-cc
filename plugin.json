@@ -15,29 +15,6 @@
     "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
     "author": "AnEntrypoint",
     "homepage": "https://github.com/AnEntrypoint/glootie-cc"
-  },
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/start.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/stop.sh"
-          }
-        ]
-      }
-    ]
   }
 }
+
