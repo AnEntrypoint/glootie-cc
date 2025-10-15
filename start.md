@@ -15,6 +15,8 @@
 
 ## Development & Testing
 - Use MCP for: client-side debugging globals, issue analysis, avoiding duplicates, immediate changes, playwright testing
+- Always hypothesize and test ideas by using these tools to execute code before implementing them
+- Also use the tools to run your debugging testing and troubleshooting instead of making files, code execution provides ground truth for your work
 - Use vexify glootie and playwright for testing
 - Clear cache before playwright tests
 - Use persistent background shell for testing
@@ -29,10 +31,6 @@
 - Scan codebase for related areas needing updates
 - Use "WFGY" for architectural changes determination
 - Deploy if deployable; publish if npm project
-- Merge and sync GitHub intelligently
 - Clean up non-permanent files
-- Use "WFGY" for code selection during complex merges
-
-## Final Steps (MANDATORY)
-- Always sync to the remote/upstream git repo when you're finished - this means intelligently merge your changes and push to the host
-   repository to preserve work outside the sandbox environment, there might be simultanious changes by other agents in the upstream repo that require consolidation
+- If local testing is possible and saves time, use it over live testing, also test live if possible
+  
