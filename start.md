@@ -24,6 +24,7 @@
 - Clear cache before playwright debugging
 - Use only persistent background shells for running cli tools
 - Remove all non-top comments
+- Your code reviewer will be very skeptical, you have to make the work extra complete and ground the output in real world truth dynamically
 
 ## Code Quality
 - Maintain clean, DRY, generalized, forward-thinking architecture
