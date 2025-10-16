@@ -14,6 +14,7 @@
 - Update file specs when editing; add specs to files without them
 
 ## Development & Debugging
+- Always write dynamic, modular code that uses ground truth instead of hard coded values
 - Use MCP for: client-side debugging globals, issue analysis, avoiding duplicates, immediate changes, playwright debugging
 - Always hypothesize and troubleshoot ideas before implementing them by using these tools to execute code before implementing them
 - Also use the tools to run your debugging and troubleshooting instead of making files, code execution provides ground truth for your work
