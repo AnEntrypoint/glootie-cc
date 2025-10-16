@@ -13,13 +13,14 @@
 - Each file: single top comment with technical caveats, exports/imports, program structure relationship, internal functions
 - Update file specs when editing; add specs to files without them
 
-## Development & Testing
-- Use MCP for: client-side debugging globals, issue analysis, avoiding duplicates, immediate changes, playwright testing
-- Always hypothesize and test ideas by using these tools to execute code before implementing them
-- Also use the tools to run your debugging testing and troubleshooting instead of making files, code execution provides ground truth for your work
-- Use vexify glootie and playwright for testing
-- Clear cache before playwright tests
-- Use persistent background shell for testing
+## Development & Debugging
+- Use MCP for: client-side debugging globals, issue analysis, avoiding duplicates, immediate changes, playwright debugging
+- Always hypothesize and troubleshoot ideas before implementing them by using these tools to execute code before implementing them
+- Also use the tools to run your debugging and troubleshooting instead of making files, code execution provides ground truth for your work
+- After making code changes, use code execution to isolate the parts and debug them one by one, troubleshoot and fix any issues that remain, always make sure that the created code has no mocks, simulations, fallbacks, hardcoded values or anything fake.
+- Use vexify glootie and playwright for debugging and troublshooting
+- Clear cache before playwright debugging
+- Use only persistent background shells for running cli tools
 - Remove all non-top comments
 
 ## Code Quality
