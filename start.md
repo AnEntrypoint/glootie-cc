@@ -9,7 +9,7 @@
 - Split files >200 lines
 
 ## Documentation
-- Update CLAUDE.md with technical info (not changelogs)
+- Comtinuously update CLAUDE.md with technical info that will help save time with future runs (not changelogs)
 - Each file: single top comment with technical caveats, exports/imports, program structure relationship, internal functions
 - Update file specs when editing; add specs to files without them
 
