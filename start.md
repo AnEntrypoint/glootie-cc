@@ -15,11 +15,12 @@
 
 ## Development & Debugging
 - Always write dynamic, modular code that uses ground truth instead of hard coded values
-- Use MCP for: client-side debugging globals, issue analysis, avoiding duplicates, immediate changes, playwright debugging
-- Always hypothesize and troubleshoot ideas before implementing them by using these tools to execute code before implementing them
-- Also use the tools to run your debugging and troubleshooting instead of making files, code execution provides ground truth for your work
+- set client-side debugging globals and use mcp playwright code execution for debugging and troubleshooting in real time
+- Always hypothesize and troubleshoot ideas before implementing them by using these tools to execute code before implementing them, use glootie code execute and playwright code execution over mcp
+- Also use the tools to run your debugging and troubleshooting instead of making additional files, code execution provides ground truth for your work
 - After making code changes, use code execution to isolate the parts and debug them one by one, troubleshoot and fix any issues that remain, always make sure that the created code has no mocks, simulations, fallbacks, hardcoded values or anything fake.
-- Use vexify glootie and playwright for debugging and troublshooting
+- Use vexify for searching code that you dont know the specific syntax of, use glootie for clu code execution (always hyptothesize and test to find ground truth before editing files) and codebase wise searches and edits and playwright for debugging and troublshooting
+- Keep code execution logs concice to make outputs easy to understand, massive repetitive logs will overwhelm the output. 4k chars should be considered a large output, the max is 30k
 - Clear cache before playwright debugging
 - Use only persistent background shells for running cli tools
 - Remove all non-top comments
