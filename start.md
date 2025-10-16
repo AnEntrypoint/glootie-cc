@@ -26,7 +26,8 @@
 
 ## Code Quality
 - Maintain clean, DRY, generalized, forward-thinking architecture
-- Check git history for troubleshooting
+- Check git history for troubleshooting regressions
+- Dont use any adjectives, dont duplicate existing code, keep structures as they are unless instructed to change them
 
 ## Workflow Process
 - Assign "wfgy" mutables to remaining issues
