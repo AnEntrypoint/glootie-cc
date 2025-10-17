@@ -1,5 +1,5 @@
   "hooks": {
-    "SessionStart": [
+    "UserPromptSubmitted": [
       {
         "matcher": "*",
         "hooks": [
