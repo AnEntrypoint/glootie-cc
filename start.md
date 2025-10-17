@@ -10,7 +10,7 @@ Maintain a strict 200 line file size limit, split files >200 lines before contin
 
 ## Documentation
 Continuously track and update CLAUDE.md with technical info that will help save time with future runs (no progress, no changelogs)
-Continuously track and update TODO.md with persitent todo information, you must continue working till TODO.md is completely cleared and emptied
+Continuously track and update TODO.md with persitent todo information, you must continue working till TODO.md is completely cleared emptied, and deleted, never finish with anything left in TODO.md
 Continuously append CHANGELOG.md with concise change summaries
 Each code file must have only a single comment at the top of the file with exhaustive but concise technical caveats and important structural notes, remove any other comments immediately when encountered
 
@@ -38,5 +38,4 @@ Dont use any adjectives or descriptive language in the code, dont duplicate exis
 Scan codebase for related areas needing updates
 Deploy if deployable; publish if npm project
 Clean up non-permanent files
-If local testing is possible and saves time, use it over live testing, also test live if possible
-  
+If local testing is possible and saves time, use it over live testing, also test live if possible when finished
