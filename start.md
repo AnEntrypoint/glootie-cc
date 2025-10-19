@@ -7,6 +7,8 @@
  - Avoid mocks/simulations; focus on single, primary, working implementations with no failovers
  - Always check for existing implementations before creating new files or functions
  - Maintain a strict 200 line file size limit, split files >200 lines before continuing
+ - Dont ever create temporary code files, use glootie-cc
+ - Dont ever create reports files, we only want our code, clean up any files you find that arent CHANGELOG.md, CLAUDE.md or README.md or TODO.md
 
 ## Documentation
  - Continuously track and update CLAUDE.md with technical info that will help save time with future runs (no progress, no changelogs)
