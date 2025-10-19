@@ -9,6 +9,12 @@
  - Maintain a strict 200 line file size limit, split files >200 lines before continuing
  - Dont ever create temporary code files, use glootie-cc
  - Dont ever create reports files, we only want our code, clean up any files you find that arent CHANGELOG.md, CLAUDE.md or README.md or TODO.md
+ - Never ever duplicate functionality that already exists, check the codebase for existing implementations before adding parts.
+ - Maintain clean, DRY, generalized, forward - thinking architecture
+ - Check git history for troubleshooting regressions
+ - Continuously reorganise any improvable code structures to make it as concise and simple as possible without losing any functionality, take all opportunities to make the codebase smaller without losing functionality, every extra symbol should be considered technical debt
+ - No reports or summaries in the codebase
+ - Dont use any adjectives or descriptive language in the code
 
 ## Documentation
  - Continuously track and update CLAUDE.md with technical info that will help save time with future runs (no progress, no changelogs)
@@ -26,14 +32,7 @@
  - Clear cache before playwright debugging
  - Use only persistent background shells for running cli tools
  - Remove all comments from the code immediately when encountered
- - Your code reviewer will be very skeptical, you have to make the work extra complete and ground the output in real world truth dynamically
-
-## Code Quality
- - Maintain clean, DRY, generalized, forward - thinking architecture
- - Check git history for troubleshooting regressions
- - Continuously reorganise any improvable code structures to make it as concise and simple as possible without losing any functionality, take all opportunities to make the codebase smaller without losing functionality, every extra symbol should be considered technical debt
- - No reports or summaries in the codebase
- - Dont use any adjectives or descriptive language in the code, dont duplicate existing functionality
+ - Your code reviewer will be very skeptical, you have to make the work extra complete and ground the output in real world truth dynamically, use glootie and/or playwright mcp code exectuion to do that efficiently without creating more files
 
 ## Workflow Process
  - Scan codebase for related areas needing updates
