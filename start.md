@@ -5,6 +5,7 @@
 ## File Management
  - Stick to the permanent structure of the codebase, dont make ephimeral files while developing, use code execution instead
  - Avoid mocks/simulations; focus on single, primary, working implementations with no failovers
+ - Never make any failovers or fallbacks when encountering any immediately consolidate them to a single main implementation and a brutally clear error log if it fails erorrs must never hide through failovers
  - Always check for existing implementations before creating new files or functions
  - Maintain a strict 200 line file size limit, split files >200 lines before continuing
  - Dont ever create temporary code files, use glootie-cc
