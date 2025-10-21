@@ -1,42 +1,50 @@
+MANDATORY DEV WORKFLOW - ABSOLUTE RULES
+Files
+
+Permanent structure ONLY - NO ephemeral/temp/mock/simulation files during dev
+Single primary working implementations - ZERO failovers/fallbacks ever
+Errors must fail with brutally clear logs - NEVER hide through failovers
+ALWAYS check existing implementations BEFORE creating new files/functions
+Hard 200-line limit - split files >200 lines BEFORE continuing
+NO temp code files - use glootie-cc execution instead
+NO report files - DELETE any non-CHANGELOG/CLAUDE/README/TODO.md files found
+NEVER duplicate existing functionality - check codebase first
+Maintain clean/DRY/generalized/forward-thinking architecture
+Check git history for regression troubleshooting
+CONTINUOUSLY reorganize to be maximally concise/simple without losing functionality
+Every extra symbol = technical debt
+NO adjectives/descriptive language in code
+
+Documentation - CONTINUOUS REALTIME
+
+CLAUDE.md: CONTINUOUSLY/IMMEDIATELY track technical info in realtime (NO progress/changelogs)
+TODO.md: CONTINUOUSLY track persistent todos - MUST completely clear/empty/delete before stopping - NEVER finish with items remaining
+CHANGELOG.md: CONTINUOUSLY append concise change summaries
+
+Development/Debugging
+
+ALWAYS write dynamic/modular code using ground truth - ZERO hardcoded values
+Set client-side debugging globals + use MCP playwright for realtime execution
+ALWAYS hypothesize/troubleshoot via execution BEFORE implementing:
+
+glootie: code execution + codebase-wide searches/edits
+playwright MCP: debugging/troubleshooting
+vexify: unknown syntax lookup
 
 
-# Compact Development Workflow Guidelines
+After changes: execute to isolate/debug parts individually - fix ALL issues
+Ensure NO mocks/simulations/fallbacks/hardcoded/fake elements
+Keep execution logs concise (<4k chars ideal, 30k max)
+Clear cache before playwright debugging
+ONLY persistent background shells for CLI
+Remove ALL comments IMMEDIATELY when encountered
 
-## File Management
- - Stick to the permanent structure of the codebase, dont make ephimeral files while developing, use code execution instead
- - Avoid mocks/simulations; focus on single, primary, working implementations with no failovers
- - Never make any failovers or fallbacks when encountering any immediately consolidate them to a single main implementation and a brutally clear error log if it fails erorrs must never hide through failovers
- - Always check for existing implementations before creating new files or functions
- - Maintain a strict 200 line file size limit, split files >200 lines before continuing
- - Dont ever create temporary code files, use glootie-cc
- - Dont ever create reports files, we only want our code, clean up any files you find that arent CHANGELOG.md, CLAUDE.md or README.md or TODO.md
- - Never ever duplicate functionality that already exists, check the codebase for existing implementations before adding parts.
- - Maintain clean, DRY, generalized, forward - thinking architecture
- - Check git history for troubleshooting regressions
- - Continuously reorganise any improvable code structures to make it as concise and simple as possible without losing any functionality, take all opportunities to make the codebase smaller without losing functionality, every extra symbol should be considered technical debt
- - No reports or summaries in the codebase
- - Dont use any adjectives or descriptive language in the code
+Workflow
 
-## Documentation
- - Continuously and immediately track and update CLAUDE.md in real time with technical info that will help save time with future runs (no progress, no changelogs)
- - Continuously track and update TODO.md with persitent todo information, you must continue working till TODO.md is completely cleared emptied, and deleted, never finish with anything left in TODO.md
- - Continuously append CHANGELOG.md with concise change summaries
+Scan codebase for related update areas
+Deploy if deployable/publish if npm
+Clean ALL non-permanent files
+Test locally when possible over live
+Manual testing ONLY - NO test files
 
-## Development & Debugging
- - Always write dynamic, modular code that uses ground truth instead of hard coded values
- - Set client - side debugging globals and use mcp playwright code execution for debugging and troubleshooting in real time
- - Always hypothesize and troubleshoot ideas before implementing them by using these tools to execute code before implementing them, use glootie code execute and playwright code execution over mcp
- - Also use the tools to run your debugging and troubleshooting instead of making additional files, code execution provides ground truth for your work
- - After making code changes, use code execution to isolate the parts and debug them one by one, troubleshoot and fix any issues that remain, always make sure that the created code has no mocks, simulations, fallbacks, hardcoded values or anything fake.
- - Use vexify for searching code that you dont know the specific syntax of, use glootie for clu code execution (always hyptothesize and test to find ground truth before editing files) and codebase wise searches and edits and playwright for debugging and troublshooting
- - Keep code execution logs concice to make outputs easy to understand, massive repetitive logs will overwhelm the output.  - 4k chars should be considered a large output, the max is 30k
- - Clear cache before playwright debugging
- - Use only persistent background shells for running cli tools
- - Remove all comments from the code immediately when encountered
- - Your code reviewer will be very skeptical, you have to make the work extra complete and ground the output in real world truth dynamically, use glootie and/or playwright mcp code exectuion to do that efficiently without creating more files
-
-## Workflow Process
- - Scan codebase for related areas needing updates
- - Deploy if deployable; publish if npm project
-Clean up non - permanent files
-If local testing is possible and saves time, use it over live testing, also test live if possible when finished
+CRITICAL: Code reviewer will be EXTREMELY skeptical - ground everything in real-world truth dynamically via glootie/playwright execution without creating more files.
