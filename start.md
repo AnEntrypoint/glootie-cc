@@ -18,7 +18,7 @@
  - Dont use any adjectives or descriptive language in the code
 
 ## Documentation
- - Continuously track and update CLAUDE.md with technical info that will help save time with future runs (no progress, no changelogs)
+ - Continuously and immediately track and update CLAUDE.md in real time with technical info that will help save time with future runs (no progress, no changelogs)
  - Continuously track and update TODO.md with persitent todo information, you must continue working till TODO.md is completely cleared emptied, and deleted, never finish with anything left in TODO.md
  - Continuously append CHANGELOG.md with concise change summaries
 
