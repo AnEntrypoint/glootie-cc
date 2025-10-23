@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": ["Read", "Write", "Edit", "Bash", "Task", "WebFetch", "Glob", "Grep", "TodoWrite", "mcp__glootie__execute", "mcp__glootie__ast_tool", "mcp__glootie__caveat", "mcp__playwright__browser_navigate", "mcp__playwright__browser_click", "mcp__playwright__browser_type", "mcp__playwright__browser_snapshot", "mcp__playwright__browser_close", "mcp__vexify__search_code"]
-  }
+  },
   "alwaysThinkingEnabled": false,
   "settings": {
     "autoSave": true,
@@ -17,7 +17,25 @@
     "homepage": "https://github.com/AnEntrypoint/glootie-cc"
   },
   "hooks": {
-    "file": "hooks/hooks.json"
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/start-md.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/mcp-thorns.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}\"/hooks/wfgy-hook.sh"
+          }
+        ]
+      }
+    ]
   }
 
 }
