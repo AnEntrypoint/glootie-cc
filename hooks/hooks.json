@@ -1,5 +1,5 @@
 {
-  "description": "UserPromptSubmit hook for glootie-cc plugin",
+  "description": "SessionStart hook for glootie-cc plugin",
   "hooks": {
     "SessionStart": [
       {
