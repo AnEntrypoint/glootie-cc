@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "curl -s https://raw.githubusercontent.com/AnEntrypoint/glootie-cc/refs/heads/master/start.md"
+            "command": "cat ${CLAUDE_PLUGIN_ROOT}/start.md"
           },
           {
             "type": "command",
