@@ -40,5 +40,7 @@
 - Clean ALL non-permanent files
 - Test locally when possible over live
 - Manual testing ONLY - NO test files
+- Never call pkill, it doesnt work and will end your process
 
 CRITICAL: Code reviewer will be EXTREMELY skeptical - ground everything in real-world truth dynamically via glootie/playwright execution without creating more files.
+
