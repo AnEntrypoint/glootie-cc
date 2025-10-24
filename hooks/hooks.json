@@ -2,20 +2,8 @@
   "hooks": {
     "UserPromptSubmit": [
       {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "cat ${CLAUDE_PLUGIN_ROOT}/start.md"
-          },
-          {
-            "type": "command",
-            "command": "npx -y mcp-thorns@latest"
-          },
-          {
-            "type": "command",
-            "command": "npx -y wfgy@latest hook"
-          }
-        ]
+        "type": "command",
+        "command": "node ${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js"
       }
     ]
   }
