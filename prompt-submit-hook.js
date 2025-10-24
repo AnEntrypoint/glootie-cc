@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT || '/mnt/c/dev/plugin';
-
+const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT;
+const projectDir = process.env.CLAUDE_PROJECT_DIR;
 try {
   let outputs = [];
 
@@ -19,7 +19,7 @@ try {
     const thornOutput = execSync('npx -y mcp-thorns@latest', {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
-      cwd: pluginRoot
+      cwd: projectDir 
     });
     outputs.push(`=== mcp-thorns@latest ===\n${thornOutput}`);
   } catch (e) {
@@ -31,7 +31,7 @@ try {
     const wfgyOutput = execSync('npx -y wfgy@latest hook', {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
-      cwd: pluginRoot
+      cwd: projectDir 
     });
     outputs.push(`=== wfgy@latest hook ===\n${wfgyOutput}`);
   } catch (e) {
