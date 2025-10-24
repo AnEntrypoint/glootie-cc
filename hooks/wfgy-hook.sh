@@ -1,2 +1,4 @@
 #!/bin/bash
-echo "=== WFGY_HOOK CONTEXT ===" && npx -y wfgy@latest hook 2>&1 && echo "=== END WFGY_HOOK ==="
+output=$(npx -y wfgy@latest hook 2>&1)
+context=$(printf '%s' "$output" | jq -Rs .)
+printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":%s}}' "$context"

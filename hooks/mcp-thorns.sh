@@ -1,2 +1,4 @@
 #!/bin/bash
-echo "=== MCP_THORNS CONTEXT ===" && npx -y mcp-thorns@latest 2>&1 && echo "=== END MCP_THORNS ==="
+output=$(npx -y mcp-thorns@latest 2>&1)
+context=$(printf '%s' "$output" | jq -Rs .)
+printf '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":%s}}' "$context"
