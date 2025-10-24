@@ -2,13 +2,6 @@
   "permissions": {
     "allow": ["Read", "Write", "Edit", "Bash", "Task", "WebFetch", "Glob", "Grep", "TodoWrite", "mcp__glootie__execute", "mcp__glootie__ast_tool", "mcp__glootie__caveat", "mcp__playwright__browser_navigate", "mcp__playwright__browser_click", "mcp__playwright__browser_type", "mcp__playwright__browser_snapshot", "mcp__playwright__browser_close", "mcp__vexify__search_code"]
   },
-  "alwaysThinkingEnabled": false,
-  "settings": {
-    "autoSave": true,
-    "compactOnStop": false,
-    "notificationTimeout": 5000,
-    "debugMode": false
-  },
   "metadata": {
     "name": "glootie-cc",
     "version": "2.0.4",
@@ -18,6 +11,7 @@
   }
 
 }
+
 
 
 
