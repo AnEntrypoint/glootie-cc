@@ -42,7 +42,7 @@ try {
 
   const result = {
     hookSpecificOutput: {
-      hookEventName: 'UserPromptSubmit',
+      hookEventName: 'SessionStart',
       additionalContext
     }
   };
@@ -51,7 +51,7 @@ try {
 } catch (error) {
   console.error(JSON.stringify({
     hookSpecificOutput: {
-      hookEventName: 'UserPromptSubmit',
+      hookEventName: 'SessionStart',
       additionalContext: `Error executing hook: ${error.message}`
     }
   }, null, 2));
