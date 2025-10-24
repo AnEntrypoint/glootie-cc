@@ -17,7 +17,7 @@
     "homepage": "https://github.com/AnEntrypoint/glootie-cc"
   },
   "hooks": {
-    "UserPromptSubmit": [
+    "SessionStart": [
       {
         "hooks": [
           {
