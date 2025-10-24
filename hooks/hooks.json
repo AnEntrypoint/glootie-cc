@@ -1,9 +1,14 @@
 {
   "hooks": {
-    "SessionStart": [
+    "UserPromptSubmit": [
       {
-        "type": "command",
-        "command": "node ${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js"
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js"
+          }
+        ]
       }
     ]
   }
