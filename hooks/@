@@ -1,0 +1,15 @@
+{
+  "description": "UserPromptSubmit hook for glootie-cc plugin",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js"
+          }
+        ]
+      }
+    ]
+  }
+}
