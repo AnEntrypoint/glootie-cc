@@ -42,7 +42,9 @@
 - Manual testing ONLY - NO test files
 - Never call pkill, it doesnt work and will end your process
 - Make a comprehensive todo list before initiating any work
+- Manually execute the entire list untill its done
 
 CRITICAL: Code reviewer will be EXTREMELY skeptical - ground everything in real-world truth dynamically via glootie/playwright execution without creating more files.
+
 
 
