@@ -10,25 +10,27 @@ const run = () => {
   let blockReasons = [];
 
   try {
-    const ahead = execSync('git rev-list --count origin/HEAD..HEAD 2>/dev/null || echo 0', {
+    const ahead = execSync('git', ['rev-list', '--count', 'origin/HEAD..HEAD'], {
       encoding: 'utf-8',
       cwd: projectDir,
       stdio: ['pipe', 'pipe', 'pipe'],
-      shell: '/bin/bash',
-      timeout: 5000
-    }).trim();
-
-    const behind = execSync('git rev-list --count HEAD..origin/HEAD 2>/dev/null || echo 0', {
-      encoding: 'utf-8',
-      cwd: projectDir,
-      stdio: ['pipe', 'pipe', 'pipe'],
-      shell: '/bin/bash',
       timeout: 5000
     }).trim();
 
     if (parseInt(ahead) > 0) {
       blockReasons.push(`Git: ${ahead} commit(s) ahead of origin/HEAD, must push to remote`);
     }
+  } catch (e) {
+  }
+
+  try {
+    const behind = execSync('git', ['rev-list', '--count', 'HEAD..origin/HEAD'], {
+      encoding: 'utf-8',
+      cwd: projectDir,
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 5000
+    }).trim();
+
     if (parseInt(behind) > 0) {
       blockReasons.push(`Git: ${behind} commit(s) behind origin/HEAD, must merge from remote`);
     }
