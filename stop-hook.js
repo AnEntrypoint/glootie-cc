@@ -45,7 +45,7 @@ try {
 
   const result = {
     hookSpecificOutput: {
-      hookEventName: 'SessionStart',
+      hookEventName: 'Stop',
       additionalContext
     }
   };
