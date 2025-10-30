@@ -5,19 +5,10 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT;
-const projectDir = process.env.CLAUDE_PROJECT_DIR;
+const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd(); // Fallback to current working directory
 
 try {
   let outputs = [];
-
-  // Check if projectDir is defined
-  if (!projectDir) {
-    console.log(JSON.stringify({
-      decision: "block",
-      reason: "The CLAUDE_PROJECT_DIR environment variable is not set"
-    }, null, 2));
-    process.exit(1);
-  }
 
   // Check if ./eval.js exists in project directory
   const evalJsPath = path.join(projectDir, 'eval.js');
