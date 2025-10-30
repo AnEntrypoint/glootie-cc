@@ -100,7 +100,7 @@ const run = () => {
       const fullError = `Error: ${e.message}\n\nStdout:\n${errorOutput}\n\nStderr:\n${errorStderr}`;
       console.log(JSON.stringify({
         decision: "block",
-        reason: `The following errors were reported: ${fullError}`
+        reason: `The following errors were reported: ${fullError} troubleshoot and fix them`
       }, null, 2));
       process.exit(0);
     }
