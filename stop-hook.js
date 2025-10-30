@@ -107,7 +107,8 @@ const run = () => {
 
 try {
   const result = run();
-  console.log(JSON.stringify(result, null, 2));
+  if (result.decision === 'block') {
+    console.log(JSON.stringify({ decision: result.decision, reason: result.reason }, null, 2));
+  }
 } catch (e) {
-  console.log(JSON.stringify({ decision: undefined }, null, 2));
 }
