@@ -10,12 +10,6 @@ let outputs = [];
 let blockReasons = [];
 
 try {
-  const status = execSync('git status --porcelain', {
-    encoding: 'utf-8',
-    cwd: projectDir,
-    stdio: ['pipe', 'pipe', 'pipe']
-  }).trim();
-
   const ahead = execSync('git rev-list --count origin/HEAD..HEAD', {
     encoding: 'utf-8',
     cwd: projectDir,
