@@ -1,50 +1,33 @@
 # MANDATORY DEV WORKFLOW - ABSOLUTE RULES
 
 ## Files
-- Permanent structure ONLY - NO ephemeral/temp/mock/simulation files during dev
+- Maintain permanent structure ONLY - NO ephemeral/temp/mock/simulation files, use glootie mcp and playwright mcp execution instead
 - Single primary working implementations - ZERO failovers/fallbacks ever
 - Errors must fail with brutally clear logs - NEVER hide through failovers
-- ALWAYS check existing implementations BEFORE creating new files/functions
-- Hard 200-line limit - split files >200 lines BEFORE continuing
-- NO temp code files - use glootie-cc execution instead
-- NO report files - DELETE any non-CHANGELOG/CLAUDE/README/TODO.md files found
-- NEVER duplicate existing functionality - check codebase first
-- Maintain clean/DRY/generalized/forward-thinking architecture
-- Check git history for regression troubleshooting
-- CONTINUOUSLY reorganize to be maximally concise/simple without losing functionality
-- Every extra symbol = technical debt
+- ALWAYS Scan codebase before making edits for existing implementations, resolve all duplicate code immediately, NEVER duplicate existing functionality
+- Hard 200-line limit - split files >200 lines BEFORE continuing immediately
+- NO report files - DELETE any non-CHANGELOG/CLAUDE/README/TODO.md files found immdidately
+- Maintain clean/DRY/generalized/forward-thinking architecture, immediately solve arhitetural issues that can be dried up, CONTINUOUSLY reorganize to be maximally concise/simple without losing functionality
+- Check git history for troubleshooting known regressions, dont revert, use differential comparisons and edit the new code manually
+- Every extra symbol = technical debt, enforcing clean short concise functional code is mandatory
+- ALWAYS write dynamic/modular code using ground truth - ZERO hardcoded values
 - NO adjectives/descriptive language in code
-
-## Documentation - CONTINUOUS REALTIME
 - CLAUDE.md: CONTINUOUSLY/IMMEDIATELY track technical info in realtime (NO progress/changelogs)
 - TODO.md: CONTINUOUSLY track persistent todos - MUST completely clear/empty/delete before stopping - NEVER finish with items remaining
 - CHANGELOG.md: CONTINUOUSLY append concise change summaries
-
-## Development/Debugging
-- ALWAYS write dynamic/modular code using ground truth - ZERO hardcoded values
-- Set client-side debugging globals + use MCP playwright for realtime execution
-- ALWAYS hypothesize/troubleshoot via execution BEFORE implementing:
-  - glootie: code execution + codebase-wide searches/edits
-  - playwright MCP: debugging/troubleshooting
-  - vexify: unknown syntax lookup
-- After changes: execute to isolate/debug parts individually - fix ALL issues
+- Set client-side debugging globals to make ALL client side data accessible via simple repl and use MCP playwright for realtime execution
+- ALWAYS hypothesize/troubleshoot via execution BEFORE editing any files glootie mcp code execution playwright MCP: client debugging/troubleshooting, first ensure that you have working code in execution environments before editing files
+- After changes: use glootie and playwright mcp execute to isolate/debug parts individually
+- troubleshoot and fix ALL issues immediately
 - Ensure NO mocks/simulations/fallbacks/hardcoded/fake elements
 - Keep execution logs concise (<4k chars ideal, 30k max)
 - Clear cache before playwright debugging
 - ONLY persistent background shells for CLI
-- Remove ALL comments IMMEDIATELY when encountered
-
-## Workflow
-- Scan codebase for related update areas
-- Deploy if deployable/publish if npm
-- Clean ALL non-permanent files
+- Remove ALL comments immediately when encountered
+- Deploy if deployable/publish if npm if its on npm
+- Clean ALL files not required for the program to function
 - Test locally when possible over live
 - Manual testing ONLY - NO test files
 - Never call pkill, it doesnt work and will end your process
-- Make a comprehensive todo list before initiating any work
-- Manually execute the entire list untill its done
-
-CRITICAL: Code reviewer will be EXTREMELY skeptical - ground everything in real-world truth dynamically via glootie/playwright execution without creating more files.
-
-
-
+- Make a comprehensive todo list before initiating any work, manually execute the entire todo list untill its empty
+- never run eval.js manually, it will run automatically at the end of your processes
