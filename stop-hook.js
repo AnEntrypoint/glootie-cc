@@ -37,50 +37,6 @@ const run = () => {
   } catch (e) {
   }
 
-  try {
-    const pkgPath = path.join(projectDir, 'package.json');
-    if (fs.existsSync(pkgPath)) {
-      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-      const pkgName = pkg.name;
-      const pkgVersion = pkg.version;
-
-      if (pkgName) {
-        try {
-          const npmVersion = execSync(`npm view ${pkgName} version`, {
-            encoding: 'utf-8',
-            stdio: ['pipe', 'pipe', 'pipe'],
-            timeout: 10000
-          }).trim();
-
-          const parseVersion = (v) => {
-            const parts = v.split('.').map(p => parseInt(p) || 0);
-            return parts;
-          };
-
-          const local = parseVersion(pkgVersion);
-          const remote = parseVersion(npmVersion);
-
-          let codebaseNewer = false;
-          for (let i = 0; i < Math.max(local.length, remote.length); i++) {
-            const l = local[i] || 0;
-            const r = remote[i] || 0;
-            if (l > r) {
-              codebaseNewer = true;
-              break;
-            } else if (l < r) {
-              break;
-            }
-          }
-
-          if (codebaseNewer) {
-            blockReasons.push(`NPM: Codebase version ${pkgVersion} is newer than published ${npmVersion}, must publish`);
-          }
-        } catch (e) {
-        }
-      }
-    }
-  } catch (e) {
-  }
 
   if (blockReasons.length > 0) {
     return {
