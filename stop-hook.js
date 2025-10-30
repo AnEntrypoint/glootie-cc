@@ -7,7 +7,6 @@ const { execSync } = require('child_process');
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
 const run = () => {
-  let outputs = [];
   let blockReasons = [];
 
   try {
@@ -77,11 +76,10 @@ const run = () => {
   }
 
   if (blockReasons.length > 0) {
-    console.log(JSON.stringify({
+    return {
       decision: "block",
       reason: blockReasons.join(' | ')
-    }, null, 2));
-    process.exit(0);
+    };
   }
 
   const evalJsPath = path.join(projectDir, 'eval.js');
@@ -93,26 +91,23 @@ const run = () => {
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectDir
       });
-      outputs.push(`=== eval.js ===\n${evalOutput}`);
     } catch (e) {
       const errorOutput = e.stdout || '';
       const errorStderr = e.stderr || '';
       const fullError = `Error: ${e.message}\n\nStdout:\n${errorOutput}\n\nStderr:\n${errorStderr}`;
-      console.log(JSON.stringify({
+      return {
         decision: "block",
         reason: `The following errors were reported: ${fullError}`
-      }, null, 2));
-      process.exit(0);
+      };
     }
   }
 
-  console.log(JSON.stringify({ decision: undefined }, null, 2));
-  process.exit(0);
+  return { decision: undefined };
 };
 
 try {
-  run();
+  const result = run();
+  console.log(JSON.stringify(result, null, 2));
 } catch (e) {
   console.log(JSON.stringify({ decision: undefined }, null, 2));
-  process.exit(0);
 }
