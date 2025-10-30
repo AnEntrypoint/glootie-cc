@@ -100,33 +100,19 @@ const run = () => {
       const fullError = `Error: ${e.message}\n\nStdout:\n${errorOutput}\n\nStderr:\n${errorStderr}`;
       console.log(JSON.stringify({
         decision: "block",
-        reason: `The following errors were reported: ${fullError} troubleshoot and fix them`
+        reason: `The following errors were reported: ${fullError}`
       }, null, 2));
       process.exit(0);
     }
   }
 
-  const additionalContext = outputs.join('\n\n');
-
-  const result = {
-    hookSpecificOutput: {
-      hookEventName: 'Stop',
-      additionalContext
-    }
-  };
-
-  console.log(JSON.stringify(result, null, 2));
+  console.log(JSON.stringify({ decision: undefined }, null, 2));
   process.exit(0);
 };
 
 try {
   run();
 } catch (e) {
-  console.log(JSON.stringify({
-    hookSpecificOutput: {
-      hookEventName: 'Stop',
-      additionalContext: ''
-    }
-  }, null, 2));
+  console.log(JSON.stringify({ decision: undefined }, null, 2));
   process.exit(0);
 }
