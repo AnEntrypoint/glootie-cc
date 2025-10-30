@@ -10,16 +10,20 @@ const run = () => {
   let blockReasons = [];
 
   try {
-    const ahead = execSync('git rev-list --count origin/HEAD..HEAD', {
+    const ahead = execSync('git rev-list --count origin/HEAD..HEAD 2>/dev/null || echo 0', {
       encoding: 'utf-8',
       cwd: projectDir,
-      stdio: ['pipe', 'pipe', 'pipe']
+      stdio: ['pipe', 'pipe', 'pipe'],
+      shell: '/bin/bash',
+      timeout: 5000
     }).trim();
 
-    const behind = execSync('git rev-list --count HEAD..origin/HEAD', {
+    const behind = execSync('git rev-list --count HEAD..origin/HEAD 2>/dev/null || echo 0', {
       encoding: 'utf-8',
       cwd: projectDir,
-      stdio: ['pipe', 'pipe', 'pipe']
+      stdio: ['pipe', 'pipe', 'pipe'],
+      shell: '/bin/bash',
+      timeout: 5000
     }).trim();
 
     if (parseInt(ahead) > 0) {
@@ -42,7 +46,8 @@ const run = () => {
         try {
           const npmVersion = execSync(`npm view ${pkgName} version`, {
             encoding: 'utf-8',
-            stdio: ['pipe', 'pipe', 'pipe']
+            stdio: ['pipe', 'pipe', 'pipe'],
+            timeout: 10000
           }).trim();
 
           const parseVersion = (v) => {
@@ -89,7 +94,8 @@ const run = () => {
       const evalOutput = execSync('./eval.js', {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
-        cwd: projectDir
+        cwd: projectDir,
+        timeout: 30000
       });
     } catch (e) {
       const errorOutput = e.stdout || '';
@@ -107,8 +113,10 @@ const run = () => {
 
 try {
   const result = run();
-  if (result.decision === 'block') {
-    console.log(JSON.stringify({ decision: result.decision, reason: result.reason }, null, 2));
-  }
+  const output = result.decision === 'block'
+    ? { decision: result.decision, reason: result.reason }
+    : {};
+  console.log(JSON.stringify(output));
 } catch (e) {
+  console.log(JSON.stringify({}));
 }
