@@ -113,10 +113,8 @@ const run = () => {
 
 try {
   const result = run();
-  const output = result.decision === 'block'
-    ? { decision: result.decision, reason: result.reason }
-    : {};
-  console.log(JSON.stringify(output));
+  if (result.decision === 'block') {
+    console.log(JSON.stringify({ decision: result.decision, reason: result.reason }));
+  }
 } catch (e) {
-  console.log(JSON.stringify({}));
 }
