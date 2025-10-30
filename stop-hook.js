@@ -10,6 +10,15 @@ const projectDir = process.env.CLAUDE_PROJECT_DIR;
 try {
   let outputs = [];
 
+  // Check if projectDir is defined
+  if (!projectDir) {
+    console.log(JSON.stringify({
+      decision: "block",
+      reason: "The CLAUDE_PROJECT_DIR environment variable is not set"
+    }, null, 2));
+    process.exit(1);
+  }
+
   // Check if ./eval.js exists in project directory
   const evalJsPath = path.join(projectDir, 'eval.js');
 
