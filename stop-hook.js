@@ -44,11 +44,22 @@ const run = () => {
     };
   }
 
-  const evalJsPath = path.join(projectDir, 'eval.js');
+  const filesToRun = [];
 
+  const evalJsPath = path.join(projectDir, 'eval.js');
   if (fs.existsSync(evalJsPath)) {
+    filesToRun.push('eval.js');
+  }
+
+  const evalsDir = path.join(projectDir, 'evals');
+  if (fs.existsSync(evalsDir) && fs.statSync(evalsDir).isDirectory()) {
+    const files = fs.readdirSync(evalsDir).filter(f => f.endsWith('.js')).sort();
+    filesToRun.push(...files.map(f => path.join('evals', f)));
+  }
+
+  for (const file of filesToRun) {
     try {
-      execSync('node eval.js', {
+      execSync(`node ${file}`, {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectDir,
