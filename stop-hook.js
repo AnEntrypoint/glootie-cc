@@ -48,7 +48,7 @@ const run = () => {
 
   if (fs.existsSync(evalJsPath)) {
     try {
-      execSync('./eval.js', {
+      execSync('node eval.js', {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectDir,
