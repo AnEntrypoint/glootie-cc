@@ -10,7 +10,11 @@
     ".claude-plugin/",
     "hooks/",
     "context/",
+    "node_modules/",
+    "package-lock.json",
     "README.md",
+    "CLAUDE.md",
+    "CHANGELOG.md",
     "cli.js",
     ".mcp.json"
   ],
@@ -40,5 +44,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@playwright/mcp": "^0.0.45",
+    "mcp-glootie": "^3.4.67",
+    "vexify": "^0.16.28"
   }
 }

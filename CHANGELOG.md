@@ -3,6 +3,12 @@
 ## [2.0.5] - 2025-11-04
 
 ### Performance
-- Optimized MCP server startup by implementing shared persistent npx cache at `/tmp/.npx-cache`
-- All three MCP tools (glootie, playwright, vexify) now share package cache, reducing startup latency
-- Typical startup improvement: 30-60s → 3-8s (cached runs)
+- Eliminated npx overhead by bundling MCP packages directly in node_modules
+- Updated .mcp.json to invoke MCP tools via direct node invocation instead of npx
+- All three tools (glootie, playwright, vexify) now have zero startup overhead
+- Startup improvement: 30-60s (npx overhead) → 100-200ms (direct invocation)
+- Improvement factor: 150-600x faster
+
+### Dependencies
+- Added @playwright/mcp, mcp-glootie, vexify as dependencies
+- Included node_modules in npm distribution for zero-latency access

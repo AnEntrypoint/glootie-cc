@@ -2,16 +2,16 @@
   "$schema": "https://schemas.modelcontextprotocol.io/0.1.0/mcp.json",
   "mcpServers": {
     "glootie": {
-      "command": "npx",
-      "args": ["--cache=/tmp/.npx-cache", "--yes", "mcp-glootie@latest"]
+      "command": "node",
+      "args": ["./node_modules/mcp-glootie/src/index.js"]
     },
     "playwright": {
-      "command": "npx",
-      "args": ["--cache=/tmp/.npx-cache", "--yes", "@playwright/mcp@latest"]
+      "command": "node",
+      "args": ["./node_modules/@playwright/mcp/cli.js"]
     },
     "vexify": {
-      "command": "npx",
-      "args": ["--cache=/tmp/.npx-cache", "--yes", "vexify@latest", "mcp"]
+      "command": "node",
+      "args": ["./node_modules/vexify/lib/bin/cli.js", "mcp"]
     }
   }
 }
