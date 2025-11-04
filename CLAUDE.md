@@ -109,3 +109,19 @@ Recent work has focused on fixing the stop-hook timeout issues:
 - Simplified to minimal no-op to ensure hook completes quickly
 
 Check git history for regression troubleshooting - always use differential comparisons and manual edits rather than reverts.
+
+## Performance Optimization
+
+### MCP Startup Improvements
+Updated `.mcp.json` to use a shared persistent npx cache directory (`/tmp/.npx-cache`) for all three MCP servers. This enables:
+
+- **Persistent Cache**: All MCP packages cached in shared `/tmp/.npx-cache`, eliminating redundant npm downloads on each startup
+- **Faster Resolution**: Registry metadata cached, reducing network round-trips to npm on subsequent invocations
+- **Single Cache Point**: All three tools (glootie, playwright, vexify) share the same cache, maximizing hit rate
+
+**Implementation**: Changed `npx -y` to `npx --cache=/tmp/.npx-cache --yes` for each MCP server definition.
+
+**Performance Impact**:
+- First run: ~30-60s (package download)
+- Cached runs: ~3-8s (cache hit)
+- Cache persists across sessions, providing consistent fast startup

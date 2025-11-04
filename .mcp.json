@@ -3,15 +3,15 @@
   "mcpServers": {
     "glootie": {
       "command": "npx",
-      "args": ["-y", "mcp-glootie@latest"]
+      "args": ["--cache=/tmp/.npx-cache", "--yes", "mcp-glootie@latest"]
     },
     "playwright": {
-      "command": "npx", 
-      "args": ["-y", "@playwright/mcp@latest"]
+      "command": "npx",
+      "args": ["--cache=/tmp/.npx-cache", "--yes", "@playwright/mcp@latest"]
     },
     "vexify": {
       "command": "npx",
-      "args": ["-y", "vexify@latest", "mcp"]
+      "args": ["--cache=/tmp/.npx-cache", "--yes", "vexify@latest", "mcp"]
     }
   }
 }
