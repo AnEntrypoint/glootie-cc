@@ -3,15 +3,15 @@
   "mcpServers": {
     "glootie": {
       "command": "node",
-      "args": ["./node_modules/mcp-glootie/src/index.js"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/mcp-glootie/src/index.js"]
     },
     "playwright": {
       "command": "node",
-      "args": ["./node_modules/@playwright/mcp/cli.js"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/@playwright/mcp/cli.js"]
     },
     "vexify": {
       "command": "node",
-      "args": ["./node_modules/vexify/lib/bin/cli.js", "mcp"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/vexify/lib/bin/cli.js", "mcp"]
     }
   }
 }

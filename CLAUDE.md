@@ -115,17 +115,21 @@ Check git history for regression troubleshooting - always use differential compa
 ### MCP Startup via Direct Node Invocation
 Eliminated npx overhead by bundling MCP packages directly. All three MCP servers now invoke node directly against local binaries:
 
-- **glootie**: `node ./node_modules/mcp-glootie/src/index.js`
-- **playwright**: `node ./node_modules/@playwright/mcp/cli.js`
-- **vexify**: `node ./node_modules/vexify/lib/bin/cli.js mcp`
+- **glootie**: `node ${CLAUDE_PLUGIN_ROOT}/node_modules/mcp-glootie/src/index.js`
+- **playwright**: `node ${CLAUDE_PLUGIN_ROOT}/node_modules/@playwright/mcp/cli.js`
+- **vexify**: `node ${CLAUDE_PLUGIN_ROOT}/node_modules/vexify/lib/bin/cli.js mcp`
 
 **Benefits**:
 - Zero npx startup overhead (no npm registry queries)
 - Instant binary resolution (no package resolution phase)
 - All packages included in npm distribution
 - Single `npm install` provides complete setup
+- **MCP works correctly in any folder** - uses ${CLAUDE_PLUGIN_ROOT} environment variable expansion
 
 **Performance Impact**:
 - Previous approach: ~30-60s (first run, npx overhead + download) → ~3-8s (cached)
 - Current approach: ~100-200ms (direct node invocation, zero overhead)
 - Improvement: **150-600x faster startup**
+
+### MCP Path Resolution Fix
+Previous versions used relative paths (`./node_modules/...`) which broke when plugin was used in different folders. Now uses `${CLAUDE_PLUGIN_ROOT}` environment variable that Claude Code expands to the actual plugin directory, ensuring MCP servers work correctly regardless of where the plugin is instantiated. This is the documented standard for plugin-relative paths in Claude Code MCP configurations.
