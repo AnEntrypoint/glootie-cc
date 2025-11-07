@@ -18,7 +18,7 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/stop-hook.js",
-            "timeout": 3600
+            "timeout": 14400
 
           }
         ]
