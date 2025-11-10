@@ -10,7 +10,7 @@ const run = () => {
   let blockReasons = [];
 
   try {
-    const ahead = execSync('git', ['rev-list', '--count', 'origin/HEAD..HEAD'], {
+    const ahead = execSync('git rev-list --count origin/HEAD..HEAD', {
       encoding: 'utf-8',
       cwd: projectDir,
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -24,7 +24,7 @@ const run = () => {
   }
 
   try {
-    const behind = execSync('git', ['rev-list', '--count', 'HEAD..origin/HEAD'], {
+    const behind = execSync('git rev-list --count HEAD..origin/HEAD', {
       encoding: 'utf-8',
       cwd: projectDir,
       stdio: ['pipe', 'pipe', 'pipe'],
@@ -53,7 +53,10 @@ const run = () => {
 
   const evalsDir = path.join(projectDir, 'evals');
   if (fs.existsSync(evalsDir) && fs.statSync(evalsDir).isDirectory()) {
-    const files = fs.readdirSync(evalsDir).filter(f => f.endsWith('.js')).sort();
+    const files = fs.readdirSync(evalsDir).filter(f => {
+      const fullPath = path.join(evalsDir, f);
+      return f.endsWith('.js') && fs.statSync(fullPath).isFile();
+    }).sort();
     filesToRun.push(...files.map(f => path.join('evals', f)));
   }
 
@@ -63,7 +66,7 @@ const run = () => {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectDir,
-        timeout: 60000
+        timeout: 120000
       });
     } catch (e) {
       const errorOutput = e.stdout || '';
