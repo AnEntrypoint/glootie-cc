@@ -6,7 +6,12 @@ const { execSync } = require('child_process');
 
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 
+let aborted = false;
+process.on('SIGTERM', () => { aborted = true; });
+process.on('SIGINT', () => { aborted = true; });
+
 const run = () => {
+  if (aborted) return { decision: undefined };
   let blockReasons = [];
 
   try {
@@ -61,17 +66,24 @@ const run = () => {
   }
 
   for (const file of filesToRun) {
+    if (aborted) return { decision: undefined };
+
     try {
       execSync(`node ${file}`, {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectDir,
-        timeout: 120000
+        timeout: 180000,
+        killSignal: 'SIGTERM'
       });
     } catch (e) {
+      if (aborted) return { decision: undefined };
+
       const errorOutput = e.stdout || '';
       const errorStderr = e.stderr || '';
-      const fullError = `Error: ${e.message}\n\nStdout:\n${errorOutput}\n\nStderr:\n${errorStderr}`;
+      const signal = e.signal || 'none';
+      const killed = e.killed || false;
+      const fullError = `Error: ${e.message}\nSignal: ${signal}\nKilled: ${killed}\n\nStdout:\n${errorOutput}\n\nStderr:\n${errorStderr}`;
       return {
         decision: "block",
         reason: `The following errors were reported: ${fullError}`

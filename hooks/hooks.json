@@ -8,7 +8,7 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js",
-            "timeout": 3600000
+            "timeout": 3600
           }
         ]
       }
@@ -19,7 +19,7 @@
           {
             "type": "command",
             "command": "${CLAUDE_PLUGIN_ROOT}/stop-hook.js",
-            "timeout": 3600000
+            "timeout": 3600
           }
         ]
       }
