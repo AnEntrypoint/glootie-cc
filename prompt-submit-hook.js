@@ -20,15 +20,15 @@ try {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
       cwd: projectDir,
-      timeout: 360000,
+      timeout: 30000,
       killSignal: 'SIGTERM'
     });
     outputs.push(`=== mcp-thorns@latest ===\n${thornOutput}`);
   } catch (e) {
     if (e.killed && e.signal === 'SIGTERM') {
-      outputs.push(`=== mcp-thorns@latest ===\nTimeout (6min exceeded)`);
+      outputs.push(`=== mcp-thorns@latest ===\nSkipped (30s timeout)`);
     } else {
-      outputs.push(`=== mcp-thorns@latest ===\nError: ${e.message}`);
+      outputs.push(`=== mcp-thorns@latest ===\nSkipped (error: ${e.message.split('\n')[0]})`);
     }
   }
 
@@ -38,15 +38,15 @@ try {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
       cwd: projectDir,
-      timeout: 360000,
+      timeout: 30000,
       killSignal: 'SIGTERM'
     });
     outputs.push(`=== wfgy@latest hook ===\n${wfgyOutput}`);
   } catch (e) {
     if (e.killed && e.signal === 'SIGTERM') {
-      outputs.push(`=== wfgy@latest hook ===\nTimeout (6min exceeded)`);
+      outputs.push(`=== wfgy@latest hook ===\nSkipped (30s timeout)`);
     } else {
-      outputs.push(`=== wfgy@latest hook ===\nError: ${e.message}`);
+      outputs.push(`=== wfgy@latest hook ===\nSkipped (error: ${e.message.split('\n')[0]})`);
     }
   }
 

@@ -75,7 +75,7 @@ These are mandatory requirements enforced in all work:
 - playwright: 360000ms (6min)
 - vexify: 360000ms (6min)
 
-**Hook Script Timeouts**: npx commands in prompt-submit-hook.js have 360000ms (6min) timeouts with SIGTERM killSignal for graceful termination. Timeout errors are caught and reported clearly instead of propagating as AbortError.
+**Hook Script Timeouts**: npx commands in prompt-submit-hook.js have 30000ms (30s) timeouts with SIGTERM killSignal for fast failure. If mcp-thorns or wfgy timeout/error, they are gracefully skipped with "Skipped" messages. Hook completes in ~60s worst case instead of hanging.
 
 **Project-Level Configuration**: Projects can set MCP_TIMEOUT and MCP_TOOL_TIMEOUT in .claude/settings.json env section. Example values: MCP_TIMEOUT: 360000ms, MCP_TOOL_TIMEOUT: 360000ms.
 

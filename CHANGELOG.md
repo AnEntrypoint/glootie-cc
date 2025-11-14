@@ -3,15 +3,18 @@
 ## [2.0.6] - 2025-11-14
 
 ### Fixes
-- Fixed AbortError in child_process by adding proper timeout configurations
-- Added MCP server timeout values to .mcp.json (glootie: 6min, playwright: 6min, vexify: 6min)
-- Added 6min timeout to npx commands in prompt-submit-hook.js with graceful error handling
-- Improved error messages for timeout scenarios to avoid cryptic AbortError
+- Fixed AbortError by preventing hooks from hanging indefinitely
+- Reduced hook npx command timeouts from 6min to 30s for fast failure
+- Hook now skips mcp-thorns/wfgy gracefully if they timeout or error
+- Changed error messages from "Timeout" to "Skipped" for better UX
+- MCP server timeouts remain at 360000ms (6min) for browser operations
 
 ### Configuration
-- Added killSignal: 'SIGTERM' to execSync calls for clean process termination
-- Better timeout error detection and reporting in hook scripts
-- All timeouts set to 360000ms (6 minutes) for reliability
+- prompt-submit-hook.js: 30s timeout per npx command with graceful skip
+- hooks.json: 7200s framework timeout (unchanged)
+- .mcp.json: 360000ms (6min) for glootie/playwright/vexify
+- killSignal: 'SIGTERM' for clean process termination
+- Hook completes in ~60s worst case instead of hanging for 6+ minutes
 
 ## [2.0.5] - 2025-11-04
 
