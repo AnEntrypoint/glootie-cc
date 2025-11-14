@@ -14,39 +14,41 @@ try {
   const startMdContent = fs.readFileSync(startMdPath, 'utf-8');
   outputs.push(`=== start.md ===\n${startMdContent}`);
 
-  // 2. Run mcp-thorns@latest
+  // 2. Run mcp-thorns (bundled)
   try {
-    const thornOutput = execSync('npx -y mcp-thorns@latest', {
+    const thornsPath = path.join(pluginRoot, 'node_modules', 'mcp-thorns', 'index.js');
+    const thornOutput = execSync(`node ${thornsPath}`, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
       cwd: projectDir,
-      timeout: 30000,
+      timeout: 180000,
       killSignal: 'SIGTERM'
     });
-    outputs.push(`=== mcp-thorns@latest ===\n${thornOutput}`);
+    outputs.push(`=== mcp-thorns ===\n${thornOutput}`);
   } catch (e) {
     if (e.killed && e.signal === 'SIGTERM') {
-      outputs.push(`=== mcp-thorns@latest ===\nSkipped (30s timeout)`);
+      outputs.push(`=== mcp-thorns ===\nSkipped (3min timeout)`);
     } else {
-      outputs.push(`=== mcp-thorns@latest ===\nSkipped (error: ${e.message.split('\n')[0]})`);
+      outputs.push(`=== mcp-thorns ===\nSkipped (error: ${e.message.split('\n')[0]})`);
     }
   }
 
-  // 3. Run wfgy@latest hook
+  // 3. Run wfgy hook (bundled)
   try {
-    const wfgyOutput = execSync('npx -y wfgy@latest hook', {
+    const wfgyPath = path.join(pluginRoot, 'node_modules', 'wfgy', 'index.js');
+    const wfgyOutput = execSync(`node ${wfgyPath} hook`, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
       cwd: projectDir,
-      timeout: 30000,
+      timeout: 180000,
       killSignal: 'SIGTERM'
     });
-    outputs.push(`=== wfgy@latest hook ===\n${wfgyOutput}`);
+    outputs.push(`=== wfgy hook ===\n${wfgyOutput}`);
   } catch (e) {
     if (e.killed && e.signal === 'SIGTERM') {
-      outputs.push(`=== wfgy@latest hook ===\nSkipped (30s timeout)`);
+      outputs.push(`=== wfgy hook ===\nSkipped (3min timeout)`);
     } else {
-      outputs.push(`=== wfgy@latest hook ===\nSkipped (error: ${e.message.split('\n')[0]})`);
+      outputs.push(`=== wfgy hook ===\nSkipped (error: ${e.message.split('\n')[0]})`);
     }
   }
 

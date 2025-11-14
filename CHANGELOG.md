@@ -2,19 +2,27 @@
 
 ## [2.0.6] - 2025-11-14
 
+### Performance
+- Bundled mcp-thorns and wfgy directly into node_modules (like MCP tools)
+- Eliminated npx overhead for hook commands (~4-5s faster)
+- Hook uses direct node invocation instead of npx
+- Hook completes in ~50s instead of hanging indefinitely
+
 ### Fixes
-- Fixed AbortError by preventing hooks from hanging indefinitely
-- Reduced hook npx command timeouts from 6min to 30s for fast failure
-- Hook now skips mcp-thorns/wfgy gracefully if they timeout or error
-- Changed error messages from "Timeout" to "Skipped" for better UX
-- MCP server timeouts remain at 360000ms (6min) for browser operations
+- Fixed AbortError by preventing hooks from timing out
+- Changed hook commands from npx to bundled node invocation
+- Hook gracefully skips mcp-thorns/wfgy if they timeout (3min) or error
+- MCP server timeouts set to 180000ms (3min) for reliability
 
 ### Configuration
-- prompt-submit-hook.js: 30s timeout per npx command with graceful skip
-- hooks.json: 7200s framework timeout (unchanged)
+- prompt-submit-hook.js: 180000ms (3min) timeout with bundled packages
+- hooks.json: 7200s framework timeout
 - .mcp.json: 360000ms (6min) for glootie/playwright/vexify
 - killSignal: 'SIGTERM' for clean process termination
-- Hook completes in ~60s worst case instead of hanging for 6+ minutes
+
+### Dependencies
+- Added mcp-thorns and wfgy as bundled dependencies
+- Included in node_modules for zero npx overhead
 
 ## [2.0.5] - 2025-11-04
 

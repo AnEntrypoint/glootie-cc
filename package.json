@@ -1,6 +1,6 @@
 {
   "name": "glootie-cc",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
   "main": ".claude-plugin/plugin.json",
   "bin": {
@@ -48,6 +48,8 @@
   "dependencies": {
     "@playwright/mcp": "^0.0.45",
     "mcp-glootie": "^3.4.67",
-    "vexify": "^0.16.28"
+    "mcp-thorns": "^4.1.0",
+    "vexify": "^0.16.28",
+    "wfgy": "^1.0.1"
   }
 }
