@@ -69,8 +69,17 @@ These are mandatory requirements enforced in all work:
 
 ## Key Technical Notes
 
-### Timeout Handling
-The stop-hook was simplified to a minimal no-op after experiencing ETIMEDOUT errors. Previous iterations that attempted git checks, npm lookups, or subprocess execution caused timeouts in the Claude Code hook framework. The current implementation exits immediately to avoid blocking session stops.
+### Timeout Configuration
+**MCP Server Timeouts**: All three MCP servers have explicit timeout values in .mcp.json:
+- glootie: 360000ms (6min)
+- playwright: 360000ms (6min)
+- vexify: 360000ms (6min)
+
+**Hook Script Timeouts**: npx commands in prompt-submit-hook.js have 360000ms (6min) timeouts with SIGTERM killSignal for graceful termination. Timeout errors are caught and reported clearly instead of propagating as AbortError.
+
+**Project-Level Configuration**: Projects can set MCP_TIMEOUT and MCP_TOOL_TIMEOUT in .claude/settings.json env section. Example values: MCP_TIMEOUT: 360000ms, MCP_TOOL_TIMEOUT: 360000ms.
+
+**Stop Hook**: The stop-hook was simplified to a minimal no-op after experiencing ETIMEDOUT errors. Previous iterations that attempted git checks, npm lookups, or subprocess execution caused timeouts in the Claude Code hook framework. The current implementation exits immediately to avoid blocking session stops.
 
 ### Hook Output Format
 - SessionStart hook outputs JSON with `hookSpecificOutput` containing `hookEventName` and `additionalContext`

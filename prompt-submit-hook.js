@@ -19,11 +19,17 @@ try {
     const thornOutput = execSync('npx -y mcp-thorns@latest', {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
-      cwd: projectDir 
+      cwd: projectDir,
+      timeout: 360000,
+      killSignal: 'SIGTERM'
     });
     outputs.push(`=== mcp-thorns@latest ===\n${thornOutput}`);
   } catch (e) {
-    outputs.push(`=== mcp-thorns@latest ===\nError: ${e.message}`);
+    if (e.killed && e.signal === 'SIGTERM') {
+      outputs.push(`=== mcp-thorns@latest ===\nTimeout (6min exceeded)`);
+    } else {
+      outputs.push(`=== mcp-thorns@latest ===\nError: ${e.message}`);
+    }
   }
 
   // 3. Run wfgy@latest hook
@@ -31,11 +37,17 @@ try {
     const wfgyOutput = execSync('npx -y wfgy@latest hook', {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
-      cwd: projectDir 
+      cwd: projectDir,
+      timeout: 360000,
+      killSignal: 'SIGTERM'
     });
     outputs.push(`=== wfgy@latest hook ===\n${wfgyOutput}`);
   } catch (e) {
-    outputs.push(`=== wfgy@latest hook ===\nError: ${e.message}`);
+    if (e.killed && e.signal === 'SIGTERM') {
+      outputs.push(`=== wfgy@latest hook ===\nTimeout (6min exceeded)`);
+    } else {
+      outputs.push(`=== wfgy@latest hook ===\nError: ${e.message}`);
+    }
   }
 
   const additionalContext = outputs.join('\n\n');

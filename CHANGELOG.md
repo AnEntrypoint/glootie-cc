@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## [2.0.6] - 2025-11-14
+
+### Fixes
+- Fixed AbortError in child_process by adding proper timeout configurations
+- Added MCP server timeout values to .mcp.json (glootie: 6min, playwright: 6min, vexify: 6min)
+- Added 6min timeout to npx commands in prompt-submit-hook.js with graceful error handling
+- Improved error messages for timeout scenarios to avoid cryptic AbortError
+
+### Configuration
+- Added killSignal: 'SIGTERM' to execSync calls for clean process termination
+- Better timeout error detection and reporting in hook scripts
+- All timeouts set to 360000ms (6 minutes) for reliability
+
 ## [2.0.5] - 2025-11-04
 
 ### Fixes

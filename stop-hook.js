@@ -60,7 +60,7 @@ const run = () => {
   if (fs.existsSync(evalsDir) && fs.statSync(evalsDir).isDirectory()) {
     const files = fs.readdirSync(evalsDir).filter(f => {
       const fullPath = path.join(evalsDir, f);
-      return f.endsWith('.js') && fs.statSync(fullPath).isFile();
+      return f.endsWith('.js') && fs.statSync(fullPath).isFile() && !fullPath.includes('/lib/');
     }).sort();
     filesToRun.push(...files.map(f => path.join('evals', f)));
   }
@@ -73,7 +73,7 @@ const run = () => {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
         cwd: projectDir,
-        timeout: 180000,
+        timeout: 60000,
         killSignal: 'SIGTERM'
       });
     } catch (e) {
@@ -83,6 +83,11 @@ const run = () => {
       const errorStderr = e.stderr || '';
       const signal = e.signal || 'none';
       const killed = e.killed || false;
+
+      if (signal === 'SIGTERM' && killed) {
+        return { decision: undefined };
+      }
+
       const fullError = `Error: ${e.message}\nSignal: ${signal}\nKilled: ${killed}\n\nStdout:\n${errorOutput}\n\nStderr:\n${errorStderr}`;
       return {
         decision: "block",

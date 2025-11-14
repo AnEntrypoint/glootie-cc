@@ -3,15 +3,18 @@
   "mcpServers": {
     "glootie": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/mcp-glootie/src/index.js"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/mcp-glootie/src/index.js"],
+      "timeout": 360000
     },
     "playwright": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/@playwright/mcp/cli.js"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/@playwright/mcp/cli.js"],
+      "timeout": 360000
     },
     "vexify": {
       "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/vexify/lib/bin/cli.js", "mcp"]
+      "args": ["${CLAUDE_PLUGIN_ROOT}/node_modules/vexify/lib/bin/cli.js", "mcp"],
+      "timeout": 360000
     }
   }
 }
