@@ -1,5 +1,5 @@
 {
-  "name": "anentrypoint-glootie-cc",
+  "name": "AnEntrypoint-glootie-cc",
   "owner": {
     "name": "AnEntrypoint"
   },
@@ -15,5 +15,6 @@
     }
   ]
 }
+
 
 
