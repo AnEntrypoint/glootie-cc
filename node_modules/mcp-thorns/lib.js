@@ -12,7 +12,7 @@ import Java from 'tree-sitter-java';
 import CSharp from 'tree-sitter-c-sharp';
 import Ruby from 'tree-sitter-ruby';
 import PHP from 'tree-sitter-php';
-import JSON from 'tree-sitter-json';
+import JSONParser from 'tree-sitter-json';
 import { extractEntities, calculateMetrics } from './analyzer.js';
 import { formatUltraCompact } from './compact-formatter.js';
 import { extractDependencies, buildDependencyGraph, analyzeModules } from './dependency-analyzer.js';
@@ -39,7 +39,7 @@ const LANGUAGES = {
   '.cs': { parser: CSharp, name: 'C#' },
   '.rb': { parser: Ruby, name: 'Ruby' },
   '.php': { parser: PHP, name: 'PHP' },
-  '.json': { parser: JSON, name: 'JSON' }
+  '.json': { parser: JSONParser, name: 'JSON' }
 };
 
 const MAX_FILE_SIZE = 200 * 1024; // 200KB - anything larger is build/generated code
@@ -146,6 +146,22 @@ function detectDeadCode(depGraph, fileMetrics, projectContext) {
 
   if (!depGraph?.nodes) return deadCode;
 
+  const reExporters = new Set();
+  for (const [file, node] of depGraph.nodes) {
+    if (node.importsFrom.size > 0 && node.exportedNames.size > 0) {
+      const fileName = file.split('/').pop();
+      if (fileName.includes('index.') || fileName.includes('lib.') || fileName.includes('main.')) {
+        reExporters.add(file);
+        for (const imported of node.importsFrom) {
+          const targetNode = depGraph.nodes.get(imported);
+          if (targetNode) {
+            targetNode.importedBy.add(file + ':reexport');
+          }
+        }
+      }
+    }
+  }
+
   for (const [file, node] of depGraph.nodes) {
     const fileName = file.split('/').pop();
     const isTest = fileName.includes('.test.') || fileName.includes('.spec.') ||
@@ -156,9 +172,13 @@ function detectDeadCode(depGraph, fileMetrics, projectContext) {
       continue;
     }
 
-    if (node.importedBy.size === 0 && node.exportedNames.size > 0) {
+    const realImporters = Array.from(node.importedBy).filter(i => !i.includes(':reexport'));
+    const hasReExporter = Array.from(node.importedBy).some(i => i.includes(':reexport'));
+
+    if (realImporters.length === 0 && !hasReExporter && node.exportedNames.size > 0) {
       const isEntry = fileName.includes('index.') || fileName.includes('main.') ||
-                     fileName.includes('app.') || fileName.includes('server.');
+                     fileName.includes('app.') || fileName.includes('server.') ||
+                     fileName.includes('lib.') || fileName.includes('cli.');
       const isConfig = fileName.includes('config') || fileName.includes('.config.');
 
       if (!isEntry && !isConfig) {
@@ -170,13 +190,18 @@ function detectDeadCode(depGraph, fileMetrics, projectContext) {
     }
 
     if (node.importedBy.size === 0 && node.importsFrom.size === 0) {
-      deadCode.orphanedFiles.push(file);
+      const isEntry = fileName.includes('index.') || fileName.includes('main.') ||
+                     fileName.includes('app.') || fileName.includes('server.') ||
+                     fileName.includes('lib.') || fileName.includes('cli.');
+      if (!isEntry) {
+        deadCode.orphanedFiles.push(file);
+      }
     }
 
-    if (node.importedBy.size === 1 && node.importsFrom.size === 0) {
+    if (realImporters.length === 1 && node.importsFrom.size === 0 && !hasReExporter) {
       deadCode.possiblyDead.push({
         file,
-        usedBy: Array.from(node.importedBy)[0]
+        usedBy: realImporters[0]
       });
     }
   }
@@ -195,13 +220,20 @@ function analyzeProjectContext(rootPath) {
     devDependencies: {},
     entry: null,
     build: null,
-    test: null
+    test: null,
+    name: null,
+    description: null,
+    version: null,
+    readme: null
   };
 
   try {
     const packagePath = join(rootPath, 'package.json');
     if (existsSync(packagePath)) {
       const pkg = JSON.parse(readFileSync(packagePath, 'utf8'));
+      context.name = pkg.name;
+      context.description = pkg.description;
+      context.version = pkg.version;
       context.scripts = pkg.scripts || {};
       context.dependencies = pkg.dependencies || {};
       context.devDependencies = pkg.devDependencies || {};
@@ -215,11 +247,29 @@ function analyzeProjectContext(rootPath) {
       } else if (pkg.dependencies?.vite || pkg.devDependencies?.vite) {
         context.framework = 'Vite';
         context.type = 'web-app';
+      } else if (pkg.dependencies?.express || pkg.devDependencies?.express) {
+        context.framework = 'Express';
+        context.type = 'server';
+      } else if (pkg.bin) {
+        context.type = 'cli';
+      } else if (pkg.main || pkg.exports) {
+        context.type = 'library';
       }
 
       if (context.scripts.start) context.entry = context.scripts.start;
       if (context.scripts.build) context.build = context.scripts.build;
       if (context.scripts.test) context.test = context.scripts.test;
+    }
+
+    const readmeFiles = ['README.md', 'readme.md', 'README.txt', 'README'];
+    for (const file of readmeFiles) {
+      const readmePath = join(rootPath, file);
+      if (existsSync(readmePath)) {
+        const content = readFileSync(readmePath, 'utf8');
+        const firstPara = content.split('\n\n').slice(0, 2).join(' ').replace(/^#+ /, '').replace(/\n/g, ' ').slice(0, 300);
+        context.readme = firstPara.trim();
+        break;
+      }
     }
 
     const denoPath = join(rootPath, 'deno.json');
@@ -278,7 +328,24 @@ function analyzeCodebase(rootPath = '.') {
       langStats.complexity += basicStats.complexity;
 
       if (!entities[lang.name]) {
-        entities[lang.name] = { functions: new Map(), classes: new Map(), imports: new Set(), exports: new Set(), patterns: new Map() };
+        entities[lang.name] = {
+          functions: new Map(),
+          classes: new Map(),
+          imports: new Set(),
+          exports: new Set(),
+          patterns: new Map(),
+          asyncPatterns: { async: 0, await: 0, promise: 0, callback: 0, thenCatch: 0 },
+          errorPatterns: { tryCatch: 0, throw: 0, errorTypes: new Set() },
+          internalCalls: new Map(),
+          constants: [],
+          globalState: [],
+          envVars: new Set(),
+          urls: new Set(),
+          filePaths: new Set(),
+          eventPatterns: { emitters: 0, listeners: 0 },
+          httpPatterns: { routes: [], fetches: 0, axios: 0 },
+          storagePatterns: { sql: 0, fileOps: 0, json: 0 }
+        };
       }
 
       for (const [sig, data] of ents.functions) {
@@ -298,6 +365,60 @@ function analyzeCodebase(rootPath = '.') {
 
       for (const [pattern, count] of ents.patterns) {
         entities[lang.name].patterns.set(pattern, (entities[lang.name].patterns.get(pattern) || 0) + count);
+      }
+
+      if (ents.asyncPatterns) {
+        entities[lang.name].asyncPatterns.async += ents.asyncPatterns.async;
+        entities[lang.name].asyncPatterns.await += ents.asyncPatterns.await;
+        entities[lang.name].asyncPatterns.promise += ents.asyncPatterns.promise;
+        entities[lang.name].asyncPatterns.callback += ents.asyncPatterns.callback;
+        entities[lang.name].asyncPatterns.thenCatch += ents.asyncPatterns.thenCatch;
+      }
+
+      if (ents.errorPatterns) {
+        entities[lang.name].errorPatterns.tryCatch += ents.errorPatterns.tryCatch;
+        entities[lang.name].errorPatterns.throw += ents.errorPatterns.throw;
+        for (const errType of ents.errorPatterns.errorTypes) {
+          entities[lang.name].errorPatterns.errorTypes.add(errType);
+        }
+      }
+
+      if (ents.internalCalls) {
+        for (const [name, count] of ents.internalCalls) {
+          entities[lang.name].internalCalls.set(name, (entities[lang.name].internalCalls.get(name) || 0) + count);
+        }
+      }
+
+      if (ents.constants) {
+        entities[lang.name].constants.push(...ents.constants);
+      }
+
+      if (ents.globalState) {
+        entities[lang.name].globalState.push(...ents.globalState);
+      }
+
+      if (ents.envVars) {
+        for (const v of ents.envVars) entities[lang.name].envVars.add(v);
+      }
+      if (ents.urls) {
+        for (const u of ents.urls) entities[lang.name].urls.add(u);
+      }
+      if (ents.filePaths) {
+        for (const p of ents.filePaths) entities[lang.name].filePaths.add(p);
+      }
+      if (ents.eventPatterns) {
+        entities[lang.name].eventPatterns.emitters += ents.eventPatterns.emitters;
+        entities[lang.name].eventPatterns.listeners += ents.eventPatterns.listeners;
+      }
+      if (ents.httpPatterns) {
+        entities[lang.name].httpPatterns.fetches += ents.httpPatterns.fetches;
+        entities[lang.name].httpPatterns.axios += ents.httpPatterns.axios;
+        entities[lang.name].httpPatterns.routes.push(...ents.httpPatterns.routes);
+      }
+      if (ents.storagePatterns) {
+        entities[lang.name].storagePatterns.sql += ents.storagePatterns.sql;
+        entities[lang.name].storagePatterns.fileOps += ents.storagePatterns.fileOps;
+        entities[lang.name].storagePatterns.json += ents.storagePatterns.json;
       }
 
       metrics.depths.push(mets.maxDepth);

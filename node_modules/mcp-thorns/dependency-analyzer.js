@@ -179,39 +179,40 @@ export function buildDependencyGraph(fileAnalysis) {
 
 function resolveImport(importPath, fromDir, fileAnalysis) {
   if (importPath.startsWith('.')) {
-    const resolved = resolve(fromDir, importPath);
+    const normalized = join(fromDir, importPath).replace(/\\/g, '/');
+    const cleanPath = normalized.replace(/^\.\//, '');
 
-    if (fileAnalysis[resolved]) return resolved;
+    if (fileAnalysis[cleanPath]) return cleanPath;
+    if (fileAnalysis[normalized]) return normalized;
 
-    const exts = ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs', '/index.js', '/index.ts', '/index.jsx', '/index.tsx'];
+    const exts = ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.cjs'];
+    const indexExts = ['/index.js', '/index.ts', '/index.jsx', '/index.tsx'];
+
     for (const ext of exts) {
-      const withExt = resolved + ext;
+      const withExt = cleanPath.replace(/\.(js|ts|jsx|tsx|mjs|cjs)$/, '') + ext;
       if (fileAnalysis[withExt]) return withExt;
+    }
+
+    for (const ext of indexExts) {
+      const withIdx = cleanPath.replace(/\/$/, '') + ext;
+      if (fileAnalysis[withIdx]) return withIdx;
     }
   }
 
   const paths = Object.keys(fileAnalysis);
   const fileName = importPath.split('/').pop();
+  const fileNameNoExt = fileName.replace(/\.(js|ts|jsx|tsx|mjs|cjs)$/, '');
 
   for (const path of paths) {
     const pathParts = path.split('/');
     const pathFileName = pathParts[pathParts.length - 1];
+    const pathFileNameNoExt = pathFileName.replace(/\.(js|ts|jsx|tsx|mjs|cjs)$/, '');
 
-    if (path.endsWith('/' + importPath) || path.endsWith('/' + importPath + '.js') ||
-        path.endsWith('/' + importPath + '.ts') || path.endsWith('/' + importPath + '.jsx') ||
-        path.endsWith('/' + importPath + '.tsx') || path.endsWith('/' + importPath + '.mjs') ||
-        path.endsWith('/' + importPath + '.cjs')) {
-      return path;
-    }
-
-    if (pathFileName === fileName || pathFileName === fileName + '.js' ||
-        pathFileName === fileName + '.ts' || pathFileName === fileName + '.jsx' ||
-        pathFileName === fileName + '.tsx' || pathFileName === fileName + '.mjs' ||
-        pathFileName === fileName + '.cjs') {
-      const importParts = importPath.split('/');
+    if (pathFileNameNoExt === fileNameNoExt) {
+      const importParts = importPath.split('/').filter(p => p && p !== '.');
       let matches = true;
       for (let i = importParts.length - 1, j = pathParts.length - 1; i >= 0 && j >= 0; i--, j--) {
-        const importPart = importParts[i];
+        const importPart = importParts[i].replace(/\.(js|ts|jsx|tsx|mjs|cjs)$/, '');
         const pathPart = pathParts[j].replace(/\.(js|ts|jsx|tsx|mjs|cjs)$/, '');
         if (importPart !== pathPart) {
           matches = false;

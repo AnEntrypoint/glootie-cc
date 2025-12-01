@@ -48,7 +48,7 @@
   "dependencies": {
     "@playwright/mcp": "^0.0.45",
     "mcp-glootie": "^3.4.67",
-    "mcp-thorns": "^4.1.0",
+    "mcp-thorns": "^5.1.1",
     "vexify": "^0.16.28",
     "wfgy": "^1.0.1"
   }
