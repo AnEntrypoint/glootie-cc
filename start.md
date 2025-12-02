@@ -22,7 +22,7 @@
 - Ensure NO mocks/simulations/fallbacks/hardcoded/fake elements
 - Keep execution logs concise (<4k chars ideal, 30k max)
 - Clear cache before playwright debugging
-- ONLY persistent background shells for CLI
+- ONLY use persistent background shells for CLI commands that run services
 - Remove ALL comments immediately when encountered
 - Deploy if deployable/publish if npm if its on npm
 - Clean ALL files not required for the program to function
@@ -31,3 +31,4 @@
 - Never call pkill, it doesnt work and will end your process
 - Make a comprehensive todo list before initiating any work, manually execute the entire todo list untill its empty
 - never run eval.js manually, it will run automatically at the end of your processes
+
