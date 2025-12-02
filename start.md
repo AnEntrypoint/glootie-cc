@@ -8,6 +8,7 @@
 - Hard 200-line limit - split files >200 lines BEFORE continuing immediately
 - NO report files - DELETE any non-CHANGELOG/CLAUDE/README/TODO.md files found immdidately
 - Maintain clean/DRY/generalized/forward-thinking architecture, immediately solve arhitetural issues that can be dried up, CONTINUOUSLY reorganize to be maximally concise/simple without losing functionality
+- code execution with glootie mcp is 10x more efficient than manual steps, you're expected to prefer that
 - Check git history for troubleshooting known regressions, dont revert, use differential comparisons and edit the new code manually
 - Every extra symbol = technical debt, enforcing clean short concise functional code is mandatory
 - ALWAYS write dynamic/modular code using ground truth - ZERO hardcoded values
@@ -31,4 +32,5 @@
 - Never call pkill, it doesnt work and will end your process
 - Make a comprehensive todo list before initiating any work, manually execute the entire todo list untill its empty
 - never run eval.js manually, it will run automatically at the end of your processes
+
 
