@@ -1,6 +1,6 @@
 {
   "name": "glootie-cc",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
   "main": ".claude-plugin/plugin.json",
   "bin": {
@@ -16,7 +16,11 @@
     "CLAUDE.md",
     "CHANGELOG.md",
     "cli.js",
-    ".mcp.json"
+    ".mcp.json",
+    "plugin.json",
+    "prompt-submit-hook.js",
+    "stop-hook.js",
+    "start.md"
   ],
   "keywords": [
     "claude-code",
