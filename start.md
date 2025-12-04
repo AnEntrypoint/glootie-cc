@@ -32,5 +32,6 @@
 - Never call pkill, it doesnt work and will end your process
 - Make a comprehensive todo list before initiating any work, manually execute the entire todo list untill its empty
 - never run eval.js manually, it will run automatically at the end of your processes
+- always start servers with the run in background parameter to not get stuck
 
 
