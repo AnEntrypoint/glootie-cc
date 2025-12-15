@@ -9,13 +9,9 @@
   "files": [
     ".claude-plugin/",
     "hooks/",
-    "context/",
-    "node_modules/",
-    "package-lock.json",
     "README.md",
     "CLAUDE.md",
     "CHANGELOG.md",
-    "cli.js",
     ".mcp.json",
     "plugin.json",
     "prompt-submit-hook.js",
@@ -48,12 +44,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@playwright/mcp": "^0.0.45",
-    "mcp-glootie": "^3.4.67",
-    "mcp-thorns": "^5.1.1",
-    "vexify": "^0.16.28",
-    "wfgy": "^1.0.1"
   }
 }

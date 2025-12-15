@@ -14,10 +14,9 @@ try {
   const startMdContent = fs.readFileSync(startMdPath, 'utf-8');
   outputs.push(`=== start.md ===\n${startMdContent}`);
 
-  // 2. Run mcp-thorns (bundled)
+  // 2. Run mcp-thorns (npx)
   try {
-    const thornsPath = path.join(pluginRoot, 'node_modules', 'mcp-thorns', 'index.js');
-    const thornOutput = execSync(`node ${thornsPath}`, {
+    const thornOutput = execSync(`npx -y mcp-thorns@latest`, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
       cwd: projectDir,
@@ -33,10 +32,9 @@ try {
     }
   }
 
-  // 3. Run wfgy hook (bundled)
+  // 3. Run wfgy hook (npx)
   try {
-    const wfgyPath = path.join(pluginRoot, 'node_modules', 'wfgy', 'index.js');
-    const wfgyOutput = execSync(`node ${wfgyPath} hook`, {
+    const wfgyOutput = execSync(`npx -y wfgy@latest hook`, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
       cwd: projectDir,
