@@ -1,0 +1,11 @@
+.vexify.db
+node_modules/
+package-lock.json
+*.tgz
+*.tar.gz
+dist/
+build/
+.env
+.env.local
+.npm
+*.log

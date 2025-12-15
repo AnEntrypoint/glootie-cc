@@ -1,0 +1,59 @@
+{
+  "name": "glootie-cc",
+  "version": "2.0.9",
+  "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
+  "main": ".claude-plugin/plugin.json",
+  "bin": {
+    "glootie-cc": "./cli.js"
+  },
+  "files": [
+    ".claude-plugin/",
+    "hooks/",
+    "context/",
+    "node_modules/",
+    "package-lock.json",
+    "README.md",
+    "CLAUDE.md",
+    "CHANGELOG.md",
+    "cli.js",
+    ".mcp.json",
+    "plugin.json",
+    "prompt-submit-hook.js",
+    "stop-hook.js",
+    "start.md"
+  ],
+  "keywords": [
+    "claude-code",
+    "claude-plugin",
+    "wfgy",
+    "mcp",
+    "automation",
+    "glootie"
+  ],
+  "author": "AnEntrypoint",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnEntrypoint/glootie-cc.git"
+  },
+  "homepage": "https://github.com/AnEntrypoint/glootie-cc#readme",
+  "bugs": {
+    "url": "https://github.com/AnEntrypoint/glootie-cc/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+    "@anthropic-ai/claude-code": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@playwright/mcp": "^0.0.45",
+    "mcp-glootie": "^3.4.67",
+    "mcp-thorns": "^5.1.1",
+    "vexify": "^0.16.28",
+    "wfgy": "^1.0.1"
+  }
+}

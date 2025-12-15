@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schemas.modelcontextprotocol.io/0.1.0/mcp.json",
+  "mcpServers": {
+    "glootie": {
+      "command": "npx",
+      "args": ["mcp-glootie"],
+      "timeout": 360000
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp"],
+      "timeout": 360000
+    }
+  }
+}

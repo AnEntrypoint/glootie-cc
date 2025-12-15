@@ -1,0 +1,20 @@
+{
+  "name": "AnEntrypoint-glootie-cc",
+  "owner": {
+    "name": "AnEntrypoint"
+  },
+  "description": "Advanced Claude Code plugins by AnEntrypoint with WFGY integration and MCP tools",
+  "version": "1.0.1",
+  "metadata": {
+    "description": "Advanced Claude Code plugins featuring WFGY integration, automated workflows, and comprehensive MCP tool support for enhanced development productivity"
+  },
+  "plugins": [
+    {
+      "name": "glootie-cc",
+      "source": "./"
+    }
+  ]
+}
+
+
+

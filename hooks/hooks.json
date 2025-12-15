@@ -1,0 +1,28 @@
+{
+  "description": "SessionStart hook for glootie-cc plugin",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher" : "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js",
+            "timeout": 7200
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/stop-hook.js",
+            "timeout": 7200
+          }
+        ]
+      }
+    ]
+  }
+}
