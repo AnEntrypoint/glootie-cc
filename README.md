@@ -26,7 +26,6 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 
 ### Bundled MCP Tools
 - **glootie** - Code execution and testing via `mcp-glootie@latest`
-- **vexify** - Code search and AST analysis via `vexify@latest`
 - **playwright** - Browser automation and testing via `@playwright/mcp@latest`
 - **mcp-thorns** - WFGY integration (loaded via hooks)
 
