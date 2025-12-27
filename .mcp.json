@@ -5,11 +5,7 @@
       "command": "npx",
       "args": ["mcp-glootie"],
       "timeout": 360000
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp"],
-      "timeout": 360000
     }
   }
 }
+
