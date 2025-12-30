@@ -2,11 +2,11 @@
   "name": "glootie-cc",
   "version": "2.0.4",
   "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
-  "author": "AnEntrypoint",
-  "homepage": "https://github.com/AnEntrypoint/glootie-cc",
-  "permissions": {
-    "allow": ["Read", "Write", "Edit", "Bash", "Task", "WebFetch", "Glob", "Grep", "TodoWrite", "mcp__glootie__execute", "mcp__glootie__ast_tool", "mcp__glootie__caveat", "mcp__playwright__browser_navigate", "mcp__playwright__browser_click", "mcp__playwright__browser_type", "mcp__playwright__browser_snapshot", "mcp__playwright__browser_close"]
+  "author": {
+    "name": "AnEntrypoint",
+    "url": "https://github.com/AnEntrypoint"
   },
+  "homepage": "https://github.com/AnEntrypoint/glootie-cc",
   "mcpServers": {
     "glootie": {
       "command": "npx",
