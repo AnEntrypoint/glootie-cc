@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js",
             "timeout": 7200
           }
         ]
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/stop-hook.js",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/stop-hook.js",
             "timeout": 7200
           }
         ]
