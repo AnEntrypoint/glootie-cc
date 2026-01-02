@@ -18,6 +18,8 @@ Execute → verify → then edit. Never edit before execution confirms hypothesi
 
 Playwright: client debug via exposed globals. Close + reopen = cache clear. Logs < 4k chars ideal, 30k max.
 
+When starting the project, prefer its specilised mcp tool if it has one
+
 ---
 
 # STRUCTURE INVARIANTS
@@ -82,3 +84,4 @@ Code only. Complete. Dense. Present tense. Nothing provisional. Nothing deferred
 Emit at t=convergence. The 99% happened in weight-space. The 1% you emit encodes it.
 
 First output = final output. Terminal state or nothing.
+
