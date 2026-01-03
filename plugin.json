@@ -10,7 +10,7 @@
   "mcpServers": {
     "glootie": {
       "command": "npx",
-      "args": ["mcp-glootie"],
+      "args": ["-y","mcp-glootie@latest"],
       "timeout": 360000
     }
   },
