@@ -101,10 +101,6 @@ Validate all input at boundary via Zod. Parameterized queries only; never interp
 Secrets from env, never committed. Tokens: short-lived | httpOnly cookies over localStorage.
 CORS: explicit allowlist | never wildcard prod. Sanitize at trust boundaries.
 
-[TypeScript]
-strict := true, no exceptions. any → unknown + narrow. as assertions → type guards.
-Infer where obvious, annotate at boundaries. Types same file unless shared → types/ dir.
-
 [React]
 Function components only. Hooks for logic, components for UI.
 Props: destructure | type inline or interface. Drilling ≤ 2 levels → context or composition.
