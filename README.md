@@ -1,4 +1,4 @@
-# WFGY Enhanced Claude Code Plugin
+# Claude Code Plugin
 
 An advanced Claude Code plugin that provides comprehensive automated workflows, WFGY integration, and bundled MCP tools for enhanced development productivity.
 
