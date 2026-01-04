@@ -1,6 +1,8 @@
-# Claude Code Plugin
-
 An advanced Claude Code plugin that provides comprehensive automated workflows, WFGY integration, and bundled MCP tools for enhanced development productivity.
+
+tl;dr profit prompt:
+<instruction> plan every possible aspect of this using WFGY and use the task agent for everything
+
 
 ## Structure
 
