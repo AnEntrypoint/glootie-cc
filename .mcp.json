@@ -5,7 +5,13 @@
       "command": "npx",
       "args": ["mcp-glootie"],
       "timeout": 360000
+    },
+    "dev-server": {
+      "command": "npx",
+      "args": ["-y", "gxe@latest", "AnEntrypoint/dev-mcp"],
+      "timeout": 360000
     }
   }
 }
+
 
