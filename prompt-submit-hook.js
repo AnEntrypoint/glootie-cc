@@ -12,7 +12,7 @@ try {
   // 1. Read ./start.md
   const startMdPath = path.join(pluginRoot, '/agents/apex.md');
   const startMdContent = fs.readFileSync(startMdPath, 'utf-8');
-  outputs.push(`=== start.md ===\n${startMdContent}`);
+  outputs.push(startMdContent);
 
   // 2. Run mcp-thorns (npx)
   try {
