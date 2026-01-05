@@ -1,6 +1,18 @@
 {
-  "description": "SessionStart hook for glootie-cc plugin",
+  "description": "Hooks for glootie-cc plugin",
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Glob|Grep|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/pre-tool-use-hook.js",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "matcher" : "*",
