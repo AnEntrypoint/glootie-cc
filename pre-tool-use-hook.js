@@ -23,10 +23,10 @@ const run = () => {
       return { permissionDecision: 'allow' };
     }
 
-    if (tool_name === 'Glob' || tool_name === 'Grep') {
+    if (tool_name === 'Glob' || tool_name === 'Grep' || tool_name === 'Search') {
       return {
         permissionDecision: 'deny',
-        permissionDecisionReason: `Use glootie code execution over MCP instead: mcp__glootie__execute with workingDirectory parameter for Glob/Grep operations`
+        permissionDecisionReason: `Use glootie code execution over MCP instead: For codebase search, npx code-search "prompt" instead or write code to search`
       };
     }
 
@@ -35,7 +35,7 @@ const run = () => {
       if (subagentType === 'Explore') {
         return {
           permissionDecision: 'deny',
-          permissionDecisionReason: 'Use mcp__glootie__execute for code execution. For codebase exploration, use Glob/Grep via mcp__glootie__execute instead'
+          permissionDecisionReason: 'Use mcp__glootie__execute for code execution. For codebase exploration, npx code-search "prompt" instead, do multiple searches to find out the paths you need quickly'
         };
       }
       return { permissionDecision: 'allow' };
