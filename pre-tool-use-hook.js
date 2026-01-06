@@ -26,7 +26,7 @@ const run = () => {
     if (tool_name === 'Glob' || tool_name === 'Grep' || tool_name === 'Search') {
       return {
         permissionDecision: 'deny',
-        permissionDecisionReason: `Use glootie code execution over MCP instead: For codebase search, npx -y gxe@latest code-search "prompt" instead or write code to search`
+        permissionDecisionReason: `Use glootie code execution over MCP instead: For codebase search, use mcp code-search`
       };
     }
 
@@ -35,7 +35,7 @@ const run = () => {
       if (subagentType === 'Explore') {
         return {
           permissionDecision: 'deny',
-          permissionDecisionReason: 'Use mcp__glootie__execute for code execution. For codebase exploration, npx -y gxe@latest code-search "prompt" instead, do multiple searches to find out the paths you need quickly'
+          permissionDecisionReason: 'Use mcp__glootie__execute for code execution. For codebase exploration, use mcp code-search multiple times'
         };
       }
       return { permissionDecision: 'allow' };
