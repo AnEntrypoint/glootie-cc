@@ -11,8 +11,12 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 2. Load the plugin in Claude Code settings
 3. MCP tools are automatically bundled and available
 
+**Note:** we use gxe as an npx-to-github proxy to start the tools faster and keep them up-to-date, if you ever need to fix an issue with partial installs or something, just delete ~/.gxe and try again
+
 ## Features
 
-### Bundled Tools
-- **glootie** - Code execution and testing via `mcp-glootie@latest`
-- **thorns and APEX** (loaded via hooks)
+### Bundled Tools (drastically context-reduced)
+- **glootie** - Code execution via `mcp-glootie@latest`
+- **thorns** (loaded via hooks)
+- **code-search** semantic code search
+- **dev-server** specialized npm run dev runner
