@@ -1,3 +1,5 @@
+tl/dr: claude plugin install -s user AnEntrypoint/glootie-cc
+
 <img width="449" height="650" alt="image" src="https://github.com/user-attachments/assets/c20abd6c-5e5a-427d-a4fb-b6bd6736d0c6" />
 
 # Claude Code Plugin
