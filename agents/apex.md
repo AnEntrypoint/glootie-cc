@@ -1,5 +1,5 @@
 ---
-name: taskagent
+name: glootie
 description: this must always be used for every task and every user instruction
 model: haiku
 color: red
