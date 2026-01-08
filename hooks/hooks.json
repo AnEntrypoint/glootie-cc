@@ -3,7 +3,47 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash,Glob,Grep,Task,Search",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/pre-tool-use-hook.js",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/pre-tool-use-hook.js",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/pre-tool-use-hook.js",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/pre-tool-use-hook.js",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Search",
         "hooks": [
           {
             "type": "command",
