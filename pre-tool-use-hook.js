@@ -13,14 +13,10 @@ const run = () => {
     }
 
     if (tool_name === 'Bash') {
-      const command = tool_input?.command || '';
-      if (command.includes('npm run dev')) {
-        return {
-          permissionDecision: 'deny',
-          permissionDecisionReason: 'Use the dev-server MCP tool instead: mcp__dev-server__start with path parameter'
-        };
-      }
-      return { permissionDecision: 'allow' };
+      return {
+        permissionDecision: 'deny',
+        permissionDecisionReason: 'Use mcp__glootie__execute instead for all command execution'
+      };
     }
 
     if (tool_name === 'Glob' || tool_name === 'Grep' || tool_name === 'Search') {
