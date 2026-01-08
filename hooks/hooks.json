@@ -13,25 +13,29 @@
         ]
       }
     ],
-    "SessionStart": {
-      "matcher": "*",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "node ${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js",
-          "timeout": 7200
-        }
-      ]
-    },
-    "Stop": {
-      "matcher": "*",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "node ${CLAUDE_PLUGIN_ROOT}/stop-hook.js",
-          "timeout": 7200
-        }
-      ]
-    }
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/prompt-submit-hook.js",
+            "timeout": 7200
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/stop-hook.js",
+            "timeout": 7200
+          }
+        ]
+      }
+    ]
   }
 }
