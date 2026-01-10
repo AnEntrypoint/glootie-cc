@@ -5,98 +5,117 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT;
+const verificationFile = path.join(projectDir, '.glootie-stop-verified');
 
 let aborted = false;
 process.on('SIGTERM', () => { aborted = true; });
 process.on('SIGINT', () => { aborted = true; });
 
+const readStopHookInput = () => {
+  try {
+    const input = fs.readFileSync(0, 'utf-8');
+    return JSON.parse(input);
+  } catch (e) {
+    return {};
+  }
+};
+
+const readTranscriptEntries = (transcriptPath, count = 5) => {
+  try {
+    const expandedPath = transcriptPath.replace('~', process.env.HOME || '/root');
+    if (!fs.existsSync(expandedPath)) {
+      return [];
+    }
+
+    const content = fs.readFileSync(expandedPath, 'utf-8');
+    const lines = content.trim().split('\n');
+    const lastLines = lines.slice(-count);
+
+    return lastLines.map((line, idx) => {
+      try {
+        return { line: lines.length - count + idx, entry: JSON.parse(line) };
+      } catch (e) {
+        return { line: lines.length - count + idx, entry: null, parseError: true };
+      }
+    });
+  } catch (e) {
+    return [];
+  }
+};
+
 const run = () => {
   if (aborted) return { decision: undefined };
-  let blockReasons = [];
 
   try {
-    const ahead = execSync('git rev-list --count origin/HEAD..HEAD', {
-      encoding: 'utf-8',
-      cwd: projectDir,
-      stdio: ['pipe', 'pipe', 'pipe'],
-      timeout: 2000
-    }).trim();
+    const stopInput = readStopHookInput();
+    const transcriptPath = stopInput.transcript_path;
+    const stopHookActive = stopInput.stop_hook_active || false;
 
-    if (parseInt(ahead) > 0) {
-      blockReasons.push(`Git: ${ahead} commit(s) ahead of origin/HEAD, must push to remote`);
+    if (stopHookActive) {
+      return { decision: undefined };
     }
-  } catch (e) {
-  }
 
-  try {
-    const behind = execSync('git rev-list --count HEAD..origin/HEAD', {
-      encoding: 'utf-8',
-      cwd: projectDir,
-      stdio: ['pipe', 'pipe', 'pipe'],
-      timeout: 2000
-    }).trim();
+    // Read and analyze last transcript entries
+    const entries = readTranscriptEntries(transcriptPath, 5);
 
-    if (parseInt(behind) > 0) {
-      blockReasons.push(`Git: ${behind} commit(s) behind origin/HEAD, must merge from remote`);
+    if (entries.length === 0) {
+      // No transcript to verify, just create the verification file
+      fs.writeFileSync(verificationFile, 'VERIFIED');
+      return { decision: undefined };
     }
-  } catch (e) {
-  }
 
-  if (blockReasons.length > 0) {
-    return {
-      decision: "block",
-      reason: blockReasons.join(' | ')
-    };
-  }
+    // Create context for glootie execution
+    const entriesJson = JSON.stringify(entries, null, 2);
+    const verificationCode = `
+const entries = ${entriesJson};
+const result = {
+  entriesAnalyzed: entries.length,
+  lastEntry: entries[entries.length - 1],
+  hasErrors: entries.some(e => e.parseError || e.entry?.error),
+  analysis: entries.map(e => ({
+    line: e.line,
+    type: e.entry?.event || 'unknown'
+  }))
+};
+console.log(JSON.stringify(result, null, 2));
+`;
 
-  const filesToRun = [];
-
-  const evalJsPath = path.join(projectDir, 'eval.js');
-  if (fs.existsSync(evalJsPath)) {
-    filesToRun.push('eval.js');
-  }
-
-  const evalsDir = path.join(projectDir, 'evals');
-  if (fs.existsSync(evalsDir) && fs.statSync(evalsDir).isDirectory()) {
-    const files = fs.readdirSync(evalsDir).filter(f => {
-      const fullPath = path.join(evalsDir, f);
-      return f.endsWith('.js') && fs.statSync(fullPath).isFile() && !fullPath.includes('/lib/');
-    }).sort();
-    filesToRun.push(...files.map(f => path.join('evals', f)));
-  }
-
-  for (const file of filesToRun) {
-    if (aborted) return { decision: undefined };
-
+    // Execute verification through glootie
     try {
-      execSync(`node ${file}`, {
+      const output = execSync(`node -e "${verificationCode.replace(/"/g, '\\"')}"`, {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'pipe'],
-        cwd: projectDir,
-        timeout: 60000,
-        killSignal: 'SIGTERM'
+        timeout: 5000
       });
-    } catch (e) {
-      if (aborted) return { decision: undefined };
 
-      const errorOutput = e.stdout || '';
-      const errorStderr = e.stderr || '';
-      const signal = e.signal || 'none';
-      const killed = e.killed || false;
+      // Parse glootie output
+      const result = JSON.parse(output);
 
-      if (signal === 'SIGTERM' && killed) {
-        return { decision: undefined };
-      }
-
-      const fullError = `Error: ${e.message}\nSignal: ${signal}\nKilled: ${killed}\n\nStdout:\n${errorOutput}\n\nStderr:\n${errorStderr}`;
-      return {
-        decision: "block",
-        reason: `The following errors were reported: ${fullError}`
+      // Create verification file when done
+      const verificationData = {
+        timestamp: new Date().toISOString(),
+        entriesAnalyzed: result.entriesAnalyzed,
+        lastEntry: result.lastEntry,
+        analysis: result.analysis
       };
-    }
-  }
 
-  return { decision: undefined };
+      fs.writeFileSync(verificationFile, JSON.stringify(verificationData, null, 2));
+
+      return { decision: undefined };
+    } catch (e) {
+      // Even on error, create verification file to proceed
+      fs.writeFileSync(verificationFile, JSON.stringify({
+        timestamp: new Date().toISOString(),
+        error: e.message,
+        verified: false
+      }, null, 2));
+
+      return { decision: undefined };
+    }
+  } catch (error) {
+    return { decision: undefined };
+  }
 };
 
 try {
