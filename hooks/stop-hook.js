@@ -14,11 +14,9 @@ async function main() {
     const inputData = await readStdin();
 
     if (!inputData) {
-      // Return valid JSON response without trying to use invalid event name
+      // Stop hook format: top-level decision + reason, no hookSpecificOutput
       console.log(JSON.stringify({
-        continue: true,
-        suppressOutput: false,
-        stopReason: 'Stop hook completed successfully'
+        reason: 'Transcript empty, proceeding with stop'
       }));
       process.exit(0);
     }
@@ -28,9 +26,7 @@ async function main() {
       transcriptEntries = JSON.parse(inputData);
     } catch (e) {
       console.log(JSON.stringify({
-        continue: true,
-        suppressOutput: false,
-        stopReason: 'Failed to parse transcript, proceeding'
+        reason: 'Failed to parse transcript, proceeding with stop'
       }));
       process.exit(0);
     }
@@ -48,22 +44,16 @@ async function main() {
         fs.writeFileSync(markerPath, `Verified at ${new Date().toISOString()}\n`);
 
         console.log(JSON.stringify({
-          continue: true,
-          suppressOutput: false,
-          stopReason: 'Transcript verified successfully'
+          reason: 'Transcript verified successfully'
         }));
       } else {
         console.log(JSON.stringify({
-          continue: true,
-          suppressOutput: false,
-          stopReason: 'Transcript validation completed'
+          reason: 'Transcript validation completed'
         }));
       }
     } else {
       console.log(JSON.stringify({
-        continue: true,
-        suppressOutput: false,
-        stopReason: 'No transcript entries found'
+        reason: 'No transcript entries found'
       }));
     }
 
@@ -71,9 +61,7 @@ async function main() {
   } catch (error) {
     // Always output valid JSON on error
     console.log(JSON.stringify({
-      continue: true,
-      suppressOutput: false,
-      stopReason: `Error in stop hook: ${error.message}`
+      reason: `Error in stop hook: ${error.message}`
     }));
     process.exit(0);
   }
