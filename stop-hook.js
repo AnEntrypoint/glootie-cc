@@ -56,63 +56,26 @@ const run = () => {
       return { decision: undefined };
     }
 
-    // Read and analyze last transcript entries
+    // Check if verification file exists
+    if (fs.existsSync(verificationFile)) {
+      // File exists, allow stop to proceed
+      return { decision: undefined };
+    }
+
+    // File doesn't exist, block stop and instruct agent to verify
     const entries = readTranscriptEntries(transcriptPath, 5);
 
-    if (entries.length === 0) {
-      // No transcript to verify, just create the verification file
-      fs.writeFileSync(verificationFile, 'VERIFIED');
-      return { decision: undefined };
-    }
+    const instruction = `Use glootie code execution to check the last few json entries in the transcript one by one, devise a mechanism to verify that it's finished, and touch the file ${verificationFile} when confirmed.`;
 
-    // Create context for glootie execution
-    const entriesJson = JSON.stringify(entries, null, 2);
-    const verificationCode = `
-const entries = ${entriesJson};
-const result = {
-  entriesAnalyzed: entries.length,
-  lastEntry: entries[entries.length - 1],
-  hasErrors: entries.some(e => e.parseError || e.entry?.error),
-  analysis: entries.map(e => ({
-    line: e.line,
-    type: e.entry?.event || 'unknown'
-  }))
-};
-console.log(JSON.stringify(result, null, 2));
-`;
-
-    // Execute verification through glootie
-    try {
-      const output = execSync(`node -e "${verificationCode.replace(/"/g, '\\"')}"`, {
-        encoding: 'utf-8',
-        stdio: ['pipe', 'pipe', 'pipe'],
-        timeout: 5000
-      });
-
-      // Parse glootie output
-      const result = JSON.parse(output);
-
-      // Create verification file when done
-      const verificationData = {
-        timestamp: new Date().toISOString(),
-        entriesAnalyzed: result.entriesAnalyzed,
-        lastEntry: result.lastEntry,
-        analysis: result.analysis
-      };
-
-      fs.writeFileSync(verificationFile, JSON.stringify(verificationData, null, 2));
-
-      return { decision: undefined };
-    } catch (e) {
-      // Even on error, create verification file to proceed
-      fs.writeFileSync(verificationFile, JSON.stringify({
-        timestamp: new Date().toISOString(),
-        error: e.message,
-        verified: false
-      }, null, 2));
-
-      return { decision: undefined };
-    }
+    return {
+      decision: 'block',
+      reason: 'Waiting for transcript verification',
+      hookSpecificOutput: {
+        hookEventName: 'Stop',
+        additionalContext: instruction,
+        transcriptEntries: entries.length > 0 ? entries : null
+      }
+    };
   } catch (error) {
     return { decision: undefined };
   }
@@ -121,7 +84,14 @@ console.log(JSON.stringify(result, null, 2));
 try {
   const result = run();
   if (result.decision === 'block') {
-    console.log(JSON.stringify({ decision: result.decision, reason: result.reason }));
+    const output = {
+      decision: result.decision,
+      reason: result.reason
+    };
+    if (result.hookSpecificOutput) {
+      output.hookSpecificOutput = result.hookSpecificOutput;
+    }
+    console.log(JSON.stringify(output, null, 2));
   }
 } catch (e) {
 }
