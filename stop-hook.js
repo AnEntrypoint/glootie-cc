@@ -63,18 +63,11 @@ const run = () => {
     }
 
     // File doesn't exist, block stop and instruct agent to verify
-    const entries = readTranscriptEntries(transcriptPath, 5);
-
     const instruction = `Use glootie code execution to check the last few json entries in the transcript one by one, devise a mechanism to verify that it's finished, and touch the file ${verificationFile} when confirmed.`;
 
     return {
       decision: 'block',
-      reason: 'Waiting for transcript verification',
-      hookSpecificOutput: {
-        hookEventName: 'Stop',
-        additionalContext: instruction,
-        transcriptEntries: entries.length > 0 ? entries : null
-      }
+      reason: `Waiting for transcript verification. ${instruction}`
     };
   } catch (error) {
     return { decision: undefined };
@@ -84,14 +77,10 @@ const run = () => {
 try {
   const result = run();
   if (result.decision === 'block') {
-    const output = {
+    console.log(JSON.stringify({
       decision: result.decision,
       reason: result.reason
-    };
-    if (result.hookSpecificOutput) {
-      output.hookSpecificOutput = result.hookSpecificOutput;
-    }
-    console.log(JSON.stringify(output, null, 2));
+    }, null, 2));
   }
 } catch (e) {
 }
