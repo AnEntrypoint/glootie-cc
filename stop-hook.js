@@ -44,6 +44,42 @@ const readTranscriptEntries = (transcriptPath, count = 5) => {
   }
 };
 
+const extractTranscriptContext = () => {
+  try {
+    const home = process.env.HOME || '/root';
+    const transcriptPath = path.join(home, '.claude', 'history.jsonl');
+
+    if (!fs.existsSync(transcriptPath)) {
+      return null;
+    }
+
+    const content = fs.readFileSync(transcriptPath, 'utf-8');
+    const lines = content.trim().split('\n');
+
+    // Extract last 6-10 entries to get context
+    const lastEntries = lines.slice(-10);
+    const context = [];
+
+    lastEntries.forEach((line) => {
+      try {
+        const entry = JSON.parse(line);
+        // Extract display text if available
+        if (entry.display) {
+          // Truncate very long content
+          const displayText = typeof entry.display === 'string'
+            ? entry.display.substring(0, 300)
+            : JSON.stringify(entry.display).substring(0, 300);
+          context.push(displayText);
+        }
+      } catch (e) {}
+    });
+
+    return context.length > 0 ? context.join('\n---\n') : null;
+  } catch (e) {
+    return null;
+  }
+};
+
 const run = () => {
   if (aborted) return { decision: undefined };
 
@@ -62,12 +98,22 @@ const run = () => {
       return { decision: undefined };
     }
 
-    // File doesn't exist, block stop and instruct agent to verify
-    const instruction = `Use glootie code execution to check the last few json entries in the transcript one by one, devise a mechanism to verify that it's finished, and touch the file ${verificationFile} when confirmed.`;
+    // Extract context from recent transcript entries
+    const transcriptContext = extractTranscriptContext();
+
+    // Build instruction with context about work being done
+    let instruction = `You must verify that the work specified in the recent transcript context below is complete. Use glootie code execution and playwriter to independently confirm all specified tasks are finished. Once verified, touch the file ${verificationFile} to signal completion.\n\n`;
+
+    if (transcriptContext) {
+      instruction += `=== RECENT WORK CONTEXT ===\n${transcriptContext}\n\n`;
+      instruction += `=== VERIFICATION TASK ===\nDevise a verification mechanism using glootie and playwriter to confirm the work above is complete and functioning correctly. Check:\n1. Code exists and is properly formatted\n2. Tests pass (if applicable)\n3. No errors in execution\n4. All requirements from the context are satisfied\n\nWhen all checks pass, create the verification file: ${verificationFile}`;
+    } else {
+      instruction += `No recent context found. Devise a mechanism to verify that the current session work is complete using glootie code execution and playwriter integration testing. When verified, touch ${verificationFile}.`;
+    }
 
     return {
       decision: 'block',
-      reason: `Waiting for transcript verification. ${instruction}`
+      reason: instruction
     };
   } catch (error) {
     return { decision: undefined };
