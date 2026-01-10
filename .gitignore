@@ -9,3 +9,4 @@ build/
 .env.local
 .npm
 *.log
+.code-search/
