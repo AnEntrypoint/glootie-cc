@@ -10,11 +10,12 @@
   },
   "plugins": [
     {
-      "name": "glootie",
+      "name": "g",
       "source": "./"
     }
   ]
 }
+
 
 
 
