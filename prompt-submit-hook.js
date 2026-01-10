@@ -9,7 +9,8 @@ const verificationFile = path.join(projectDir, '.glootie-stop-verified');
 try {
   const result = {
     hookSpecificOutput: {
-      hookEventName: 'PromptSubmit'
+      hookEventName: 'UserPromptSubmit',
+      additionalContext: 'Glootie execution cycle proceeding'
     }
   };
 
@@ -17,9 +18,9 @@ try {
   if (fs.existsSync(verificationFile)) {
     try {
       fs.unlinkSync(verificationFile);
-      result.hookSpecificOutput.message = 'Verification file cleaned up';
+      result.hookSpecificOutput.additionalContext += ' - verification file cleaned up';
     } catch (e) {
-      result.hookSpecificOutput.message = `Could not delete verification file: ${e.message}`;
+      result.hookSpecificOutput.additionalContext += ` - could not delete verification file: ${e.message}`;
     }
   }
 
@@ -27,8 +28,8 @@ try {
 } catch (error) {
   console.error(JSON.stringify({
     hookSpecificOutput: {
-      hookEventName: 'PromptSubmit',
-      error: error.message
+      hookEventName: 'UserPromptSubmit',
+      additionalContext: `Hook error: ${error.message}`
     }
   }, null, 2));
   process.exit(1);
