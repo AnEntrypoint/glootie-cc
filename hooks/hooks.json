@@ -65,7 +65,7 @@
         ]
       }
     ],
-    "PromptSubmit": [
+    "UserPromptSubmit": [
       {
         "matcher": "*",
         "hooks": [
