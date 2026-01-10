@@ -43,17 +43,22 @@ async function main() {
         const markerPath = path.join(__dirname, '.glootie-stop-verified');
         fs.writeFileSync(markerPath, `Verified at ${new Date().toISOString()}\n`);
 
+        // Allow stop - transcript verified
         console.log(JSON.stringify({
           reason: 'Transcript verified successfully'
         }));
       } else {
+        // Block stop - transcript invalid
         console.log(JSON.stringify({
-          reason: 'Transcript validation completed'
+          decision: 'block',
+          reason: 'Transcript validation failed - cannot stop'
         }));
       }
     } else {
+      // Block stop - no entries found
       console.log(JSON.stringify({
-        reason: 'No transcript entries found'
+        decision: 'block',
+        reason: 'No transcript entries found - cannot verify'
       }));
     }
 
