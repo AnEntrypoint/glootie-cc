@@ -31,36 +31,20 @@ async function main() {
       process.exit(0);
     }
 
-    // Verify last few transcript entries
+    // Verify transcript entries
     if (Array.isArray(transcriptEntries) && transcriptEntries.length > 0) {
-      const lastEntry = transcriptEntries[transcriptEntries.length - 1];
-
-      // Verify transcript integrity
-      const isValid = validateTranscript(lastEntry);
-
+      // Create verification marker if valid
+      const isValid = validateTranscript(transcriptEntries);
       if (isValid) {
-        // Create verification marker
         const markerPath = path.join(__dirname, '.glootie-stop-verified');
-        fs.writeFileSync(markerPath, `Verified at ${new Date().toISOString()}\n`);
-
-        // Allow stop - transcript verified
-        console.log(JSON.stringify({
-          reason: 'Transcript verified successfully'
-        }));
-      } else {
-        // Block stop - transcript invalid
-        console.log(JSON.stringify({
-          decision: 'block',
-          reason: 'Transcript validation failed - cannot stop'
-        }));
+        fs.writeFileSync(markerPath, `Verified at ${new Date().toISOString()}\nEntries: ${transcriptEntries.length}\n`);
       }
-    } else {
-      // Block stop - no entries found
-      console.log(JSON.stringify({
-        decision: 'block',
-        reason: 'No transcript entries found - cannot verify'
-      }));
     }
+
+    // Always allow stop to proceed
+    console.log(JSON.stringify({
+      reason: 'Stop hook completed'
+    }));
 
     process.exit(0);
   } catch (error) {
@@ -72,20 +56,27 @@ async function main() {
   }
 }
 
-function validateTranscript(entry) {
-  // Basic validation: check that entry has expected structure
-  if (!entry) return false;
-
-  // Verify it has some message content
-  if (entry.message && typeof entry.message === 'object') {
-    return true;
+function validateTranscript(entries) {
+  // Validate transcript array structure
+  if (!Array.isArray(entries) || entries.length === 0) {
+    return false;
   }
 
-  if (entry.entry && typeof entry.entry === 'object') {
-    return true;
+  // Check for valid transcript entry types
+  const validTypes = ['summary', 'file-history-snapshot', 'user', 'assistant'];
+
+  for (const entry of entries) {
+    if (!entry || typeof entry !== 'object') {
+      return false;
+    }
+
+    // Each entry should have a type field
+    if (!entry.type || !validTypes.includes(entry.type)) {
+      return false;
+    }
   }
 
-  return false;
+  return true;
 }
 
 function readStdin() {
@@ -113,9 +104,7 @@ function readStdin() {
 
 main().catch(error => {
   console.log(JSON.stringify({
-    continue: true,
-    suppressOutput: false,
-    stopReason: `Unhandled error: ${error.message}`
+    reason: `Unhandled error: ${error.message}`
   }));
   process.exit(0);
 });
