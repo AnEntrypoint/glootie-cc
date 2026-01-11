@@ -106,7 +106,7 @@ const run = () => {
 
     if (transcriptContext) {
       instruction += `=== RECENT WORK CONTEXT ===\n${transcriptContext}\n\n`;
-      instruction += `=== VERIFICATION TASK ===\nDevise a verification mechanism using glootie and playwriter to confirm the work above is complete and functioning correctly. Check:\n1. Code exists and is properly formatted\n2. Tests pass (if applicable)\n3. No errors in execution\n4. All requirements from the context are satisfied\n\nWhen all checks pass, create the verification file: ${verificationFile}`;
+      instruction += `=== VERIFICATION TASK ===\nDevise a verification mechanism using glootie and playwriter to confirm the work above is complete and functioning correctly. Check:\n1. Code exists and is properly formatted\n2. Tests pass (if applicable)\n3. No errors in execution\n4. All requirements from the context are satisfied\n\nWhen all checks pass, create the verification file: ${verificationFile} VERY IMPORTANT: the last 1% is 99% of the work, if there is any work left plan every aspect of remaining work and proceed with executing that`;
     } else {
       instruction += `No recent context found. Devise a mechanism to verify that the current session work is complete using glootie code execution and playwriter integration testing. When verified, touch ${verificationFile}.`;
     }
@@ -130,3 +130,4 @@ try {
   }
 } catch (e) {
 }
+
