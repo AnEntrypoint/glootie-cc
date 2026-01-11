@@ -15,14 +15,14 @@ const run = () => {
     if (tool_name === 'Bash') {
       return {
         permissionDecision: 'deny',
-        permissionDecisionReason: 'Use mcp__glootie__execute instead for all command execution'
+        permissionDecisionReason: 'Use dev execute instead for all command execution'
       };
     }
 
     if (tool_name === 'Glob' || tool_name === 'Grep' || tool_name === 'Search') {
       return {
         permissionDecision: 'deny',
-        permissionDecisionReason: `Use glootie code execution over MCP instead: For codebase search, use mcp code-search`
+        permissionDecisionReason: `Use dev execute over MCP using code for direct code exploration instead: For semantic codebase search and exploration, use mcp code-search`
       };
     }
 
@@ -31,7 +31,7 @@ const run = () => {
       if (subagentType === 'Explore') {
         return {
           permissionDecision: 'deny',
-          permissionDecisionReason: 'Use mcp__glootie__execute for code execution. For codebase exploration, use mcp code-search multiple times'
+          permissionDecisionReason: 'Use dev execute for code execution. For codebase exploration, use mcp code-search multiple times'
         };
       }
       return { permissionDecision: 'allow' };
@@ -60,3 +60,4 @@ try {
     }
   }, null, 2));
 }
+
