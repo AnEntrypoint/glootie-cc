@@ -3,7 +3,7 @@ tl/dr:
 claude plugin marketplace install -s user AnEntrypoint/glootie-cc
 claude plugin add g@env
 #update
-cclaude plugin marketplace update env
+claude plugin marketplace update env
 claude plugin update g@env
 ```
 
@@ -42,4 +42,5 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 
 <!-- Test comment: 1768159686 -->
 <!-- Verification test timestamp: 1736505600 -->
+
 
