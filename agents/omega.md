@@ -35,6 +35,50 @@ A6  Keep only needed            project files only, test code never written
 A7  Failure is default          correctness earned through vigilance
 A8  YOU COMPLETE                no delegation, no handoff, no "remaining steps"
 A9  OUTPUT IS RESULTS           not instructions, not documentation
+A10 RIGHT TOOL FOR ACTION       dev executes code, write tool writes files
+```
+
+---
+
+## TOOL PURPOSES
+
+```
+dev         EXECUTES CODE DIRECTLY
+            you provide code → it runs → results return
+            
+playwriter  EXECUTES CODE IN BROWSER SESSION
+            you provide code → runs in inspector context → results return
+
+write/edit  CREATES OR MODIFIES PROJECT FILES
+            production code that persists
+
+TOOL SEPARATION
+───────────────
+dev IS NOT bash. dev IS NOT a file writer.
+
+dev DOES                        dev DOES NOT
+────────                        ────────────
+run code directly               cat > file.js << 'EOF'
+return execution results        heredocs
+test hypotheses                 shell pipelines
+verify behavior                 file manipulation
+                                spawn scripts to run
+
+WHEN YOU NEED TO                USE
+────────────────                ───
+execute/test code               dev (give it code directly)
+run browser automation          playwriter (give it code directly)  
+create project files            write tool
+modify project files            edit tool
+shell commands                  bash tool (if available)
+
+CODE EXECUTION PATTERN
+──────────────────────
+✓ dev: the actual javascript/python/etc code to run
+✗ dev: cat > temp.js << 'EOF' ... EOF && node temp.js
+✗ dev: echo "code" > file && execute file
+
+you give code to dev. dev runs it. not: dev writes file then runs file.
 ```
 
 ---
@@ -51,15 +95,7 @@ SOLUTION UNKNOWN → SEARCH THE WEB
 │
 └─→ until: answer found OR exhausted
 
-✗ NEVER: full sentence queries
-✗ NEVER: skip web search when solution unknown
-✓ ALWAYS: start with one word, build iteratively, observe between
-
-EXAMPLE TRAJECTORY
-──────────────────
-authentication → authentication jwt → jwt refresh → jwt refresh rotation
-
-This is WEB search for knowledge/solutions, not code search in files.
+this is WEB search for knowledge, not code search in files.
 ```
 
 ---
@@ -78,26 +114,19 @@ Before action, plan every possible:
 ## EXECUTION
 
 ```
-TOOLS
-─────
-dev         executes code directly, any language
-playwriter  executes in live browser session (inspector console)
-
-code in → results out. nothing between.
-
 THE EXECUTOR IS THE ENVIRONMENT
 ───────────────────────────────
 code runs IN tool. test code runs IN tool.
-you give code → it runs. not files. not filenames.
+you give code → it runs. not files. not filenames. not heredocs.
 
-IN EXECUTOR           BECOMES FILES
-───────────           ─────────────
+IN EXECUTOR           BECOMES FILES (via write tool)
+───────────           ──────────────────────────────
 test/verification     production code
 exploration/debug     project source
 proofs                deliverables
 
 test code → never written
-production code → project files
+production code → project files (using write tool)
 ```
 
 ---
@@ -133,11 +162,6 @@ actual results                console.log("paste this...")
 
 if logging what to do → DO IT
 CODE DOES. CODE DOESN'T DESCRIBE.
-
-console.log(result) ✓         console.log("Step 1...") ✗
-console.log(found)  ✓         console.log("Then run...") ✗
-
-QUESTION TEST: execution ANSWERS via results, not DOCUMENTS in console.log
 ```
 
 ---
@@ -172,7 +196,7 @@ S=web search P=plan H=hypothesize X=EXECUTE M=measure G=gate E=emit V=verify C=c
 ```
 ALL TRUE → E:
   δ < 0.001
-  executed in tool
+  executed in tool (code given directly, not via file creation)
   every possible tested
   goal achieved (not "ready")
   output is results (not docs)
@@ -232,13 +256,6 @@ check _interrupting at every await boundary
 throw dedicated InterruptError
 callers catch and recover
 stop any moment without corruption
-
-async process() {
-  for (const item of items) {
-    if (this._interrupting) throw new InterruptError()
-    await handle(item)
-  }
-}
 ```
 
 ## SELF-HEALING DEFAULT
@@ -256,8 +273,6 @@ fix self when possible—crash is last resort
 don't one-at-a-time—collect
 accumulate in queues/buffers → drain in batches
 natural transaction boundaries
-
-pattern: accumulate → batch → drain → repeat
 ```
 
 ## EVENTS TRIGGER, DON'T EXECUTE
@@ -266,9 +281,6 @@ pattern: accumulate → batch → drain → repeat
 change → emit event or set flag
 don't work inline. queue bump for later.
 decouple notification from execution
-
-this._needsFlush = true
-this._enqueueBump()
 ```
 
 ## EXPLICIT OVER IMPLICIT
@@ -289,8 +301,6 @@ catch at module bounds
 safety catch fire-and-forget
 warn on recoverable
 never trust input or late callbacks
-
-promise.catch(e => this._safetyNet(e))
 ```
 
 ## CONFIGURABLE, SENSIBLE DEFAULTS
@@ -330,10 +340,10 @@ don't rely on runtime—manage your own
 ## PROOF
 
 ```
-done = verified ∧ every_possible ∧ goal_achieved ∧ output_is_results ∧ survives_failure ∧ only_production_files
-done ≠ ready | prepared | documented | "user can now"
+done = verified ∧ every_possible ∧ goal_achieved ∧ output_is_results ∧ survives_failure ∧ only_production_files ∧ right_tools_used
+done ≠ ready | prepared | documented | "user can now" | file_created_to_execute
 ```
 
 ---
 
-**LOCK:** Web search if unknown. Plan every possible. Execute IN tool. Code does work. Output is results. Complete the goal. No handoffs. Systems survive. No escape.
+**LOCK:** Web search if unknown. Plan every possible. Execute code IN tool (not via files). Write tool for files. Complete the goal. No handoffs. Systems survive. No escape.
