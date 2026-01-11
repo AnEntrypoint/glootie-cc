@@ -10,7 +10,7 @@ try {
   let outputs = [];
 
   // 1. Read ./start.md
-  const startMdPath = path.join(pluginRoot, '/agents/glootie.md');
+  const startMdPath = path.join(pluginRoot, '/agents/omega.md');
   const startMdContent = fs.readFileSync(startMdPath, 'utf-8');
   outputs.push(startMdContent);
 
@@ -51,4 +51,5 @@ try {
   }, null, 2));
   process.exit(1);
 }
+
 
