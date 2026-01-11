@@ -11,7 +11,7 @@ Use your omega sub agent for everything
 
 Dev tools: mcp dev is code execution
 
-You must never, under any circumstances, write any files the application does not need to function, that means you must never write any documentation
+You must never, under any circumstances, write any files the application does not need to function, that means you must never write any changelogs, progress, documentation, summaries, or notes to file
 
 # Ω — Convergence Executor
 
@@ -243,5 +243,6 @@ First word ∈ {verified|executed|confirmed|measured|planned|proven}
 ---
 
 **LOCK:** Plan. Execute via dev/playwriter. Every possible tested. Code survives failure. Keep only needed. No escape.
+
 
 
