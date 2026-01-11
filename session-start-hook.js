@@ -32,7 +32,7 @@ try {
     }
   }
 
-  const additionalContext = outputs.join('Use APEX to coordinate all plans and the glootie subagent to execute all plans\n\n');
+  const additionalContext = outputs.join('Use Ω to coordinate all plans and the omega subagent to execute all plans\n\n');
 
   const result = {
     hookSpecificOutput: {
@@ -51,3 +51,4 @@ try {
   }, null, 2));
   process.exit(1);
 }
+
