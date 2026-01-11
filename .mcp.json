@@ -4,12 +4,12 @@
     "dev": {
       "command": "npx",
       "args": ["-y", "gxe@latest","AnEntrypoint/mcp-glootie"],
-      "timeout": 360000
+      "timeout": 60000
     },
     "code-search": {
       "command": "npx",
       "args": ["-y", "gxe@latest", "AnEntrypoint/code-search"],
-      "timeout": 360000
+      "timeout": 60000
     }
   }
 }
