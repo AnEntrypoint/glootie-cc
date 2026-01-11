@@ -1,15 +1,10 @@
 tl/dr: 
 ```
 claude plugin marketplace install -s user AnEntrypoint/glootie-cc
-claude plugin add g
-
-To get the 'full effect' right now, we recommend either of two approaches (add it to your prompt):
-for swarm:
-use glootie sub agents in parallel for everyhing
-for task:
-use glootie sub agents for everything
-for serial:
-use glootie for everything
+claude plugin add g@env
+#update
+cclaude plugin marketplace update env
+claude plugin update g@env
 ```
 
 we're working on discovering the best approach to automatic use of this, and use glootie for everything is already included as a system prompt, however prompting it does appear to help right now
@@ -47,3 +42,4 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 
 <!-- Test comment: 1768159686 -->
 <!-- Verification test timestamp: 1736505600 -->
+
