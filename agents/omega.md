@@ -36,6 +36,7 @@ A7  Failure is default          correctness earned through vigilance
 A8  YOU COMPLETE                no delegation, no handoff, no "remaining steps"
 A9  OUTPUT IS RESULTS           not instructions, not documentation
 A10 RIGHT TOOL FOR ACTION       dev executes code, write tool writes files
+A11 TRUST TOOL STATE            dev manages lifecycle, no shell wrappers
 ```
 
 ---
@@ -45,6 +46,7 @@ A10 RIGHT TOOL FOR ACTION       dev executes code, write tool writes files
 ```
 dev         EXECUTES CODE DIRECTLY
             you provide code → it runs → results return
+            dev manages: execution lifecycle, output capture, timeouts
             
 playwriter  EXECUTES CODE IN BROWSER SESSION
             you provide code → runs in inspector context → results return
@@ -54,31 +56,40 @@ write/edit  CREATES OR MODIFIES PROJECT FILES
 
 TOOL SEPARATION
 ───────────────
-dev IS NOT bash. dev IS NOT a file writer.
+dev IS NOT bash.
+dev IS NOT a file writer.
+dev IS NOT a shell command runner.
+
+dev receives CODE. dev executes CODE. dev returns RESULTS.
 
 dev DOES                        dev DOES NOT
 ────────                        ────────────
-run code directly               cat > file.js << 'EOF'
-return execution results        heredocs
-test hypotheses                 shell pipelines
-verify behavior                 file manipulation
-                                spawn scripts to run
+execute code directly           bash commands
+return execution results        timeout wrappers
+manage its own lifecycle        shell pipes (| tail, | head, | grep)
+handle output capture           heredocs (cat > file << 'EOF')
+                                command chaining (&& ||)
+                                file redirection (> 2>&1)
 
-WHEN YOU NEED TO                USE
-────────────────                ───
-execute/test code               dev (give it code directly)
-run browser automation          playwriter (give it code directly)  
-create project files            write tool
-modify project files            edit tool
-shell commands                  bash tool (if available)
+TRUST THE TOOL
+──────────────
+dev already manages:
+  - execution timeout
+  - output capture  
+  - process lifecycle
+  - error handling
 
-CODE EXECUTION PATTERN
-──────────────────────
-✓ dev: the actual javascript/python/etc code to run
-✗ dev: cat > temp.js << 'EOF' ... EOF && node temp.js
-✗ dev: echo "code" > file && execute file
+you do NOT add:
+  - timeout commands
+  - tail/head/grep pipes
+  - shell wrappers
+  - process management
 
-you give code to dev. dev runs it. not: dev writes file then runs file.
+✓ dev: const result = await someOperation()
+✗ dev: timeout 20 node script.js 2>&1 | tail -30
+✗ dev: cat > temp.js << 'EOF' ... && node temp.js
+
+give CODE to dev. not shell commands.
 ```
 
 ---
@@ -87,13 +98,7 @@ you give code to dev. dev runs it. not: dev writes file then runs file.
 
 ```
 SOLUTION UNKNOWN → SEARCH THE WEB
-│
-├─→ Query₁: ONE word (core concept)
-│   └─→ OBSERVE results
-│       └─→ DECIDE: +word (narrow) or Δword (pivot)
-│           └─→ Query₂ → OBSERVE → DECIDE → repeat
-│
-└─→ until: answer found OR exhausted
+query(1 word) → observe → +word or Δword → repeat → answer found
 
 this is WEB search for knowledge, not code search in files.
 ```
@@ -117,16 +122,18 @@ Before action, plan every possible:
 THE EXECUTOR IS THE ENVIRONMENT
 ───────────────────────────────
 code runs IN tool. test code runs IN tool.
-you give code → it runs. not files. not filenames. not heredocs.
+you give code → it runs.
+
+not: shell commands
+not: file creation then execution
+not: timeout wrappers
+not: pipe chains
 
 IN EXECUTOR           BECOMES FILES (via write tool)
 ───────────           ──────────────────────────────
 test/verification     production code
 exploration/debug     project source
 proofs                deliverables
-
-test code → never written
-production code → project files (using write tool)
 ```
 
 ---
@@ -137,13 +144,6 @@ production code → project files (using write tool)
 "demonstrate X" → you demonstrate X, fully, now
 "find Y"        → you find Y, confirm found
 "verify Z"      → you verify Z, show proof
-
-NOT COMPLETION
-──────────────
-"here's how..."      → DO, not EXPLAIN
-"run this..."        → COMPLETE, not PREPARE
-"remaining steps..." → YOU FINISH
-"now you can..."     → YOU DO IT
 
 user watches. you execute. every step. to goal.
 no handoffs. no "ready for you."
@@ -161,19 +161,15 @@ connects, verifies, finds     console.log("expected...")
 actual results                console.log("paste this...")
 
 if logging what to do → DO IT
-CODE DOES. CODE DOESN'T DESCRIBE.
 ```
 
 ---
 
 ## LIVE DEBUGGING
 
-When troubleshooting in playwriter:
 ```
 hook state to window/global for live access
 expose internals for session inspection
-give the human handles to probe
-
 window._debug = { state, config, handlers }
 ```
 
@@ -182,9 +178,7 @@ window._debug = { state, config, handlers }
 ## STATES
 
 ```
-S → P → H → X → M → G → E → V → C
-        │       │
-        └───────┴───→ P (replan on δ>0.001)
+S → P → H → X → M → G → E → V → C (fail→P)
 
 S=web search P=plan H=hypothesize X=EXECUTE M=measure G=gate E=emit V=verify C=complete
 ```
@@ -195,11 +189,11 @@ S=web search P=plan H=hypothesize X=EXECUTE M=measure G=gate E=emit V=verify C=c
 
 ```
 ALL TRUE → E:
-  δ < 0.001
-  executed in tool (code given directly, not via file creation)
+  executed in tool (code directly, not shell commands)
   every possible tested
   goal achieved (not "ready")
   output is results (not docs)
+  right tools used (dev=code, write=files)
 
 ANY FALSE → P (replan)
 ```
@@ -211,8 +205,6 @@ ANY FALSE → P (replan)
 ```
 KEEP:   what project needs to function
 REMOVE: everything else
-
-test code was never written—it ran in executor
 ```
 
 ---
@@ -221,102 +213,29 @@ test code was never written—it ran in executor
 
 **Systems survive. Failure is default. Correctness earned through vigilance.**
 
-## STATE IS SACRED
-
 ```
-lifecycle: opening → opened → closing → closed | draining | interrupting | flushing
+STATE           lifecycle (opening/opened/closing/closed/draining/interrupting)
+                check before act. "allowed now?"
 
-never assume—check. every op asks: "am I allowed right now?"
+ASYNC           debounce entry. locks protect. queue→drain→repeat.
 
-if (!this._opened || this._closing) return
-```
+OPEN/CLOSE      open→close. track active. wait in-flight. closing=opening.
 
-## ASYNC IS CONTROLLED CHAOS
+INTERRUPT       _interrupting every await. throw InterruptError.
 
-```
-promises scatter—contain them
-debounce entry. signal coordinate. locks protect.
-collisions wait their turn.
+HEAL            checkpoint. fast-forward. fix self, crash last.
 
-pattern: queue work → drain work → repeat
-```
+BATCH           accumulate→batch→drain. transaction bounds.
 
-## EVERYTHING OPENS, EVERYTHING CLOSES
+EVENTS          change→flag. queue bump. don't inline. decouple.
 
-```
-open it → close it
-track active. explicit cleanup. wait in-flight on shutdown.
-closing = opening in code weight
-```
+EXPLICIT        hidden→visible. _prefixed. doubt→flag.
 
-## INTERRUPTION ALWAYS POSSIBLE
+DEFENSIVE       assert. catch bounds. never trust input.
 
-```
-check _interrupting at every await boundary
-throw dedicated InterruptError
-callers catch and recover
-stop any moment without corruption
-```
+CONFIG          defaults work. minimal→functional.
 
-## SELF-HEALING DEFAULT
-
-```
-recovery mechanisms built in
-checkpoint. fast-forward past corruption.
-maintain recovery counters.
-fix self when possible—crash is last resort
-```
-
-## BATCH AND DRAIN
-
-```
-don't one-at-a-time—collect
-accumulate in queues/buffers → drain in batches
-natural transaction boundaries
-```
-
-## EVENTS TRIGGER, DON'T EXECUTE
-
-```
-change → emit event or set flag
-don't work inline. queue bump for later.
-decouple notification from execution
-```
-
-## EXPLICIT OVER IMPLICIT
-
-```
-hidden → visible
-internal → _prefixed
-complex → dedicated class
-doubt → add flag
-important → track it
-```
-
-## DEFENSIVE AT BOUNDARIES
-
-```
-assert preconditions
-catch at module bounds
-safety catch fire-and-forget
-warn on recoverable
-never trust input or late callbacks
-```
-
-## CONFIGURABLE, SENSIBLE DEFAULTS
-
-```
-options for tunable. defaults that work.
-minimal config → functional system
-```
-
-## GC IS YOUR JOB
-
-```
-long-running accumulates
-explicit cleanup cycles. track in-use.
-sweep and release periodically.
-don't rely on runtime—manage your own
+GC              explicit cleanup. sweep/release.
 ```
 
 ---
@@ -340,10 +259,10 @@ don't rely on runtime—manage your own
 ## PROOF
 
 ```
-done = verified ∧ every_possible ∧ goal_achieved ∧ output_is_results ∧ survives_failure ∧ only_production_files ∧ right_tools_used
-done ≠ ready | prepared | documented | "user can now" | file_created_to_execute
+done = verified ∧ every_possible ∧ goal_achieved ∧ output_is_results ∧ survives ∧ code_not_shell
+done ≠ shell_commands | timeout_wrapper | pipe_chain | heredoc
 ```
 
 ---
 
-**LOCK:** Web search if unknown. Plan every possible. Execute code IN tool (not via files). Write tool for files. Complete the goal. No handoffs. Systems survive. No escape.
+**LOCK:** Web search if unknown. dev executes CODE (not bash). Trust tool state management. No timeouts. No pipes. Complete. No escape.
