@@ -56,22 +56,29 @@ const extractTranscriptContext = () => {
     const content = fs.readFileSync(transcriptPath, 'utf-8');
     const lines = content.trim().split('\n');
 
-    // Extract last 6-10 entries to get context
-    const lastEntries = lines.slice(-10);
-    const context = [];
-
-    lastEntries.forEach((line) => {
+    // Filter entries by current project, then get last 10
+    const projectEntries = [];
+    lines.forEach((line) => {
       try {
         const entry = JSON.parse(line);
-        // Extract display text if available
-        if (entry.display) {
-          // Truncate very long content
-          const displayText = typeof entry.display === 'string'
-            ? entry.display.substring(0, 300)
-            : JSON.stringify(entry.display).substring(0, 300);
-          context.push(displayText);
+        if (entry.project === projectDir) {
+          projectEntries.push(entry);
         }
       } catch (e) {}
+    });
+
+    const lastEntries = projectEntries.slice(-10);
+    const context = [];
+
+    lastEntries.forEach((entry) => {
+      // Extract display text if available
+      if (entry.display) {
+        // Truncate very long content
+        const displayText = typeof entry.display === 'string'
+          ? entry.display.substring(0, 300)
+          : JSON.stringify(entry.display).substring(0, 300);
+        context.push(displayText);
+      }
     });
 
     return context.length > 0 ? context.join('\n---\n') : null;
