@@ -16,7 +16,7 @@ https://github.com/remorses/playwriter
 
 what glootie does is it enacts a system policy as a virtual state machine that the LLM then has to try and emulate, enforces the use of code execution instead of file edit and run loops, 
 
-<img width="225" height="325" alt="image" src="https://github.com/user-attachments/assets/c20abd6c-5e5a-427d-a4fb-b6bd6736d0c6" />
+<img width="225" height="325" alt="image" src="https://github.com/user-attachments/assets/866e6861-a2e2-490d-8bd0-ec558753dbed" />
 
 # Claude Code Plugin
 
@@ -42,5 +42,6 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 
 <!-- Test comment: 1768159686 -->
 <!-- Verification test timestamp: 1736505600 -->
+
 
 
