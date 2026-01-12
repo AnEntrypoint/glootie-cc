@@ -16,7 +16,7 @@ try {
 
   // 2. Run mcp-thorns (npx)
   try {
-    const thornOutput = execSync(`npx -y mcp-thorns@latest`, {
+    const thornOutput = execSync(`npx -y gxe@latest AnEntrypoint/mcp-thorns thorns`, {
       encoding: 'utf-8',
       stdio: ['pipe', 'pipe', 'pipe'],
       cwd: projectDir,
@@ -51,6 +51,7 @@ try {
   }, null, 2));
   process.exit(1);
 }
+
 
 
 
