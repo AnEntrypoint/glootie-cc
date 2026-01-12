@@ -1,5 +1,5 @@
 {
-  "name": "env",
+  "name": "gm",
   "owner": {
     "name": "AnEntrypoint"
   },
@@ -10,11 +10,12 @@
   },
   "plugins": [
     {
-      "name": "g",
+      "name": "gm",
       "source": "./"
     }
   ]
 }
+
 
 
 
