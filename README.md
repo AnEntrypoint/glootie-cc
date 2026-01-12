@@ -9,11 +9,11 @@ claude plugin marketplace update env
 claude plugin update gm@gm
 ```
 
-we're working on discovering the best approach to automatic use of this, and use glootie for everything is already included as a system prompt, however prompting it does appear to help right now
+This is my personal dev workflow on discovering the best approach to automatic use of this, and use glootie for everything is already included as a system prompt, however prompting it does appear to help right now
 
-the plugin marketplace will appear as 'env'... the idea is that env is more token friendly
-the mcp tools will appear under the 'g' plugin
-plugin:g:dev is how it will now execute all things, giving a controllable environment for execution, currently the recommended way to add client side coding abilities to this tool is playwriter:
+the plugin marketplace will appear as 'gm'
+the mcp tools will appear under the 'gm' plugin
+plugin:gm:dev is how it will now execute all things, giving a controllable environment for execution, currently the recommended way to add client side coding abilities to this tool is playwriter:
 https://github.com/remorses/playwriter
 
 what glootie does is it enacts a system policy as a virtual state machine that the LLM then has to try and emulate, enforces the use of code execution instead of file edit and run loops, 
@@ -28,6 +28,7 @@ what glootie does is it enacts a system policy as a virtual state machine that t
 - **glootie** - Code execution via `mcp-glootie@latest`
 - **thorns** (loaded via hooks)
 - **code-search** semantic code search
+
 
 
 
