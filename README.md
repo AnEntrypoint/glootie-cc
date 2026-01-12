@@ -1,3 +1,5 @@
+# glootius maximus (gm)
+
 tl/dr: 
 ```
 claude plugin marketplace install -s user AnEntrypoint/glootie-cc
@@ -42,6 +44,7 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 
 <!-- Test comment: 1768159686 -->
 <!-- Verification test timestamp: 1736505600 -->
+
 
 
 
