@@ -20,15 +20,6 @@ what glootie does is it enacts a system policy as a virtual state machine that t
 
 <img width="225" height="325" alt="image" src="https://github.com/user-attachments/assets/866e6861-a2e2-490d-8bd0-ec558753dbed" />
 
-# Claude Code Plugin
-
-An advanced Claude Code plugin that provides comprehensive automated workflows, WFGY integration, and bundled MCP tools for enhanced development productivity.
-## Installation
-
-1. Copy the plugin files to your desired location
-2. Load the plugin in Claude Code settings
-3. MCP tools are automatically bundled and available
-
 **Note:** we use gxe as an npx-to-github proxy to start the tools faster and keep them up-to-date, if you ever need to fix an issue with partial installs or something, just delete ~/.gxe and try again
 
 ## Features
@@ -37,14 +28,6 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 - **glootie** - Code execution via `mcp-glootie@latest`
 - **thorns** (loaded via hooks)
 - **code-search** semantic code search
-- **dev-server** specialized npm run dev runner
-
-
-<!-- Final verification test: Hook allows clean README changes -->
-
-<!-- Test comment: 1768159686 -->
-<!-- Verification test timestamp: 1736505600 -->
-
 
 
 
