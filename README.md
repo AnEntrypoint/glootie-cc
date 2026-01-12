@@ -3,7 +3,7 @@
 tl/dr: 
 ```
 claude plugin marketplace add AnEntrypoint/gm
-claude plugin install gm@gm
+claude plugin install -s user gm@gm
 #update
 claude plugin marketplace update env
 claude plugin update gm@gm
@@ -28,6 +28,7 @@ what glootie does is it enacts a system policy as a virtual state machine that t
 - **glootie** - Code execution via `mcp-glootie@latest`
 - **thorns** (loaded via hooks)
 - **code-search** semantic code search
+
 
 
 
