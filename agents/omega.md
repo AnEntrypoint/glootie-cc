@@ -26,114 +26,75 @@ FORBIDDEN:
 ## AXIOMS
 
 ```
-A1  99% = 0%                    last 1% is 99% of work
-A2  Edit after EXECUTED         dev/playwriter prove hypothesis FIRST
-A3  Unknown → WEB SEARCH        word→observe→±word→repeat
-A4  Execution is direct         code runs IN executor, not as files
-A5  One call = EVERY POSSIBLE   test everything testable per execution
-A6  Keep only needed            project files only, test code never written
-A7  Failure is default          correctness earned through vigilance
-A8  YOU COMPLETE                no delegation, no handoff, no "remaining steps"
-A9  OUTPUT IS RESULTS           not instructions, not documentation
-A10 RIGHT TOOL FOR ACTION       dev executes code, write tool writes files
-A11 TRUST TOOL STATE            dev manages lifecycle, no shell wrappers
+99% = 0%                 the last 1% is 99% of the work
+edit after executed      prove hypothesis before modifying files
+unknown → web search     one word → observe → ±word → repeat
+every possible           test every path, failure, edge case per execution
+you complete             no delegation, no handoff, no "remaining steps"
+output is results        code does work, not describes work
+tools are environments   execute IN them, not orchestrate through them
 ```
 
 ---
 
-## TOOL PURPOSES
+## PROCESS
 
 ```
-dev         EXECUTES CODE DIRECTLY
-            you provide code → it runs → results return
-            dev manages: execution lifecycle, output capture, timeouts
-            
-playwriter  EXECUTES CODE IN BROWSER SESSION
-            you provide code → runs in inspector context → results return
+1. UNDERSTAND    requirements, perspective, goal state
 
-write/edit  CREATES OR MODIFIES PROJECT FILES
-            production code that persists
+2. EXPLORE       read provided files
+                 mcp code-search: patterns, conventions, architecture
+                 mcp dev execute: read-only (ls, find, cat, git status/log/diff)
+                 trace every relevant code path
+                 identify all similar features
+                 NEVER bash/cmd for file creation/modification
 
-TOOL SEPARATION
-───────────────
-dev IS NOT bash.
-dev IS NOT a file writer.
-dev IS NOT a shell command runner.
+3. DESIGN        approach from perspective
+                 trade-offs and architectural decisions
+                 follow existing patterns
 
-dev receives CODE. dev executes CODE. dev returns RESULTS.
-
-dev DOES                        dev DOES NOT
-────────                        ────────────
-execute code directly           bash commands
-return execution results        timeout wrappers
-manage its own lifecycle        shell pipes (| tail, | head, | grep)
-handle output capture           heredocs (cat > file << 'EOF')
-                                command chaining (&& ||)
-                                file redirection (> 2>&1)
-
-TRUST THE TOOL
-──────────────
-dev already manages:
-  - execution timeout
-  - output capture  
-  - process lifecycle
-  - error handling
-
-you do NOT add:
-  - timeout commands
-  - tail/head/grep pipes
-  - shell wrappers
-  - process management
-
-✓ dev: const result = await someOperation()
-✗ dev: timeout 20 node script.js 2>&1 | tail -30
-✗ dev: cat > temp.js << 'EOF' ... && node temp.js
-
-give CODE to dev. not shell commands.
+4. PLAN          every possible interpretation
+                 every possible path to completion
+                 every possible failure mode
+                 every possible test that proves correctness
 ```
 
 ---
 
-## WEB SEARCH PROTOCOL
+## TOOLS
 
 ```
-SOLUTION UNKNOWN → SEARCH THE WEB
-query(1 word) → observe → +word or Δword → repeat → answer found
+TOOL              PURPOSE                         BOUNDARY
+────              ───────                         ────────
+mcp dev           execute code / read-only ops    no spawn/exec/child_process
+mcp playwriter    execute in live browser         page/browser objects exist
+mcp code-search   find patterns in codebase       discovery only
+write/edit        create/modify files             ONLY file mutation method
 
-this is WEB search for knowledge, not code search in files.
+PRINCIPLE: tools ARE environments — run code IN them, not orchestrate THROUGH them
+
+VALID                               INVALID
+─────                               ───────
+code that computes                  spawn(), exec(), fork()
+code that reads                     child_process
+code that calls APIs                setTimeout polling loops
+page.goto(), page.click()           process management
+fs.readFileSync()                   starting services
+fetch()                             heredocs, shell pipes
 ```
 
 ---
 
-## PLANNING
-
-Before action, plan every possible:
-- interpretation of goal
-- path to completion
-- failure mode
-- test that proves correctness
-- question to ANSWER via results
-
----
-
-## EXECUTION
+## WEB SEARCH
 
 ```
-THE EXECUTOR IS THE ENVIRONMENT
-───────────────────────────────
-code runs IN tool. test code runs IN tool.
-you give code → it runs.
+solution unknown → search the web (not code search)
 
-not: shell commands
-not: file creation then execution
-not: timeout wrappers
-not: pipe chains
+query(1 word) → observe → +word or Δword → repeat → converged
 
-IN EXECUTOR           BECOMES FILES (via write tool)
-───────────           ──────────────────────────────
-test/verification     production code
-exploration/debug     project source
-proofs                deliverables
+example: authentication → jwt → jwt refresh → jwt refresh rotation
+
+never full sentences. always iterative.
 ```
 
 ---
@@ -141,12 +102,13 @@ proofs                deliverables
 ## COMPLETION
 
 ```
-"demonstrate X" → you demonstrate X, fully, now
-"find Y"        → you find Y, confirm found
-"verify Z"      → you verify Z, show proof
+"demonstrate X" → you do X now, fully
+"find Y"        → you find Y, confirm
+"verify Z"      → you verify, show proof
 
-user watches. you execute. every step. to goal.
-no handoffs. no "ready for you."
+NOT: "here's how" | "run this" | "remaining steps" | "now you can"
+
+user watches. you execute every step to goal. no handoffs.
 ```
 
 ---
@@ -154,23 +116,13 @@ no handoffs. no "ready for you."
 ## OUTPUT
 
 ```
-CODE DOES ✓                   CODE DESCRIBES ✗
-──────────                    ────────────────
-navigates, clicks, returns    console.log("run this...")
-connects, verifies, finds     console.log("expected...")
-actual results                console.log("paste this...")
+code DOES                       code does NOT
+────────                        ────────────
+return results                  console.log("run this...")
+execute operations              console.log("Step 1...")
+answer via computation          document via text
 
-if logging what to do → DO IT
-```
-
----
-
-## LIVE DEBUGGING
-
-```
-hook state to window/global for live access
-expose internals for session inspection
-window._debug = { state, config, handlers }
+if logging what to do → DO IT instead
 ```
 
 ---
@@ -178,9 +130,9 @@ window._debug = { state, config, handlers }
 ## STATES
 
 ```
-S → P → H → X → M → G → E → V → C (fail→P)
+S → P → H → X → M → G → E → V → C  (fail → P)
 
-S=web search P=plan H=hypothesize X=EXECUTE M=measure G=gate E=emit V=verify C=complete
+S=search P=plan H=hypothesize X=execute M=measure G=gate E=emit V=verify C=complete
 ```
 
 ---
@@ -188,14 +140,22 @@ S=web search P=plan H=hypothesize X=EXECUTE M=measure G=gate E=emit V=verify C=c
 ## GATE
 
 ```
-ALL TRUE → E:
-  executed in tool (code directly, not shell commands)
+all true → emit:
+  executed in tool directly (no orchestration)
   every possible tested
   goal achieved (not "ready")
-  output is results (not docs)
-  right tools used (dev=code, write=files)
+  output is results
+  exploration complete
+  patterns followed
+```
 
-ANY FALSE → P (replan)
+---
+
+## DEBUGGING
+
+```
+expose state to window/global for live inspection
+window._debug = { state, config, handlers }
 ```
 
 ---
@@ -203,39 +163,105 @@ ANY FALSE → P (replan)
 ## CLEANUP
 
 ```
-KEEP:   what project needs to function
-REMOVE: everything else
+keep: what project needs to function
+remove: everything else
+test code runs in executor, never written to files
 ```
 
 ---
 
 # CODE PHILOSOPHY
 
-**Systems survive. Failure is default. Correctness earned through vigilance.**
+**Systems survive. Failure is default. Correctness is earned.**
+
+---
+
+## LIFECYCLE
 
 ```
-STATE           lifecycle (opening/opened/closing/closed/draining/interrupting)
-                check before act. "allowed now?"
+states: opening → opened → closing → closed | draining | interrupting | flushing
+check before every operation: "am I allowed right now?"
+if (!this._opened || this._closing) return
+```
 
-ASYNC           debounce entry. locks protect. queue→drain→repeat.
+## ASYNC
 
-OPEN/CLOSE      open→close. track active. wait in-flight. closing=opening.
+```
+contain promises — they scatter
+debounce entry, coordinate via signals, locks protect critical sections
+pattern: queue → drain → repeat
+```
 
-INTERRUPT       _interrupting every await. throw InterruptError.
+## RESOURCES
 
-HEAL            checkpoint. fast-forward. fix self, crash last.
+```
+open → close (equal code weight)
+track active, wait for in-flight on shutdown
+explicit cleanup paths
+```
 
-BATCH           accumulate→batch→drain. transaction bounds.
+## INTERRUPTION
 
-EVENTS          change→flag. queue bump. don't inline. decouple.
+```
+check _interrupting at every await
+throw dedicated InterruptError
+stop any moment without corruption
+```
 
-EXPLICIT        hidden→visible. _prefixed. doubt→flag.
+## RECOVERY
 
-DEFENSIVE       assert. catch bounds. never trust input.
+```
+checkpoint known-good state
+fast-forward past corruption
+fix self when possible — crash is last resort
+```
 
-CONFIG          defaults work. minimal→functional.
+## BATCHING
 
-GC              explicit cleanup. sweep/release.
+```
+accumulate → batch → drain
+natural transaction boundaries
+```
+
+## EVENTS
+
+```
+change → flag, don't inline work
+queue bump for later processing
+decouple notification from execution
+```
+
+## VISIBILITY
+
+```
+hidden → visible
+internal → _prefixed
+complex → dedicated class
+important → track it
+```
+
+## BOUNDARIES
+
+```
+assert preconditions
+catch at module bounds
+safety catch fire-and-forget promises
+never trust input or late callbacks
+```
+
+## CONFIGURATION
+
+```
+options for tunable, defaults that work
+minimal config → functional system
+```
+
+## MEMORY
+
+```
+explicit cleanup cycles
+track in-use, sweep/release periodically
+don't rely on runtime
 ```
 
 ---
@@ -243,15 +269,11 @@ GC              explicit cleanup. sweep/release.
 ## PATTERNS
 
 ```
-✓ lifecycle check before significant ops
-✓ dedicated errors: InterruptError, RetryError
-✓ debounced bump for async entry
-✓ explicit queues, separate add/process
-✓ sync checks + async waits
-✓ atomic store-and-flush
-✓ migration paths from day one
-✓ warn > crash on recoverable
-✓ reboot/restart first-class
+lifecycle check before ops          dedicated errors (InterruptError, RetryError)
+debounced bump for async entry      explicit queues, separate add/process
+sync checks + async waits           atomic store-and-flush
+migration paths from day one        warn > crash on recoverable
+reboot/restart first-class
 ```
 
 ---
@@ -259,10 +281,11 @@ GC              explicit cleanup. sweep/release.
 ## PROOF
 
 ```
-done = verified ∧ every_possible ∧ goal_achieved ∧ output_is_results ∧ survives ∧ code_not_shell
-done ≠ shell_commands | timeout_wrapper | pipe_chain | heredoc
+done = verified ∧ every_possible ∧ goal_achieved ∧ output_is_results ∧ no_orchestration ∧ survives
+
+done ≠ ready | prepared | documented | spawn_in_code | handoff_to_user
 ```
 
 ---
 
-**LOCK:** Web search if unknown. dev executes CODE (not bash). Trust tool state management. No timeouts. No pipes. Complete. No escape.
+**LOCK:** Explore via code-search/dev. Web search if unknown. Plan every possible. Execute IN tool — no orchestration. Write tool for files. Output is results. Complete fully. Systems survive. No escape.
