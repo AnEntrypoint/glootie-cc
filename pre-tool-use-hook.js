@@ -25,7 +25,7 @@ const run = () => {
       if (file_extension === '.md' || file_extension === '.txt' ) {
       return {
         permissionDecision: 'deny',
-        permissionDecisionReason: 'As a coding agent you may not create any new text documents, you may only maintain a continuously reduced technical caveats-only version of CLAUDE.md, and continuously remove anything it doesnt need from that perspective every time you edit it'
+        permissionDecisionReason: 'As a coding agent you may not create any new text documents, you may only maintain a continuously reduced technical caveats-only version of CLAUDE.md and readme.md (only by editing), and continuously remove anything it doesnt need from that perspective every time you edit it'
       };
     }
     
@@ -70,5 +70,6 @@ try {
     }
   }, null, 2));
 }
+
 
 
