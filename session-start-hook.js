@@ -10,7 +10,7 @@ try {
   let outputs = [];
 
   // 1. Read ./start.md
-  const startMdPath = path.join(pluginRoot, '/agents/omega.md');
+  const startMdPath = path.join(pluginRoot, '/agents/gm.md');
   const startMdContent = fs.readFileSync(startMdPath, 'utf-8');
   outputs.push(startMdContent);
 
@@ -32,7 +32,7 @@ try {
     }
   }
 
-  const additionalContext = outputs.join('Use Ω to coordinate all plans and the omega subagent to execute all plans\n\n');
+  const additionalContext = outputs.join('Use gm to coordinate all plans and the gm subagent to execute all plans\n\n');
 
   const result = {
     hookSpecificOutput: {
@@ -51,5 +51,6 @@ try {
   }, null, 2));
   process.exit(1);
 }
+
 
 
