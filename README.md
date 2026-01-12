@@ -2,11 +2,11 @@
 
 tl/dr: 
 ```
-claude plugin marketplace install -s user AnEntrypoint/glootie-cc
-claude plugin add g@env
+claude plugin marketplace install -s user AnEntrypoint/gm
+claude plugin add gm@gm
 #update
 claude plugin marketplace update env
-claude plugin update g@env
+claude plugin update gm@gm
 ```
 
 we're working on discovering the best approach to automatic use of this, and use glootie for everything is already included as a system prompt, however prompting it does appear to help right now
@@ -44,6 +44,7 @@ An advanced Claude Code plugin that provides comprehensive automated workflows, 
 
 <!-- Test comment: 1768159686 -->
 <!-- Verification test timestamp: 1736505600 -->
+
 
 
 
