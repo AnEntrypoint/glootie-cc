@@ -10,3 +10,4 @@ build/
 .npm
 *.log
 .code-search/
+.glootie-stop-verified
