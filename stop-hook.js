@@ -44,7 +44,7 @@ const readTranscriptEntries = (transcriptPath, count = 5) => {
   }
 };
 
-const extractTranscriptContext = () => {
+const extractTranscriptContext = (sessionId) => {
   try {
     const home = process.env.HOME || '/root';
     const transcriptPath = path.join(home, '.claude', 'history.jsonl');
@@ -56,24 +56,21 @@ const extractTranscriptContext = () => {
     const content = fs.readFileSync(transcriptPath, 'utf-8');
     const lines = content.trim().split('\n');
 
-    // Filter entries by current project, then get last 10
-    const projectEntries = [];
+    const filteredEntries = [];
     lines.forEach((line) => {
       try {
         const entry = JSON.parse(line);
-        if (entry.project === projectDir) {
-          projectEntries.push(entry);
+        if (entry.project === projectDir && (!sessionId || entry.sessionId === sessionId)) {
+          filteredEntries.push(entry);
         }
       } catch (e) {}
     });
 
-    const lastEntries = projectEntries.slice(-10);
+    const lastEntries = filteredEntries.slice(-10);
     const context = [];
 
     lastEntries.forEach((entry) => {
-      // Extract display text if available
       if (entry.display) {
-        // Truncate very long content
         const displayText = typeof entry.display === 'string'
           ? entry.display.substring(0, 300)
           : JSON.stringify(entry.display).substring(0, 300);
@@ -94,6 +91,7 @@ const run = () => {
     const stopInput = readStopHookInput();
     const transcriptPath = stopInput.transcript_path;
     const stopHookActive = stopInput.stop_hook_active || false;
+    const sessionId = stopInput.sessionId || null;
 
     if (stopHookActive) {
       return { decision: undefined };
@@ -105,8 +103,8 @@ const run = () => {
       return { decision: undefined };
     }
 
-    // Extract context from recent transcript entries
-    const transcriptContext = extractTranscriptContext();
+    // Extract context from recent transcript entries (current session only)
+    const transcriptContext = extractTranscriptContext(sessionId);
 
     // Build instruction with context about work being done
     let instruction = `You must verify that the work specified in the recent transcript context below is complete. Use glootie code execution and playwriter to independently confirm all specified tasks are finished. Once verified, touch the file ${verificationFile} to signal completion.\n\n`;
