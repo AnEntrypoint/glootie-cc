@@ -46,7 +46,7 @@ try {
       timeout: 180000,
       killSignal: 'SIGTERM'
     });
-    outputs.push(`=== This is your initial insight of the repository, use this for initial opinionation and to offset the need for code exploration ===\n${thornOutput}`);
+    outputs.push(`=== This is your initial insight of the repository, look at every possible aspect of this for initial opinionation and to offset the need for code exploration ===\n${thornOutput}`);
   } catch (e) {
     if (e.killed && e.signal === 'SIGTERM') {
       outputs.push(`=== mcp-thorns ===\nSkipped (3min timeout)`);
@@ -74,6 +74,7 @@ try {
   }, null, 2));
   process.exit(1);
 }
+
 
 
 
