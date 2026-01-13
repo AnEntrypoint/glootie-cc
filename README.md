@@ -31,3 +31,5 @@ what glootie does is it enacts a system policy as a virtual state machine that t
 - **code-search** semantic code search
 
 https://www.youtube.com/clip/UgkxMczBOi4uGHRFOb4J-R28kELLfWnzSN7R
+
+<!-- Stop hook test: 2026-01-13 -->
