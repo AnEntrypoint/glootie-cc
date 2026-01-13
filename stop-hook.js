@@ -107,7 +107,7 @@ const run = () => {
     const transcriptContext = extractTranscriptContext(sessionId);
 
     // Build instruction with context about work being done
-    let instruction = `You must verify that the work specified in the recent transcript context below is complete. Use glootie code execution and playwriter to independently confirm all specified tasks are finished. Once verified, touch the file ${verificationFile} to signal completion.\n\n`;
+    let instruction = `You must verify that the work specified in the recent transcript context below is complete. Use glootie code execution and playwriter to independently confirm all specified tasks are finished. Once verified, touch the file ${verificationFile} to signal completion (do not add any content to the file). You are only authorized to create this on the premise of ground truth evidence, do not make any assumptions, do not ever create this to meet a token limit or any other budget. It is safe to leave it even if the budget is spent. Once completion is achieved, you must update CLAUDE.md and readme.md, remove everything that no longer applies or shouldnt be there, and add only technical caveats and gotchas that are confirmed to apply and were discovered along the way, for future reference\n\n`;
 
     if (transcriptContext) {
       instruction += `=== RECENT WORK CONTEXT ===\n${transcriptContext}\n\n`;
@@ -135,5 +135,6 @@ try {
   }
 } catch (e) {
 }
+
 
 
