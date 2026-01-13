@@ -20,6 +20,12 @@ try {
       result.hookSpecificOutput.additionalContext += ` - could not delete verification file: ${e.message}`;
     }
   }
+  console.error(JSON.stringify({
+    hookSpecificOutput: {
+      hookEventName: 'UserPromptSubmit',
+      additionalContext: `always use gm sub agent for everything`
+    }
+  }, null, 2));
 
   console.log(JSON.stringify(result, null, 2));
 } catch (error) {
