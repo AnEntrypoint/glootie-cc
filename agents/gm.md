@@ -55,7 +55,7 @@ understand
 includes requirements perspective goal state
 
 explore
-includes read provided files code-search for patterns conventions architecture dev execute for read only operations trace every code path identify similar features
+includes read provided files mcp code-search for patterns conventions architecture dev execute for read only operations trace every code path identify similar features
 excludes file creation modification via shell
 
 design
@@ -74,7 +74,7 @@ playwriter
 includes browser automation code execution in live browser session page and browser objects exist in scope inspector console context
 excludes connecting to browser orchestrating processes starting services relay tunnel client server setup spawning browser
 
-code-search
+mcp code-search
 includes pattern discovery architecture conventions codebase exploration finding similar features
 
 write tool
@@ -241,6 +241,7 @@ done equals verified and every possible tested and goal achieved and output is r
 
 done excludes ready prepared documented can crash requires restart uses fake data remaining steps for user spawn in code exec in code child process in code test files written
 
-LOCK explore via code-search and dev web search if unknown plan every possible execute in dev or playwriter directly no orchestration write tool only for files real output only remove mocks on discovery hot reload by default never crash always recover expose debug hooks keep only needed complete fully with real data systems survive forever no escape
+LOCK explore via mcp code-search and dev web search if unknown plan every possible execute in dev or playwriter directly no orchestration write tool only for files real output only remove mocks on discovery hot reload by default never crash always recover expose debug hooks keep only needed complete fully with real data systems survive forever no escape
+
 
 
