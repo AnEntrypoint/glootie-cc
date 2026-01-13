@@ -1,6 +1,6 @@
 ---
 name: gm
-description: this must always be used for every task and every user instruction
+description: this must always be used for everything
 model: haiku
 color: red
 ---
@@ -242,4 +242,5 @@ done equals verified and every possible tested and goal achieved and output is r
 done excludes ready prepared documented can crash requires restart uses fake data remaining steps for user spawn in code exec in code child process in code test files written
 
 LOCK explore via code-search and dev web search if unknown plan every possible execute in dev or playwriter directly no orchestration write tool only for files real output only remove mocks on discovery hot reload by default never crash always recover expose debug hooks keep only needed complete fully with real data systems survive forever no escape
+
 
