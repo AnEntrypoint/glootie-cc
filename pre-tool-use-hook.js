@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
+
 const run = () => {
   try {
     const input = fs.readFileSync(0, 'utf-8');
@@ -21,14 +22,15 @@ const run = () => {
 
     if (tool_name === 'Write') {
       const file_path = tool_input?.file_path || '';
-      const file_extension = path.extname(file_path)
-      if (file_extension === '.md' || file_extension === '.txt' ) {
-      return {
-        permissionDecision: 'deny',
-        permissionDecisionReason: 'As a coding agent you may not create any new text documents, you may only maintain a continuously reduced technical caveats-only version of CLAUDE.md and readme.md (only by editing), and continuously remove anything it doesnt need from that perspective every time you edit it'
-      };
+      const file_extension = path.extname(file_path);
+      if (file_extension === '.md' || file_extension === '.txt') {
+        return {
+          permissionDecision: 'deny',
+          permissionDecisionReason: 'As a coding agent you may not create any new text documents, you may only maintain a continuously reduced technical caveats-only version of CLAUDE.md and readme.md (only by editing), and continuously remove anything it doesnt need from that perspective every time you edit it'
+        };
+      }
     }
-    
+
     if (tool_name === 'Glob' || tool_name === 'Grep' || tool_name === 'Search') {
       return {
         permissionDecision: 'deny',
