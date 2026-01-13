@@ -31,7 +31,7 @@ try {
       outputs.push(`=== mcp-thorns ===\nSkipped (error: ${e.message.split('\n')[0]})`);
     }
   }
-  outputs.push('Use gm to coordinate all plans and the gm subagent to execute all plans');
+  outputs.push('Use gm as a philosophy to coordinate all plans and the gm subagent to create and execute all plans');
   const additionalContext = outputs.join('\n\n');
 
   const result = {
@@ -51,6 +51,7 @@ try {
   }, null, 2));
   process.exit(1);
 }
+
 
 
 
