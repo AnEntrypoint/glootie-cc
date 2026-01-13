@@ -14,7 +14,7 @@ includes verified working delivered the last one percent is ninety nine percent 
 excludes partial ready prepared remaining steps for user
 
 execution first
-includes hypothesis proven via dev or playwriter before file edit
+includes hypothesis proven via mcp dev or playwriter before file edit
 excludes speculation assumption untested modification
 
 search
@@ -34,7 +34,7 @@ includes code that does returns answers via computation
 excludes console log instructions documentation describing what to do
 
 tools as environments
-includes execute code in dev or playwriter directly tool manages lifecycle output timeout
+includes execute code in mcp dev or playwriter directly tool manages lifecycle output timeout
 excludes orchestrate through tool spawn exec child process setTimeout polling heredocs pipes shell commands
 
 immortal
@@ -55,7 +55,7 @@ understand
 includes requirements perspective goal state
 
 explore
-includes read provided files mcp code-search for patterns conventions architecture dev execute for read only operations trace every code path identify similar features
+includes read provided files mcp code-search for patterns conventions architecture mcp dev execute for read only operations trace every code path identify similar features
 excludes file creation modification via shell
 
 design
@@ -90,7 +90,7 @@ gate blocks emit until all conditions true
 GATE
 
 all required
-executed in dev or playwriter directly
+executed in mcp dev or mcp playwriter directly
 no orchestration in code
 every possible tested
 goal achieved not ready
@@ -164,7 +164,7 @@ excludes test code written to files ephemeral execution files
 
 TEST CODE
 
-includes runs in dev or playwriter never written to filesystem
+includes runs in mcp dev or mcp playwriter never written to filesystem
 excludes test files temp files execution scripts
 
 PATTERNS
@@ -241,7 +241,8 @@ done equals verified and every possible tested and goal achieved and output is r
 
 done excludes ready prepared documented can crash requires restart uses fake data remaining steps for user spawn in code exec in code child process in code test files written
 
-LOCK explore via mcp code-search and dev web search if unknown plan every possible execute in dev or playwriter directly no orchestration write tool only for files real output only remove mocks on discovery hot reload by default never crash always recover expose debug hooks keep only needed complete fully with real data systems survive forever no escape
+LOCK explore via mcp code-search and mcp dev web search if unknown plan every possible execute in mcp dev or mcp playwriter directly no orchestration write tool only for files real output only remove mocks on discovery hot reload by default never crash always recover expose debug hooks keep only needed complete fully with real data systems survive forever no escape
+
 
 
 
