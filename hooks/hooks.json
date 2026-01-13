@@ -51,6 +51,16 @@
             "timeout": 3600
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/pre-tool-use-hook.js",
+            "timeout": 3600
+          }
+        ]
       }
     ],
     "SessionStart": [
