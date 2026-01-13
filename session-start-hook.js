@@ -6,6 +6,29 @@ const { execSync } = require('child_process');
 
 const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT;
 const projectDir = process.env.CLAUDE_PROJECT_DIR;
+
+// Ensure .glootie-stop-verified is in .gitignore
+const ensureGitignore = () => {
+  const gitignorePath = path.join(projectDir, '.gitignore');
+  const entry = '.glootie-stop-verified';
+  try {
+    let content = '';
+    if (fs.existsSync(gitignorePath)) {
+      content = fs.readFileSync(gitignorePath, 'utf-8');
+    }
+    if (!content.split('\n').some(line => line.trim() === entry)) {
+      const newContent = content.endsWith('\n') || content === ''
+        ? content + entry + '\n'
+        : content + '\n' + entry + '\n';
+      fs.writeFileSync(gitignorePath, newContent);
+    }
+  } catch (e) {
+    // Silently fail - not critical
+  }
+};
+
+ensureGitignore();
+
 try {
   let outputs = [];
 
