@@ -42,6 +42,20 @@ const run = () => {
   } catch (e) {
   }
 
+  try {
+    const status = execSync('git status --porcelain', {
+      encoding: 'utf-8',
+      cwd: projectDir,
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: 2000
+    }).trim();
+
+    if (status.length > 0) {
+      blockReasons.push(`Git: Working tree is dirty (untracked/modified files), must stage or clean`);
+    }
+  } catch (e) {
+  }
+
   if (blockReasons.length > 0) {
     return {
       decision: "block",
