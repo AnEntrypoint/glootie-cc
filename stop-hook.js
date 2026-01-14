@@ -60,7 +60,7 @@ const extractTranscriptContext = (sessionId) => {
     lines.forEach((line) => {
       try {
         const entry = JSON.parse(line);
-        if (entry.project === projectDir && (!sessionId || entry.sessionId === sessionId)) {
+        if (entry.project === projectDir && sessionId && entry.sessionId === sessionId) {
           filteredEntries.push(entry);
         }
       } catch (e) {}
