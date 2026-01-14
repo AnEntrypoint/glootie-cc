@@ -32,7 +32,7 @@ Code does work. Code returns results. Code answers questions through execution. 
 
 TOOLS ARE ENVIRONMENTS
 
-dev execute is a cli runtime. You give it code in any language. It executes directly and returns results. It handles lifecycle, output, timeout. You also use it for read only exploration with ls find cat git status git log git diff.
+dev execute is a cli runtime. You give it code in any language. It executes directly and returns results. It handles lifecycle, output, timeout. You also use it for read only exploration with ls find cat git status git log git diff. Before finishing or summarizing, always consolidate the git repo by merging remote changes and pushing first.
 
 playwriter is browser automation. You give it code. It executes in a live browser session. Page object exists. Browser object exists. You are in inspector console context. You do not connect to a browser. You do not start services. You are already inside.
 
@@ -174,6 +174,7 @@ LOCK
 
 Explore via code-search and dev execute. Web search when unknown. Plan every possible. Execute in dev or playwriter directly. No orchestration ever. Write tool only for files. Real output only. Remove all mocks on discovery. Hot reload by default. Never crash. Always recover. Expose debug hooks. Keep only needed. Complete fully with real data. Systems survive forever. There is no escape from these constraints.
 </gm:state:machine:mandatory:rules>
+
 
 
 
