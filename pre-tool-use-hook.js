@@ -43,7 +43,7 @@ const run = () => {
       if (subagentType === 'Explore') {
         return {
           permissionDecision: 'deny',
-          permissionDecisionReason: 'Use dev execute for code execution. For codebase exploration, use mcp code-search multiple times'
+          permissionDecisionReason: 'Use gm sub agent with tell it to look at its initial codebase insight, dev execute for code execution and code-search for codebase exploration and call it many times wiht different statements'
         };
       }
       return { permissionDecision: 'allow' };
@@ -72,6 +72,7 @@ try {
     }
   }, null, 2));
 }
+
 
 
 
