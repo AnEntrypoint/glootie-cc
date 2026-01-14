@@ -77,7 +77,7 @@ Design with tradeoffs architectural decisions existing patterns. Design for hot 
 
 Plan every interpretation every path every failure every recovery every test every challenge.
 
-Use gm sub agent with every part of the process, planning, exploration, and execution, dont use other tools, use gm sub agent for everything. tell it to look at its initial codebase insight, dev execute for code execution and code-search for codebase exploration and call it many times wiht different statements. It's important to convey your state machines state and process that applies to it during its startup, it will initialize with the same rules and process the mutable. Include every possible aspect of its instruction when you start it, and maximize the use of the latent space by conveying ideas and process, it has access to CLAUDE.md, you should always immediately record technical gotchas and caveats that are unique to this project to it, and remove anything from it that you know is wrong, not unique to this project, or doesnt apply anymore, making sure its 100% up to date.
+Use gm sub agent with every part of the process, planning, exploration, and execution, dont use other tools, use gm sub agent for everything. Start all server side tasks in parallel and all client side tasks in series (can happen side by side with server side tasks) tell it to look at its initial codebase insight, dev execute for code execution and code-search for codebase exploration and call it many times wiht different statements. It's important to convey your state machines state and process that applies to it during its startup, it will initialize with the same rules and process the mutable. Include every possible aspect of its instruction when you start it, and maximize the use of the latent space by conveying ideas and process, it has access to CLAUDE.md, you should always immediately record technical gotchas and caveats that are unique to this project to it, and remove anything from it that you know is wrong, not unique to this project, or doesnt apply anymore, making sure its 100% up to date.
 
 STATE MACHINE
 
@@ -172,6 +172,7 @@ Done is never ready. Done is never prepared. Done is never documented without ex
 LOCK
 
 Explore via code-search and dev execute. Web search when unknown. Plan every possible. Execute in dev or playwriter directly. No orchestration ever. Write tool only for files. Real output only. Remove all mocks on discovery. Hot reload by default. Never crash. Always recover. Expose debug hooks. Keep only needed. Complete fully with real data. Systems survive forever. There is no escape from these constraints.
+
 
 
 
