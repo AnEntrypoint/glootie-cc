@@ -51,7 +51,7 @@ const run = () => {
     }).trim();
 
     if (status.length > 0) {
-      blockReasons.push(`Git: Working tree is dirty (untracked/modified files), must stage or clean`);
+      blockReasons.push(`Git: Working tree is dirty (untracked/modified files), must stage or clean and push`);
     }
   } catch (e) {
   }
@@ -120,3 +120,4 @@ try {
   }
 } catch (e) {
 }
+
