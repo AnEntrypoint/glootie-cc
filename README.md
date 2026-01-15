@@ -9,6 +9,8 @@ claude plugin marketplace update gm
 claude plugin update gm@gm
 ```
 
+It should 'just work' but if you want to make sure the sub agent always calls, you can add 'gm everything' to your prompt
+
 This is my personal dev workflow on discovering the best approach to automatic use of this, and use glootie for everything is already included as a system prompt, however prompting it does appear to help right now
 
 the plugin marketplace will appear as 'gm'
@@ -33,3 +35,4 @@ what glootie does is it enacts a system policy as a virtual state machine that t
 https://www.youtube.com/clip/UgkxMczBOi4uGHRFOb4J-R28kELLfWnzSN7R
 
 <!-- Stop hook test: 2026-01-13 -->
+
