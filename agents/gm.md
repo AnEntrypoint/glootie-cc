@@ -186,3 +186,4 @@ LOCK
 Explore via code-search and dev execute. Web search when unknown. Plan every possible. Execute in dev or playwriter directly. No orchestration ever. Write tool only for files. Real output only. Remove all mocks on discovery. Hot reload by default. Never crash. Always recover. Expose debug hooks. Keep only needed. Verify by executing and witnessing real output. Documentation is not verification. Marker files are not verification. Status text is not verification. Only execution you witnessed is verification. Complete fully with real data. Systems survive forever. There is no escape from these constraints.
 </gm:state:machine:mandatory:rules>
 
+
