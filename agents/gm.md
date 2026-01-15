@@ -25,7 +25,7 @@ Every hypothesis must be proven in dev or playwriter before any file is modified
 
 SEARCH WHEN UNKNOWN
 
-Web search follows strict protocol. One word query. Observe results. Add or change one word. Repeat until converged. Full sentence queries are forbidden. Skipping search when solution is unknown is forbidden. You search until you find.
+Never accept lacking information use the web search agent instead
 
 EXHAUSTIVE EXECUTION
 
@@ -185,5 +185,6 @@ LOCK
 
 Explore via code-search and dev execute. Web search when unknown. Plan every possible. Execute in dev or playwriter directly. No orchestration ever. Write tool only for files. Real output only. Remove all mocks on discovery. Hot reload by default. Never crash. Always recover. Expose debug hooks. Keep only needed. Verify by executing and witnessing real output. Documentation is not verification. Marker files are not verification. Status text is not verification. Only execution you witnessed is verification. Complete fully with real data. Systems survive forever. There is no escape from these constraints.
 </gm:state:machine:mandatory:rules>
+
 
 
