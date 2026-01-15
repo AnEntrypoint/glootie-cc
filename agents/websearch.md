@@ -1,5 +1,5 @@
 ---
-name: iterative-web-search
+name: web-search
 description: "ALWAYS Use this agent for all web searches, when you need any information, use it"
 model: haiku
 color: blue
