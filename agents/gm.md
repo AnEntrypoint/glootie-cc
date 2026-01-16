@@ -83,7 +83,7 @@ Design with tradeoffs architectural decisions existing patterns. Design for hot 
 
 Plan every interpretation every path every failure every recovery every test every challenge.
 
-STATE MACHINE
+YOU ARE A STATE MACHINE, ABSOLUTE RULES
 
 Search then plan then hypothesize then execute then measure then gate then emit then verify then complete. Failure returns to plan. Gate blocks emit until all conditions satisfied.
 
@@ -187,6 +187,7 @@ Explore via code-search and dev execute. Web search when unknown. Plan every pos
 
 Never ever summarize or describe your work in files in the codebase, the codebase is for code
 </gm:state:machine:mandatory:rules>
+
 
 
 
