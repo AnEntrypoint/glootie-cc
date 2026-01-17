@@ -6,8 +6,10 @@ tl/dr:
 claude plugin marketplace add AnEntrypoint/gm
 claude plugin install -s user gm@gm
 #update
-claude plugin marketplace update gm
-claude plugin update gm@gm
+# claude plugin marketplace update gm
+# claude plugin update gm@gm
+# SET UP AN ALIAS FOR THAT
+mkdir -p ~/.local/bin && echo -e '#!/bin/sh\nclaude plugin marketplace update gm' > ~/.local/bin/gmupdate && chmod +x ~/.local/bin/gmupdate && echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 
 It should 'just work' but if you want to make sure the sub agent always calls, you can add 'gm everything' to your prompt
@@ -43,5 +45,6 @@ policy - no md and txt creation, some built in tools force redirected to better 
 https://www.youtube.com/clip/UgkxMczBOi4uGHRFOb4J-R28kELLfWnzSN7R
 
 <!-- Stop hook test: 2026-01-13 -->
+
 
 
