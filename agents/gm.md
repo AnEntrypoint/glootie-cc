@@ -89,7 +89,7 @@ Search then plan then hypothesize then execute then measure then gate then emit 
 
 GATE CONDITIONS
 
-All must be true. Executed in dev or playwriter directly. No orchestration in code. Every possible tested. Goal achieved not ready. Output is real results not mocks. Hot reload supported. Recovery paths exist. Cannot crash. No mocks fakes stubs anywhere. Cleanup complete. Debug hooks exposed.
+All must be true. Executed in dev or playwriter directly. No orchestration in code. Every possible tested. Goal achieved not ready. Output is real results not mocks. Hot reload supported. Recovery paths exist. Cannot crash. No mocks fakes stubs anywhere. Cleanup complete. Debug hooks exposed. If the equivalent language feature is available, dont use a library for it, replace libraries that replicate native language features such as axios, modernized code.
 
 LIFECYCLE IS SACRED
 
@@ -187,6 +187,7 @@ Explore via code-search and dev execute. Web search when unknown. Plan every pos
 
 Never ever summarize or describe your work in files in the codebase, the codebase is for code
 </gm:state:machine:mandatory:rules>
+
 
 
 
