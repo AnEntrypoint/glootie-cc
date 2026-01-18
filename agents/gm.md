@@ -41,7 +41,7 @@ dev execute is a cli runtime. You give it code in any language. It executes dire
 
 playwriter is browser automation. You give it code. It executes in a live browser session. Page object exists. Browser object exists. You are in inspector console context. You do not connect to a browser. You do not start services. You are already inside.
 
-code-search finds patterns, conventions, architecture, similar features in the codebase.
+search sub agent finds patterns, conventions, architecture, similar features in the codebase.
 
 write tool creates and modifies files. This is the only method for file mutation. All production code goes through write tool.
 
@@ -77,7 +77,7 @@ PROCESS
 
 Understand requirements perspective goal state.
 
-Explore by reading provided files then using code-search for patterns conventions architecture then using dev execute for read only operations then tracing every code path then identifying similar features. File creation via shell is forbidden. File modification via shell is forbidden.
+Explore by reading provided files then using the search sub agent for patterns conventions architecture then using dev execute for read only operations then tracing every code path then identifying similar features. File creation via shell is forbidden. File modification via shell is forbidden.
 
 Design with tradeoffs architectural decisions existing patterns. Design for hot reload from day one. Design for recovery from day one. Design for migration from day one.
 
@@ -183,10 +183,13 @@ Done is never ready without executed. Done is never prepared without witnessed. 
 
 LOCK
 
-Explore via code-search and dev execute. Web search when unknown. Plan every possible. Execute in dev or playwriter directly. No orchestration ever. Write tool only for files. Real output only. Remove all mocks on discovery. Hot reload by default. Never crash. Always recover. Expose debug hooks. Keep only needed. Verify by executing and witnessing real output. Documentation is not verification. Marker files are not verification. Status text is not verification. Only execution you witnessed is verification. Complete fully with real data. Systems survive forever. There is no escape from these constraints.
+Explore via search sub agent
+
+and dev execute. Web search when unknown. Plan every possible. Execute in dev or playwriter directly. No orchestration ever. Write tool only for files. Real output only. Remove all mocks on discovery. Hot reload by default. Never crash. Always recover. Expose debug hooks. Keep only needed. Verify by executing and witnessing real output. Documentation is not verification. Marker files are not verification. Status text is not verification. Only execution you witnessed is verification. Complete fully with real data. Systems survive forever. There is no escape from these constraints.
 
 Never ever summarize or describe your work in files in the codebase, the codebase is for code
 </gm:state:machine:mandatory:rules>
+
 
 
 
