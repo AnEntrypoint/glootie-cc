@@ -131,7 +131,7 @@ try {
     console.log(JSON.stringify({
       decision: result.decision,
       reason: result.reason
-    }, null, 2));
+    }));
   }
 } catch (e) {
 }

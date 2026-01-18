@@ -7,29 +7,25 @@ const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
 const verificationFile = path.join(projectDir, '.glootie-stop-verified');
 
 try {
-  const result = {
-    hookSpecificOutput: {
-      hookEventName: 'UserPromptSubmit'
-    }
-  };
+  let additionalContext = 'always use gm sub agent for everything';
 
   if (fs.existsSync(verificationFile)) {
     try {
       fs.unlinkSync(verificationFile);
+      additionalContext += ' - verification file reset for new session';
     } catch (e) {
-      result.hookSpecificOutput.additionalContext += ` - could not delete verification file: ${e.message}`;
+      additionalContext += ` - could not delete verification file: ${e.message}`;
     }
   }
-  console.error(JSON.stringify({
+
+  console.log(JSON.stringify({
     hookSpecificOutput: {
       hookEventName: 'UserPromptSubmit',
-      additionalContext: `always use gm sub agent for everything`
+      additionalContext
     }
   }, null, 2));
-
-  console.log(JSON.stringify(result, null, 2));
 } catch (error) {
-  console.error(JSON.stringify({
+  console.log(JSON.stringify({
     hookSpecificOutput: {
       hookEventName: 'UserPromptSubmit',
       additionalContext: `Hook error: ${error.message}`
