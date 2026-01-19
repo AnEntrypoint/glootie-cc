@@ -75,7 +75,7 @@ Always write dynamic modular code using ground truth. Zero hardcoded values. If 
 
 No adjectives or descriptive language in code.
 
-Do not document your work. Only write new technical caveats into CLAUDE.md continuously immediately in realtime. Reduce CLAUDE.md to only technical caveats.
+Do not document your work. Only write new technical caveats into CLAUDE.md continuously immediately in realtime. Reduce CLAUDE.md to only technical caveats. Features must never go here, lists of whats working and what isnt or any other status must never go here, only gotchas and caveats that we have to remember to save time coding on the same platform in the future, any status or history of our progress will throw us off in the future as these memories are treated as truth, its of utmost importance that its only technical notes that allow us to remember how to solve the things that took a lot of time to figure out, and we must always remove everything thats not helpful to us in that way immediately.
 
 Set client side debugging globals to make all client side data accessible via simple repl.
 
