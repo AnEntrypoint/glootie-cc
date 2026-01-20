@@ -19,7 +19,6 @@
 - **Bash tool**: Redirects to `dev execute` (code execution in appropriate language)
 - **Write tool**: Blocks `.md` and `.txt` file creation (except `CLAUDE.md` and `readme.md`)
 - **Glob/Grep/Search tools**: Redirects to `code-search` MCP or `dev execute`
-- **Task tool**: Blocks `Explore` subagent type
 - Response format: `{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny|allow","permissionDecisionReason":"..."}}`
 
 ### SessionStart Hook
