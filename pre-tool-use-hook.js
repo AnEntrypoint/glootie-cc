@@ -39,13 +39,6 @@ const run = () => {
     }
 
     if (tool_name === 'Task') {
-      const subagentType = tool_input?.subagent_type || '';
-      if (subagentType === 'Explore') {
-        return {
-          permissionDecision: 'deny',
-          permissionDecisionReason: 'Use gm sub agent with tell it to look at its initial codebase insight, use only code search sub agent or dev execute for code execution and code-search mcp for codebase exploration and call it many times with different statements if the sub agent is unavailable'
-        };
-      }
       return { permissionDecision: 'allow' };
     }
 
