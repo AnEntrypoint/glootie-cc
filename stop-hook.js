@@ -98,6 +98,24 @@ const extractTranscriptContext = (sessionId) => {
   }
 };
 
+
+const isGitDirty = () => {
+  try {
+    const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+    const status = execSync('git status --porcelain', { cwd: projectDir, encoding: 'utf-8' });
+    if (status.trim().length > 0) return true;
+
+    const ahead = execSync('git rev-list --count @{u}..HEAD 2>/dev/null || echo 0', {
+      cwd: projectDir,
+      encoding: 'utf-8',
+      shell: '/bin/bash'
+    });
+    return parseInt(ahead.trim()) > 0;
+  } catch (e) {
+    return false;
+  }
+};
+
 const run = () => {
   if (aborted) return { decision: undefined };
 
@@ -113,7 +131,14 @@ const run = () => {
 
     // Check if verification file exists
     if (fs.existsSync(verificationFile)) {
-      // File exists, allow stop to proceed
+      // Verification complete, now check if git is clean
+      if (isGitDirty()) {
+        return {
+          decision: 'block',
+          reason: 'Git working tree is dirty. Please stage, commit, and push your changes before stopping:\n\n1. git add <files>\n2. git commit -m "description"\n3. git push\n\nAfter pushing, the session can be stopped.'
+        };
+      }
+      // Verification done and git clean, allow stop
       return { decision: undefined };
     }
 

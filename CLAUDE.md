@@ -46,3 +46,12 @@
 - Deleted: On each new user prompt (via UserPromptSubmit hook)
 - Must be in `.gitignore` (auto-added by SessionStart hook)
 - Used to prevent re-verification of same work session
+
+## Stop Hook Git Check
+- **After verification file created**: Stop hook checks if git working tree is dirty or has unpushed commits
+- If dirty or unpushed: Stop hook blocks with instructions to commit and push
+- If clean and pushed: Stop hook allows session to stop
+- All uncommitted changes or unpushed commits must be handled before stopping
+- `git status --porcelain` detects uncommitted changes
+- `git rev-list --count @{u}..HEAD` detects unpushed commits
+- Pattern: verification + git clean = allow stop; verification + git dirty/unpushed = block
