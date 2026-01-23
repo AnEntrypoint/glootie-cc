@@ -12,8 +12,11 @@
 ### Stop Hook Context Filtering
 - When filtering transcript history, **must use sessionId to isolate current session only**
 - Bug pattern: `(!sessionId || entry.sessionId === sessionId)` matches all entries (incorrect)
-- Correct pattern: `(sessionId && entry.sessionId === sessionId)`
-- Without proper filtering, stop hook shows work from previous sessions/projects
+- Correct pattern: `if (!sessionId) { find latest sessionId from history } then filter with (entry.sessionId === effectiveSessionId)`
+- **Critical**: Claude Code stop hook input may not include sessionId; always implement fallback
+- Fallback logic: Loop backward through transcript history, find most recent entry for current project, extract its sessionId
+- Use derived sessionId to filter transcript entries for current session only
+- Without proper fallback, stop hook cannot access recent work context and verification fails
 
 ### PreToolUse Hook Blocks
 - **Bash tool**: Redirects to `dev execute` (code execution in appropriate language)

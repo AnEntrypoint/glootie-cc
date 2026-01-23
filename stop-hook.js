@@ -56,11 +56,25 @@ const extractTranscriptContext = (sessionId) => {
     const content = fs.readFileSync(transcriptPath, 'utf-8');
     const lines = content.trim().split('\n');
 
+    let effectiveSessionId = sessionId;
+
+    if (!effectiveSessionId) {
+      for (let i = lines.length - 1; i >= 0; i--) {
+        try {
+          const entry = JSON.parse(lines[i]);
+          if (entry.project === projectDir && entry.sessionId) {
+            effectiveSessionId = entry.sessionId;
+            break;
+          }
+        } catch (e) {}
+      }
+    }
+
     const filteredEntries = [];
     lines.forEach((line) => {
       try {
         const entry = JSON.parse(line);
-        if (entry.project === projectDir && sessionId && entry.sessionId === sessionId) {
+        if (entry.project === projectDir && effectiveSessionId && entry.sessionId === effectiveSessionId) {
           filteredEntries.push(entry);
         }
       } catch (e) {}
