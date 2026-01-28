@@ -1,17 +1,17 @@
-# gm for Claude Code
+# glootie for Claude Code
 
 ## Installation
 
 ```bash
-claude plugin marketplace add AnEntrypoint/gm
-claude plugin install -s user gm@gm
+claude plugin marketplace add AnEntrypoint/glootie
+claude plugin install -s user glootie@glootie
 ```
 
 ## Update
 
 ```bash
-claude plugin marketplace update gm
-claude plugin update gm@gm
+claude plugin marketplace update glootie
+claude plugin update glootie@glootie
 ```
 
 ## Features
