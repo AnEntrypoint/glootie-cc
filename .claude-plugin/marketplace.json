@@ -5,5 +5,11 @@
     "email": "almagestfraternite@gmail.com"
   },
   "version": "2.0.4",
-  "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks"
+  "description": "Advanced Claude Code plugin with WFGY integration, MCP tools, and automated hooks",
+  "plugins": [
+    {
+      "name": "gm",
+      "source": "./"
+    }
+  ]
 }
