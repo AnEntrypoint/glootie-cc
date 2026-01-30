@@ -1,1 +1,13 @@
-.glootie-stop-verified
+node_modules/
+*.log
+*.swp
+*.swo
+.DS_Store
+dist/
+build/
+*.tmp
+.env
+.env.local
+.vscode/
+.idea/
+*.iml
