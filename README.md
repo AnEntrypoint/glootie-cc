@@ -1,17 +1,17 @@
-# glootie-cc for Claude Code
+# glootie-oc-cc for Claude Code
 
 ## Installation
 
 ```bash
-claude plugin marketplace add AnEntrypoint/glootie-cc
-claude plugin install -s user gm@glootie-cc
+claude plugin marketplace add AnEntrypoint/glootie-oc-cc
+claude plugin install -s user gm@glootie-oc-cc
 ```
 
 ## Update
 
 ```bash
-claude plugin marketplace update glootie-cc
-claude plugin update gm@glootie-cc
+claude plugin marketplace update glootie-oc-cc
+claude plugin update gm@glootie-oc-cc
 ```
 
 ## Features
