@@ -2,24 +2,50 @@
 
 ## Installation
 
+Install glootie-cc into your project to add the gm state machine and hooks:
+
 ```bash
-claude plugin marketplace add AnEntrypoint/glootie-cc
-claude plugin install -s user gm@glootie-cc
+cd /path/to/your/project
+npm install glootie-cc
 ```
+
+This installs the following files to your project root:
+
+```
+project/
+├── agents/
+│   └── gm.md
+├── hooks/
+│   ├── pre-tool-use-hook.js
+│   ├── session-start-hook.js
+│   ├── prompt-submit-hook.js
+│   ├── stop-hook.js
+│   └── stop-hook-git.js
+└── .mcp.json
+```
+
+### Using in Claude Code
+
+Add one line to your project settings:
+
+```json
+{
+  "plugins": ["./"]
+}
+```
+
+Claude Code now reads agents/gm.md, hooks/, and .mcp.json from your project root.
 
 ## Update
 
 ```bash
-claude plugin marketplace update glootie-cc
-claude plugin update gm@glootie-cc
+npm update glootie-cc
 ```
 
 ## Features
 
-- MCP tools for code execution and search
-- State machine agent policy (gm)
-- Stop hook verification loop
-- Git enforcement on session end
-- AST analysis via thorns at session start
-
-The plugin activates automatically on session start.
+- State machine agent with exhaustive behavioral rules
+- Five enforcement hooks (validation, prompts, startup, completion, git)
+- MCP integration for code execution and search
+- Automatic thorns AST analysis at session start
+- .prd completion enforcement at session end
