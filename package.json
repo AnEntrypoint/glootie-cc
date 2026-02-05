@@ -12,6 +12,9 @@
     "automation",
     "glootie"
   ],
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/AnEntrypoint/glootie-cc.git"
@@ -29,6 +32,8 @@
   "files": [
     "agents/",
     "hooks/",
+    "scripts/",
+    "skills/",
     ".mcp.json",
     "README.md",
     "LICENSE",

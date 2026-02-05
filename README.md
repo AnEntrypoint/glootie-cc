@@ -1,6 +1,6 @@
 # glootie-cc for Claude Code
 
-## Installation
+## Installation (Standalone Mode)
 
 Install glootie-cc into your project to add the gm state machine and hooks:
 
@@ -9,38 +9,32 @@ cd /path/to/your/project
 npm install glootie-cc
 ```
 
-This installs the following files to your project root:
+The postinstall script automatically copies files to your project's `.claude/` directory:
 
 ```
 project/
-├── agents/
-│   └── gm.md
-├── hooks/
-│   ├── pre-tool-use-hook.js
-│   ├── session-start-hook.js
-│   ├── prompt-submit-hook.js
-│   ├── stop-hook.js
-│   └── stop-hook-git.js
-└── .mcp.json
+├── node_modules/glootie-cc/
+└── .claude/
+    ├── agents/
+    │   └── gm.md
+    ├── hooks/
+    │   ├── pre-tool-use-hook.js
+    │   ├── session-start-hook.js
+    │   ├── prompt-submit-hook.js
+    │   ├── stop-hook.js
+    │   └── stop-hook-git.js
+    └── .mcp.json
 ```
 
-### Using in Claude Code
-
-Add one line to your project settings:
-
-```json
-{
-  "plugins": ["./"]
-}
-```
-
-Claude Code now reads agents/gm.md, hooks/, and .mcp.json from your project root.
+Claude Code automatically discovers and reads from the `.claude/` directory without any configuration needed.
 
 ## Update
 
 ```bash
 npm update glootie-cc
 ```
+
+The postinstall script runs again and updates all files in `.claude/`.
 
 ## Features
 
@@ -49,3 +43,4 @@ npm update glootie-cc
 - MCP integration for code execution and search
 - Automatic thorns AST analysis at session start
 - .prd completion enforcement at session end
+- Automatic .claude/ directory setup via postinstall
