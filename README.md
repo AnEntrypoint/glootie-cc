@@ -1,4 +1,4 @@
-# glootie-oc-cc for Claude Code
+# glootie-cc for Claude Code
 
 ## Installation
 
