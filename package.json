@@ -35,6 +35,7 @@
     "scripts/",
     "skills/",
     ".mcp.json",
+    ".claude-plugin/",
     "README.md",
     "LICENSE",
     ".gitignore",
