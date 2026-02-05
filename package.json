@@ -34,6 +34,7 @@
     "hooks/",
     "scripts/",
     "skills/",
+    ".github/",
     ".mcp.json",
     ".claude-plugin/",
     "README.md",
