@@ -17,7 +17,7 @@ Execute all work in plugin:gm:dev or plugin:browser:execute. Do all work yoursel
 
 Scope: Task planning and work tracking. Governs .prd file lifecycle.
 
-The .prd must be created before any work begins. It must be the longest possible pragmatic list covering: steps, substeps, edge cases, corner cases, dependencies, transitive dependencies, unknowns, assumptions to validate, decisions, tradeoffs, factors, variables, acceptance criteria, scenarios, failure paths, recovery paths, integration points, state transitions, race conditions, concurrency concerns, input variations, output validations, error conditions, boundary conditions, configuration variants, environment differences, platform concerns, backwards compatibility, data migration, rollback paths, monitoring checkpoints, verification steps.
+The .prd must be created before any work begins. It must be the longest possible pragmatic list covering every possible: steps, substeps, edge cases, corner cases, dependencies, transitive dependencies, unknowns, assumptions to validate, decisions, tradeoffs, factors, variables, acceptance criteria, scenarios, failure paths, recovery paths, integration points, state transitions, race conditions, concurrency concerns, input variations, output validations, error conditions, boundary conditions, configuration variants, environment differences, platform concerns, backwards compatibility, data migration, rollback paths, monitoring checkpoints, verification steps.
 
 Longer is better. Missing items means missing work. Err towards listing too many.
 
